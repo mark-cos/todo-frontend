@@ -1,3 +1,4 @@
+'use client';
 import React, { ReactNode } from 'react';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -9,7 +10,7 @@ const Button = ({ children, variant = 'text', ...props }: ButtonProps) => {
   return (
     <button
       {...props}
-      className={`${props.className ? props.className : ''} btn-${variant}`}
+      className={`${props.className ? props.className : ''} btn-${variant} `}
     >
       {children}
     </button>
