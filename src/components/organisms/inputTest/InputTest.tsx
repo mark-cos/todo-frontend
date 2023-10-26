@@ -30,7 +30,7 @@ const InputTest = ({ dictionary }: InputTestProps) => {
         <Button onClick={onToggleDarkMode}>{isDarkMode ? 'light' : 'drak'}</Button>
       </div>
       <div className="basis-1/3">
-        <Button variant="contained" onClick={onToggleLang}>
+        <Button variant="contained" onClick={onToggleLang} className="text-red-950">
           {dictionary.button1}
         </Button>
       </div>
