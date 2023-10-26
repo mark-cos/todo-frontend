@@ -10,7 +10,8 @@ const Button = ({ children, variant = 'text', ...props }: ButtonProps) => {
   return (
     <button
       {...props}
-      className={`${props.className ? props.className : ''} btn-${variant} `}
+      className={`${props.className ? `${props.className} ` : ''}btn-${variant}`}
+      type={props.type ? 'button' : props.type}
     >
       {children}
     </button>
