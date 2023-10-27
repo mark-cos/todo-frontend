@@ -5,7 +5,7 @@ import sortIcon from './images/sort.svg';
 const Header = () => {
   const title = 'Index';
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center justify-between">
       <div className="flex-none">
         <Image
           src={sortIcon}
@@ -17,6 +17,7 @@ const Header = () => {
       <div className="flex-none text-xl font-normal tracking-tighter">{title}</div>
       <div className="flex-none">
         <Image
+          className="h-[42px] rounded-full"
           src={'/images/profile-img.jpg'}
           alt="profile-image"
           width={42}
