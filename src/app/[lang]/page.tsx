@@ -1,3 +1,4 @@
+import { ColorPalette } from '@/components/molecules';
 import LocaleSwitcher from '@/components/molecules/buttonTest/LocaleSwitcher';
 import { InputTest } from '@/components/organisms';
 import { Locale } from '@/libs/i18n';
@@ -15,7 +16,7 @@ export default async function RootPage({ params }: RootPageProps) {
       <h1>{JSON.stringify(params)}</h1>
       {t['button']}
       <InputTest dictionary={{ button1: t['btn-name'], button2: t['button'] }} />
-      server
+      <ColorPalette />
     </>
   );
 }
