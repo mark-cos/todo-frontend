@@ -16,13 +16,13 @@ body {
 }
 
 .btn-text {
-  @apply h-12 w-full py-1 text-black dark:text-white;
+  @apply h-12 px-4 py-1 text-black dark:text-white;
 }
 
 .btn-contained {
-  @apply box-border h-12 w-full bg-primary py-1;
+  @apply box-border h-12  bg-primary px-4 py-1;
 }
 
 .btn-outlined {
-  @apply box-border h-12 w-full border-2 border-primary bg-white py-1 text-black dark:bg-black dark:text-white;
+  @apply box-border h-12 border-2 border-primary bg-white px-4 py-1 text-black dark:bg-black dark:text-white;
 }
