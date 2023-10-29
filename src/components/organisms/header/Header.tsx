@@ -5,7 +5,7 @@ import sortIcon from './images/sort.svg';
 const Header = () => {
   const title = 'Index';
   return (
-    <div className="flex items-center justify-between">
+    <div className="p-base flex items-center justify-between">
       <div className="flex-none">
         <Image
           src={sortIcon}

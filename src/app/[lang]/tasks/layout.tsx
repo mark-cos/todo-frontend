@@ -1,3 +1,4 @@
+import Nav from '@/components/organisms/nav/Nav';
 import TasksPageTempl from '@/components/templates/tasks/TasksPageTempl';
 
 export type RootLayoutProps = {
@@ -10,7 +11,7 @@ export type RootLayoutProps = {
 export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <>
-      <TasksPageTempl />
+      <TasksPageTempl>{children}</TasksPageTempl>
     </>
   );
 }

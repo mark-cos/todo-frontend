@@ -19,7 +19,7 @@ export type RootLayoutProps = {
 export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <html lang={params.lang} className="dark">
-      <body className={`${inter.className} px-5 pt-5 dark:bg-black`}>{children}</body>
+      <body className={`${inter.className} dark:bg-black`}>{children}</body>
     </html>
   );
 }
