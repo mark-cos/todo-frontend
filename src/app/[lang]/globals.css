@@ -6,6 +6,15 @@ body {
   @apply text-black dark:text-white;
 }
 
+.p-base {
+  @apply m-5;
+}
+
+.container-100svh {
+  @apply flex;
+  height: 100svh;
+}
+
 .btn-text {
   @apply h-12 w-full py-1 text-black dark:text-white;
 }

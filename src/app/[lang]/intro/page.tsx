@@ -12,11 +12,8 @@ export type IntroPageProps = {
 export default async function IntroPage({ params }: IntroPageProps) {
   const t = (await getDictionary(params.lang))['button'];
   return (
-    <div
-      className="flex w-screen flex-col items-center justify-center"
-      style={{ height: '100svh' }}
-    >
-      <div className="mb-5 flex-none">
+    <div className="container-100svh w-screen flex-col items-center justify-center">
+      <div className="p-base flex-none">
         <Image alt="logo" src={logoImage} width={95} height={80} loading="lazy" />
       </div>
 

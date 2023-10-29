@@ -2,13 +2,12 @@ import LocaleSwitcher from '@/components/molecules/buttonTest/LocaleSwitcher';
 import { InputTest } from '@/components/organisms';
 import { Locale } from '@/libs/i18n';
 import getDictionary from '@/libs/i18n/getDictionary';
-import Link from 'next/link';
 
-export type RootPageProps = {
+export type TasksPageProps = {
   params: { lang: Locale };
 };
 
-export default async function RootPage({ params }: RootPageProps) {
+export default async function TasksPage({ params }: TasksPageProps) {
   const t = (await getDictionary(params.lang))['button'];
   return (
     <>
@@ -16,11 +15,7 @@ export default async function RootPage({ params }: RootPageProps) {
       <h1>{JSON.stringify(params)}</h1>
       {t['button']}
       <InputTest dictionary={{ button1: t['btn-name'], button2: t['button'] }} />
-
-      <h2>Link</h2>
-      <Link href={'/intro'}> - /intro</Link>
-      <br />
-      <Link href={'/tasks'}> - /tasks</Link>
+      server
     </>
   );
 }
