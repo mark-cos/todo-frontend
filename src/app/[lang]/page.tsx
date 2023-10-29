@@ -14,9 +14,10 @@ export default async function RootPage({ params }: RootPageProps) {
     <>
       <LocaleSwitcher />
       <h1>{JSON.stringify(params)}</h1>
+      <br /> <br /> <br />
       {t['button']}
       <InputTest dictionary={{ button1: t['btn-name'], button2: t['button'] }} />
-
+      <br /> <br /> <br />
       <h2>Link</h2>
       <Link href={'/intro'}> - /intro</Link>
       <br />

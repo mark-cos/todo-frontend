@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { i18n } from '@/libs/i18n';
+import { Button } from '@/components/atoms';
 
 export default function LocaleSwitcher() {
   const pathName = usePathname();
@@ -16,15 +17,18 @@ export default function LocaleSwitcher() {
   return (
     <div>
       <p>Locale switcher:</p>
-      <ul>
+
+      <div className="flex">
         {i18n.locales.map((locale) => {
           return (
-            <li key={locale}>
-              <Link href={redirectedPathName(locale)}>{locale}</Link>
-            </li>
+            <div className="flex-none" key={locale}>
+              <Button variant="outlined" className="">
+                <Link href={redirectedPathName(locale)}>{locale}</Link>
+              </Button>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
