@@ -1,5 +1,5 @@
-import LocaleSwitcher from '@/components/molecules/buttonTest/LocaleSwitcher';
-import { InputTest } from '@/components/organisms';
+import { AddTaskDialog } from '@/components/organisms';
+
 import { Locale } from '@/libs/i18n';
 import getDictionary from '@/libs/i18n/getDictionary';
 
@@ -9,13 +9,5 @@ export type TasksPageProps = {
 
 export default async function TasksPage({ params }: TasksPageProps) {
   const t = (await getDictionary(params.lang))['button'];
-  return (
-    <>
-      <LocaleSwitcher />
-      <h1>{JSON.stringify(params)}</h1>
-      {t['button']}
-      <InputTest dictionary={{ button1: t['btn-name'], button2: t['button'] }} />
-      server
-    </>
-  );
+  return <AddTaskDialog />;
 }

@@ -6,21 +6,37 @@ import { Fragment, ReactNode } from 'react';
 type DialogProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  title: string;
+  title?: string;
   children: ReactNode;
   closeBtn?: {
     label: string;
     className: string;
   };
+  backdrop?: boolean;
+  className?: string;
 };
 
-const Dialog = ({ isOpen, setIsOpen, title, children, closeBtn }: DialogProps) => {
+const Dialog = ({
+  isOpen,
+  setIsOpen,
+  title,
+  children,
+  closeBtn,
+  backdrop = true,
+  className = '',
+}: DialogProps) => {
   const closeModal = () => {
     setIsOpen(false);
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Modal as="div" className="relative z-10" onClose={closeModal}>
+      <Modal
+        as="div"
+        className={`relative z-10 ${className}`}
+        onClose={() => {
+          backdrop && closeModal();
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -44,11 +60,13 @@ const Dialog = ({ isOpen, setIsOpen, title, children, closeBtn }: DialogProps) =
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Modal.Panel className="bg-secondary w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
-                <Modal.Title as="h3" className="text-lg font-bold leading-normal">
-                  {title}
-                </Modal.Title>
-                <div className="mt-2">{children}</div>
+              <Modal.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-secondary p-6 text-left align-middle shadow-xl transition-all">
+                {title && (
+                  <Modal.Title as="h3" className="mb-2 text-lg font-bold leading-normal">
+                    {title}
+                  </Modal.Title>
+                )}
+                <div>{children}</div>
                 {closeBtn && (
                   <div className="mt-4">
                     <button
