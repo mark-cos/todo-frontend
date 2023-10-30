@@ -20,7 +20,7 @@ body {
 }
 
 .btn-contained {
-  @apply box-border h-12  bg-primary px-4 py-1;
+  @apply box-border h-12 bg-primary px-4 py-1;
 }
 
 .btn-outlined {

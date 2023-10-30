@@ -6,7 +6,7 @@ const InputText = ({ ...porps }: InputProps) => {
   return (
     <input
       {...porps}
-      className={`border-secondary w-full border bg-transparent p-2 outline-0 hover:border-[#979797] ${porps.className}`}
+      className={`border-secondary w-full border bg-transparent p-2 outline-0 hover:border-[#979797] focus:border-[#979797] ${porps.className}`}
     ></input>
   );
 };

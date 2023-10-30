@@ -11,7 +11,7 @@ const Button = ({ children, variant = 'text', ...props }: ButtonProps) => {
     <button
       {...props}
       className={`${props.className ? `${props.className} ` : ''}btn-${variant}`}
-      type={props.type ? 'button' : props.type}
+      type={props.type ? props.type : 'button'}
     >
       {children}
     </button>

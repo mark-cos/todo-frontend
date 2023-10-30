@@ -1,6 +1,10 @@
 'use client';
 import { Button, Dialog, InputText } from '@/components/atoms';
 import React, { useState } from 'react';
+import TimerIcon from '@/images/icons/timer.svg';
+import TagIcon from '@/images/icons/tag.svg';
+import FlagIcon from '@/images/icons/flag.svg';
+import SendIcon from '@/images/icons/send.svg';
 
 const DialogTest = () => {
   let [isOpen, setIsOpen] = useState(true);
@@ -18,13 +22,29 @@ const DialogTest = () => {
             <InputText placeholder="Description" />
           </div>
 
-          <div className="mt-3 flex items-center justify-between">
-            <div className="flex justify-between">
-              <div className="flex-none">날짜</div>
-              <div className="flex-none">카테</div>
-              <div className="flex-none">중요도</div>
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex justify-between gap-x-5">
+              <div className="flex-none">
+                <button type="button">
+                  <TimerIcon />
+                </button>
+              </div>
+              <div className="flex-none">
+                <button type="button">
+                  <TagIcon />
+                </button>
+              </div>
+              <div className="flex-none">
+                <button type="button">
+                  <FlagIcon />
+                </button>
+              </div>
             </div>
-            <div className="flex-none">등록</div>
+            <div className="flex-none">
+              <button type="button">
+                <SendIcon className="color-primary" />
+              </button>
+            </div>
           </div>
         </div>
       </Dialog>

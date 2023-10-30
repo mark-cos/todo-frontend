@@ -1,10 +1,10 @@
 import { NavIcon } from '@/components/atoms';
 import React from 'react';
-import homeIcon from '@/images/icons/home.svg';
-import calendarIcon from '@/images/icons/calendar.svg';
-import focusIcon from '@/images/icons/clock.svg';
-import profileIcon from '@/images/icons/user.svg';
-import addIcon from '@/images/icons/add.svg';
+import homeIcon from '@/images/icons/home.svg?url';
+import calendarIcon from '@/images/icons/calendar.svg?url';
+import focusIcon from '@/images/icons/clock.svg?url';
+import profileIcon from '@/images/icons/user.svg?url';
+import addIcon from '@/images/icons/add.svg?url';
 import Image from 'next/image';
 
 const Nav = () => {
