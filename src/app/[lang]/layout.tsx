@@ -1,3 +1,4 @@
+import Providers from '@/libs/redux/providers';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -18,8 +19,10 @@ export type RootLayoutProps = {
 
 export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
-    <html lang={params.lang} className="dark">
-      <body className={`${inter.className} dark:bg-black`}>{children}</body>
-    </html>
+    <Providers>
+      <html lang={params.lang} className="dark">
+        <body className={`${inter.className} dark:bg-black`}>{children}</body>
+      </html>
+    </Providers>
   );
 }
