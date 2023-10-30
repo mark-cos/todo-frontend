@@ -1,30 +1,21 @@
 import LocaleSwitcher from '@/components/molecules/buttonTest/LocaleSwitcher';
-import DialogTest from '@/components/molecules/dialogTest/DialogTest';
 import { InputTest } from '@/components/organisms';
 import { Locale } from '@/libs/i18n';
 import getDictionary from '@/libs/i18n/getDictionary';
-import Link from 'next/link';
 
-export type RootPageProps = {
+export type TasksPageProps = {
   params: { lang: Locale };
 };
 
-export default async function RootPage({ params }: RootPageProps) {
+export default async function TasksPage({ params }: TasksPageProps) {
   const t = (await getDictionary(params.lang))['button'];
   return (
     <>
       <LocaleSwitcher />
       <h1>{JSON.stringify(params)}</h1>
-      <br /> <br /> <br />
       {t['button']}
       <InputTest dictionary={{ button1: t['btn-name'], button2: t['button'] }} />
       server
-      <DialogTest />
-      <br /> <br /> <br />
-      <h2>Link</h2>
-      <Link href={'/intro'}> - /intro</Link>
-      <br />
-      <Link href={'/tasks'}> - /tasks</Link>
     </>
   );
 }
