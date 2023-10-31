@@ -10,6 +10,9 @@
   --rdp-selected-color: #fff; /* Color of selected day text */
   height: 300px;
 }
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: transparent;
+}
 
 .rdp-table {
   width: 100%;

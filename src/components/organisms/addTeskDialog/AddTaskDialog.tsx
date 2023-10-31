@@ -33,6 +33,7 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
     switch (addTaskFormStep) {
       case ADD_TASK_FORM_STEP.INIT: {
         title.label = 'Add Task';
+        title.className = '';
         break;
       }
       case ADD_TASK_FORM_STEP.TIME: {
