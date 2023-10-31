@@ -6,7 +6,10 @@ import { Fragment, ReactNode } from 'react';
 type DialogProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  title?: string;
+  title?: {
+    label: string;
+    className?: string;
+  };
   children: ReactNode;
   closeBtn?: {
     label: string;
@@ -60,10 +63,17 @@ const Dialog = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Modal.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-secondary p-6 text-left align-middle shadow-xl transition-all">
+              <Modal.Panel className="w-full transform overflow-hidden rounded-2xl bg-secondary p-6 text-left align-middle shadow-xl transition-all md:max-w-md">
                 {title && (
-                  <Modal.Title as="h3" className="mb-2 text-lg font-bold leading-normal">
-                    {title}
+                  <Modal.Title
+                    as="h3"
+                    className={`${
+                      title.className
+                        ? title.className
+                        : 'mb-2 text-lg font-bold leading-normal'
+                    }`}
+                  >
+                    {title.label}
                   </Modal.Title>
                 )}
                 <div>{children}</div>
