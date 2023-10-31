@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from '@/libs/redux';
 import CalendarPickerForm from './CalendarPickerForm';
 import TimePickerForm from './TimePickerForm';
 import PrioritySelectForm from './PrioritySelectForm';
+import CategorySelectForm from './CategorySelectForm';
 
 type AddTaskDialogProps = {
   dictionary?: {};
@@ -56,6 +57,7 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
         {addTaskFormStep === ADD_TASK_FORM_STEP.INIT && <TaskAddForm />}
         {addTaskFormStep === ADD_TASK_FORM_STEP.CALENDAR && <CalendarPickerForm />}
         {addTaskFormStep === ADD_TASK_FORM_STEP.TIME && <TimePickerForm />}
+        {addTaskFormStep === ADD_TASK_FORM_STEP.CATEGORY && <CategorySelectForm />}
         {addTaskFormStep === ADD_TASK_FORM_STEP.PRIORITY && <PrioritySelectForm />}
       </Dialog>
     </>

@@ -5,7 +5,7 @@ import { ADD_TASK_FORM_STEP } from './AddTaskDialog';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
 import FlagIcon from '@/images/icons/flag.svg';
 
-const PrioritySelectForm = () => {
+const CategorySelectForm = () => {
   const dispatch = useDispatch();
 
   const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEP) => {
@@ -16,17 +16,14 @@ const PrioritySelectForm = () => {
       <div className="my-5 flex-auto">
         <div className="grid grid-cols-4 items-center justify-center gap-y-4 text-center">
           {[...Array(10)].map((_n, index) => (
-            <button
+            <div
               key={`priority${index}`}
-              className="mx-auto h-16 w-16 basis-1/4  rounded-md bg-[#272727] hover:bg-primary"
+              role="button"
+              className="mx-auto h-16 w-16 basis-1/4 cursor-pointer flex-col rounded-md bg-[#272727] px-2 py-1 hover:bg-primary"
             >
-              <div className="flex h-full flex-col items-center justify-between p-1.5">
-                <div className="flex-none">
-                  <FlagIcon className="m-auto" />
-                </div>
-                <div className="flex-none">{index + 1}</div>
-              </div>
-            </button>
+              <FlagIcon className="m-auto" index={0} />
+              <div className="flex-none">{index + 1}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -53,4 +50,4 @@ const PrioritySelectForm = () => {
   );
 };
 
-export default PrioritySelectForm;
+export default CategorySelectForm;
