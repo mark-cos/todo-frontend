@@ -18,7 +18,8 @@ const PrioritySelectForm = () => {
           {[...Array(10)].map((_n, index) => (
             <button
               key={`priority${index}`}
-              className="mx-auto h-16 w-16 basis-1/4  rounded-md bg-[#272727] hover:bg-primary"
+              className="mx-auto h-16 w-16 basis-1/4 rounded-md bg-[#272727] hover:bg-primary"
+              type="button"
             >
               <div className="flex h-full flex-col items-center justify-between p-1.5">
                 <div className="flex-none">

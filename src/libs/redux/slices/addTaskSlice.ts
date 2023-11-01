@@ -24,7 +24,7 @@ export interface AddTaskSliceState {
 
 const initialState: AddTaskSliceState = {
   // TODO: TEST
-  addTaskFormStep: ADD_TASK_FORM_STEP.PRIORITY,
+  addTaskFormStep: ADD_TASK_FORM_STEP.CATEGORY,
   task: {
     id: 0,
     title: '',
