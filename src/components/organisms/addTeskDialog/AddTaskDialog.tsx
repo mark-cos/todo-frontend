@@ -1,13 +1,17 @@
 'use client';
 import { Button, Dialog, InputText } from '@/components/atoms';
 import React, { useState, useEffect, useCallback } from 'react';
-
 import TaskAddForm from './TaskAddForm';
 import { useDispatch, useSelector } from '@/libs/redux';
 import CalendarPickerForm from './CalendarPickerForm';
 import TimePickerForm from './TimePickerForm';
 import PrioritySelectForm from './PrioritySelectForm';
 import CategorySelectForm from './CategorySelectForm';
+import { useForm } from 'react-hook-form';
+
+import { object, number, string, InferType, date } from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
 
 type AddTaskDialogProps = {
   dictionary?: {};
@@ -21,10 +25,44 @@ export enum ADD_TASK_FORM_STEP {
   PRIORITY,
 }
 
+const addTaskSchema = object({
+  title: string().required('title is 필수').min(4).max(20),
+  description: string().required(),
+  priority: number().required(),
+  time: number().required(),
+  category: object({
+    id: number().required(),
+    name: string().required(),
+    icon: string().required(),
+    color: string().required(),
+  }).required(),
+});
+
+export type AddTask = InferType<typeof addTaskSchema>;
+
 // FIXME: INIT이 초기화 안되서..시점 차이로 오류남
 const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
+  const onSuccess = (data: AddTask) => {
+    console.log(data);
+  };
   const [isOpen, setIsOpen] = useState(true);
   const { addTaskFormStep, task } = useSelector((state) => state.addTask);
+
+  const {
+    reset,
+    formState: { errors },
+    handleSubmit,
+    register,
+    control,
+    setValue,
+    watch,
+  } = useForm<AddTask>({
+    defaultValues: {
+      time: 0,
+    },
+    resolver: yupResolver(addTaskSchema),
+  });
+
   const dialogTitle = useCallback(() => {
     let title = {
       label: '',
@@ -52,14 +90,41 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
     return title;
   }, [addTaskFormStep]);
 
+  useEffect(() => {
+    if (task.time !== 0) setValue('time', task.time);
+    if (task.category) setValue('category', task.category);
+  }, [task]);
+
+  const dispatch = useDispatch();
+  const setAddTask = (addTask: AddTask) => {
+    dispatch(addTaskSlice.actions.setTaskFormData(addTask));
+  };
+
+  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEP) => {
+    dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
+  };
+
   return (
     <>
       <Dialog isOpen={isOpen} setIsOpen={setIsOpen} title={dialogTitle()}>
-        {addTaskFormStep === ADD_TASK_FORM_STEP.INIT && <TaskAddForm />}
-        {addTaskFormStep === ADD_TASK_FORM_STEP.CALENDAR && <CalendarPickerForm />}
-        {addTaskFormStep === ADD_TASK_FORM_STEP.TIME && <TimePickerForm />}
-        {addTaskFormStep === ADD_TASK_FORM_STEP.CATEGORY && <CategorySelectForm />}
-        {addTaskFormStep === ADD_TASK_FORM_STEP.PRIORITY && <PrioritySelectForm />}
+        <form onSubmit={handleSubmit(onSuccess)}>
+          {addTaskFormStep === ADD_TASK_FORM_STEP.INIT && (
+            <TaskAddForm control={control} />
+          )}
+          {addTaskFormStep === ADD_TASK_FORM_STEP.CALENDAR && (
+            <CalendarPickerForm
+              control={control}
+              task={task}
+              setAddTask={setAddTask}
+              handleAddTaskFormStep={handleAddTaskFormStep}
+            />
+          )}
+          {addTaskFormStep === ADD_TASK_FORM_STEP.TIME && <TimePickerForm />}
+          {addTaskFormStep === ADD_TASK_FORM_STEP.CATEGORY && (
+            <CategorySelectForm control={control} />
+          )}
+          {addTaskFormStep === ADD_TASK_FORM_STEP.PRIORITY && <PrioritySelectForm />}
+        </form>
       </Dialog>
     </>
   );

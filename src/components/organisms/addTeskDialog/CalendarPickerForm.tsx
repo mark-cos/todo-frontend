@@ -1,34 +1,53 @@
 import { Button } from '@/components/atoms';
-import { useDispatch } from '@/libs/redux';
-import { format } from 'date-fns';
-import React, { useState } from 'react';
+import { useDispatch, useSelector } from '@/libs/redux';
+import React, { useState, useEffect, useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { ADD_TASK_FORM_STEP } from './AddTaskDialog';
-import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import { ADD_TASK_FORM_STEP, AddTask } from './AddTaskDialog';
+import addTaskSlice, { Task } from '@/libs/redux/slices/addTaskSlice';
 import 'react-day-picker/dist/style.module.css';
 import './calendarPicker.css';
+import { Control, Controller } from 'react-hook-form';
 
-const CalendarPickerForm = () => {
-  const dispatch = useDispatch();
+type CalendarPickerFormProps = {
+  control: Control<AddTask>;
+  task: Task | AddTask;
+  setAddTask: (addTask: AddTask) => void;
+  handleAddTaskFormStep: (addTaskFormStep: ADD_TASK_FORM_STEP) => void;
+};
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEP) => {
-    dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
+const CalendarPickerForm = ({
+  control,
+  task,
+  setAddTask,
+  handleAddTaskFormStep,
+}: CalendarPickerFormProps) => {
+  const date = new Date(task.time || new Date().getTime());
+  console.log(date.getTime());
+  const [selected, setSelected] = useState<Date>(date);
+
+  const onSelect = (selectedDate: Date | undefined) => {
+    if (!selectedDate) return;
+    setSelected(selectedDate);
+    setAddTask({ ...task, time: selectedDate.getTime() });
   };
-  const [selected, setSelected] = useState<Date>();
 
-  let footer = <p>Please pick a day.</p>;
-  if (selected) {
-    footer = <p>You picked {format(selected, 'PP')}.</p>;
-  }
   return (
     <div className="flex flex-col">
+      <Controller
+        name="time"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <input type="hidden" name="time" value={task.time} />
+        )}
+      />
       <div className="flex-auto">
         <DayPicker
           mode="single"
           selected={selected}
-          onSelect={setSelected}
+          onSelect={(date) => onSelect(date)}
           showOutsideDays
+          defaultMonth={selected}
         />
       </div>
       <div className="flex">

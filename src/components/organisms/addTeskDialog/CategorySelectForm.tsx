@@ -1,17 +1,11 @@
 import { Button } from '@/components/atoms';
-import { useDispatch } from '@/libs/redux';
-import React from 'react';
-import { ADD_TASK_FORM_STEP } from './AddTaskDialog';
-import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import { useDispatch, useSelector } from '@/libs/redux';
+import React, { useState } from 'react';
+import { ADD_TASK_FORM_STEP, AddTask } from './AddTaskDialog';
+import addTaskSlice, { Category } from '@/libs/redux/slices/addTaskSlice';
+import { Control, Controller } from 'react-hook-form';
 
-export type category = {
-  id: number;
-  name: string;
-  icon: string;
-  color: string;
-};
-
-const categories: category[] = [
+const categories: Category[] = [
   {
     id: 1,
     name: 'work',
@@ -37,9 +31,19 @@ const categories: category[] = [
     icon: '🎶',
   },
 ];
+type CategorySelectFormProps = {
+  control: Control<AddTask>;
+};
 
-const CategorySelectForm = () => {
+const CategorySelectForm = ({ control }: CategorySelectFormProps) => {
   const dispatch = useDispatch();
+
+  const { task } = useSelector((state) => state.addTask);
+  const [selectedCategory, setSelectedCategory] = useState<Category>(task.category);
+  const handleSelectedCategory = (category: Category) => {
+    dispatch(addTaskSlice.actions.setTaskFormData({ ...task, category }));
+    setSelectedCategory(category);
+  };
 
   const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEP) => {
     dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
@@ -49,10 +53,14 @@ const CategorySelectForm = () => {
     <div className="flex flex-col">
       <div className="my-5 flex-auto">
         <div className="grid grid-cols-4 items-center justify-center gap-y-4 text-center">
-          {categories.map((category, index) => (
-            <button key={category.id}>
+          {categories.map((category) => (
+            <button key={category.id} onClick={() => handleSelectedCategory(category)}>
               <div
-                className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${category.color} hover:bg-primary`}
+                className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${
+                  category.color
+                } hover:bg-primary ${
+                  category.id === selectedCategory?.id ? `border-4 border-primary` : ''
+                }`}
               >
                 <div className="flex h-full items-center justify-center p-1.5">
                   <div className="flex-none text-2xl">{category.icon}</div>
