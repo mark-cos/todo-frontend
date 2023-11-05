@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply text-black dark:text-white;
+}
+
+.p-base {
+  @apply m-5;
+}
+
+.container-100svh {
+  @apply flex;
+  height: 100svh;
+}
+
+.btn-text {
+  @apply h-12 px-4 py-1 text-black dark:text-white;
+}
+
+.btn-contained {
+  @apply box-border h-12  bg-primary px-4 py-1;
+}
+
+.btn-outlined {
+  @apply box-border h-12 border-2 border-primary bg-white px-4 py-1 text-black dark:bg-black dark:text-white;
+}
