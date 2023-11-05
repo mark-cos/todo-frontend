@@ -17,6 +17,7 @@ const Header = () => {
           alt="profile-image"
           width={42}
           height={42}
+          priority={false}
         />
       </div>
     </div>

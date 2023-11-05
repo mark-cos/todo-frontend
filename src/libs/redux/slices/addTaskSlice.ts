@@ -1,23 +1,5 @@
-import { ADD_TASK_FORM_STEP } from '@/components/organisms/addTeskDialog/AddTaskDialog';
+import { ADD_TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  time: number;
-  priority: number;
-  category: Category;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  icon: string;
-  color: string;
-}
-
-export type AddTask = Omit<Task, 'id'>;
 
 /* Types */
 export interface AddTaskSliceState {

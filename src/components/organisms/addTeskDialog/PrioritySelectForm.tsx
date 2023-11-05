@@ -1,9 +1,9 @@
 import { Button } from '@/components/atoms';
 import { useDispatch } from '@/libs/redux';
 import React from 'react';
-import { ADD_TASK_FORM_STEP } from './AddTaskDialog';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
 import FlagIcon from '@/images/icons/flag.svg';
+import { ADD_TASK_FORM_STEP } from '@/types/task/task.type';
 
 const PrioritySelectForm = () => {
   const dispatch = useDispatch();

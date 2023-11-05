@@ -1,9 +1,9 @@
 import { Button } from '@/components/atoms';
 import { useDispatch, useSelector } from '@/libs/redux';
 import React, { useState } from 'react';
-import { ADD_TASK_FORM_STEP, AddTask } from './AddTaskDialog';
-import addTaskSlice, { Category } from '@/libs/redux/slices/addTaskSlice';
-import { Control, Controller } from 'react-hook-form';
+import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import { Control } from 'react-hook-form';
+import { ADD_TASK_FORM_STEP, AddTask, Category } from '@/types/task/task.type';
 
 const categories: Category[] = [
   {

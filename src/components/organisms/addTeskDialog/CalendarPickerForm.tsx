@@ -1,13 +1,11 @@
 import { Button } from '@/components/atoms';
-import { useDispatch, useSelector } from '@/libs/redux';
 import React, { useState, useEffect, useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { ADD_TASK_FORM_STEP, AddTask } from './AddTaskDialog';
-import addTaskSlice, { Task } from '@/libs/redux/slices/addTaskSlice';
 import 'react-day-picker/dist/style.module.css';
 import './calendarPicker.css';
 import { Control, Controller } from 'react-hook-form';
+import { ADD_TASK_FORM_STEP, AddTask, Task } from '@/types/task/task.type';
 
 type CalendarPickerFormProps = {
   control: Control<AddTask>;

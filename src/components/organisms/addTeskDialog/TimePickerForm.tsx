@@ -1,8 +1,8 @@
 import { Button } from '@/components/atoms';
 import { useDispatch } from '@/libs/redux';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import { ADD_TASK_FORM_STEP } from '@/types/task/task.type';
 import React from 'react';
-import { ADD_TASK_FORM_STEP } from './AddTaskDialog';
 
 const TimePickerForm = () => {
   const dispatch = useDispatch();

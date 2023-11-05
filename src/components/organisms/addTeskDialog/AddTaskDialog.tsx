@@ -8,39 +8,14 @@ import TimePickerForm from './TimePickerForm';
 import PrioritySelectForm from './PrioritySelectForm';
 import CategorySelectForm from './CategorySelectForm';
 import { useForm } from 'react-hook-form';
-
-import { object, number, string, InferType, date } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import { ADD_TASK_FORM_STEP, AddTask, addTaskSchema } from '@/types/task/task.type';
 
 type AddTaskDialogProps = {
   dictionary?: {};
 };
 
-export enum ADD_TASK_FORM_STEP {
-  INIT,
-  CALENDAR,
-  TIME,
-  CATEGORY,
-  PRIORITY,
-}
-
-const addTaskSchema = object({
-  title: string().required('title is 필수').min(4).max(20),
-  description: string().required(),
-  priority: number().required(),
-  time: number().required(),
-  category: object({
-    id: number().required(),
-    name: string().required(),
-    icon: string().required(),
-    color: string().required(),
-  }).required(),
-});
-
-export type AddTask = InferType<typeof addTaskSchema>;
-
-// FIXME: INIT이 초기화 안되서..시점 차이로 오류남
 const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
   const onSuccess = (data: AddTask) => {
     console.log(data);
@@ -52,10 +27,8 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
     reset,
     formState: { errors },
     handleSubmit,
-    register,
     control,
     setValue,
-    watch,
   } = useForm<AddTask>({
     defaultValues: {
       time: 0,

@@ -6,8 +6,8 @@ import FlagIcon from '@/images/icons/flag.svg';
 import SendIcon from '@/images/icons/send.svg';
 import { useDispatch, useSelector } from '@/libs/redux';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
-import { ADD_TASK_FORM_STEP, AddTask } from './AddTaskDialog';
 import { Control, Controller } from 'react-hook-form';
+import { ADD_TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 
 type TaskAddFormProps = {
   control: Control<AddTask>;
