@@ -2,6 +2,8 @@ import Providers from '@/libs/redux/providers';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +23,17 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <Providers>
       <html lang={params.lang} className="dark">
-        <body className={`${inter.className} dark:bg-black`}>{children}</body>
+        <body className={`${inter.className} dark:bg-black`}>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            rtl={false}
+            pauseOnHover
+          />
+          {children}
+        </body>
       </html>
     </Providers>
   );

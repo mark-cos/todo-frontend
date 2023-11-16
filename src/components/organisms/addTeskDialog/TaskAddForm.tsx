@@ -7,7 +7,7 @@ import SendIcon from '@/images/icons/send.svg';
 import { useDispatch, useSelector } from '@/libs/redux';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
 import { Control, Controller } from 'react-hook-form';
-import { ADD_TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
+import { ADD_TASK_FORM_STEPS, AddTask } from '@/types/task/task.type';
 
 type TaskAddFormProps = {
   control: Control<AddTask>;
@@ -15,25 +15,10 @@ type TaskAddFormProps = {
 
 const TaskAddForm = ({ control }: TaskAddFormProps) => {
   const dispatch = useDispatch();
-  const task = useSelector((state) => state.addTask.task);
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEP) => {
+  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
     dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
-
-    if (!titleRef.current || !descriptionRef.current) {
-      return;
-    }
-    dispatch(
-      addTaskSlice.actions.setTaskFormData({
-        ...task,
-        title: titleRef.current.value,
-        description: descriptionRef.current.value,
-      }),
-    );
   };
-
-  const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="flex flex-col">
@@ -43,12 +28,11 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           name="title"
           render={({ field: { onChange, value } }) => (
             <InputText
-              inputRef={titleRef}
               placeholder="Title"
               className="mb-2"
               onChange={onChange}
               name="title"
-              defaultValue={task.title}
+              defaultValue={value}
             />
           )}
         />
@@ -57,7 +41,6 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           name="description"
           render={({ field: { onChange, value } }) => (
             <InputText
-              inputRef={descriptionRef}
               placeholder="Description"
               className="mb-2"
               onChange={onChange}
@@ -73,7 +56,7 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           <div className="flex-none">
             <button
               type="button"
-              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEP.CALENDAR)}
+              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.CALENDAR)}
             >
               <TimerIcon />
             </button>
@@ -81,7 +64,7 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           <div className="flex-none">
             <button
               type="button"
-              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEP.CATEGORY)}
+              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.CATEGORY)}
             >
               <TagIcon />
             </button>
@@ -89,7 +72,7 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           <div className="flex-none">
             <button
               type="button"
-              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEP.PRIORITY)}
+              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.PRIORITY)}
             >
               <FlagIcon />
             </button>

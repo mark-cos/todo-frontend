@@ -1,40 +1,31 @@
-import { InferType, number, object, string } from 'yup';
+import { InferType, date, number, object, string } from 'yup';
 
-export const addTaskSchema = object({
+export const categorySchema = object({
+  id: number().required(),
+  name: string().required(),
+  icon: string().required(),
+  color: string().required(),
+});
+export type Category = InferType<typeof categorySchema>;
+
+export const taskSchema = object({
+  id: number().required(),
   title: string().required('title is 필수').min(4).max(20),
   description: string().required(),
-  priority: number(),
-  time: number().required(),
-  category: object({
-    id: number().required(),
-    name: string().required(),
-    icon: string().required(),
-    color: string().required(),
-  }).required(),
+  priority: number().required(),
+  taskDate: string().required(),
+  taskTime: string().required(),
+  category: categorySchema.required(),
 });
+export type Task = InferType<typeof taskSchema>;
 
+export const addTaskSchema = taskSchema.omit(['id']);
 export type AddTask = InferType<typeof addTaskSchema>;
 
-export enum ADD_TASK_FORM_STEP {
+export enum ADD_TASK_FORM_STEPS {
   INIT,
   CALENDAR,
   TIME,
   CATEGORY,
   PRIORITY,
-}
-
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  time: number;
-  priority: number;
-  category: Category;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  icon: string;
-  color: string;
 }

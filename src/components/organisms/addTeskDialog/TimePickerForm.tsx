@@ -1,9 +1,9 @@
 import { Button } from '@/components/atoms';
-import { useDispatch } from '@/libs/redux';
+import { useDispatch, useSelector } from '@/libs/redux';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
-import { ADD_TASK_FORM_STEP } from '@/types/task/task.type';
+import { ADD_TASK_FORM_STEPS } from '@/types/task/task.type';
 import Flicking, {
-  FlickingProps,
+  ChangedEvent,
   MoveEvent,
   ReadyEvent,
   ViewportSlot,
@@ -12,8 +12,9 @@ import React, { useState } from 'react';
 
 const TimePickerForm = () => {
   const dispatch = useDispatch();
+  const task = useSelector((state) => state.addTask.task);
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEP) => {
+  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
     dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
   };
 
@@ -27,6 +28,42 @@ const TimePickerForm = () => {
     });
   };
 
+  const timeArr = task.taskTime.split(':');
+  const hour24 = Number(timeArr[0]);
+  const [ap, setAp] = useState(hour24 >= 12 ? 1 : 0); //AM:0, PM:1. Flicking의 기본값(인덱스)로 사용
+  const [hour, setHour] = useState(ap === 0 ? hour24 : hour24 - 12);
+  const [minute, setMinute] = useState(Number(timeArr[1]));
+
+  // 기본으로 보여질 각 시간 단위의 Flicking 인덱스.
+  const handleTimeDefaultValue = (type: string) => {
+    if (type === 'ap') {
+      return ap === 0 ? 0 : 1;
+    } else if (type === 'h') {
+      return hour;
+    } else {
+      return minute;
+    }
+  };
+
+  // chage이벤트 타입에 따른 각 단위에 state 설정
+  const handleChangeFlicking = (e: ChangedEvent<Flicking>, type: string) => {
+    if (type === 'ap') {
+      setAp(e.index);
+    } else if (type === 'h') {
+      setHour(e.index);
+    } else {
+      setMinute(e.index);
+    }
+  };
+
+  const handleSaveTime = () => {
+    const _hour = ((ap === 0 ? 0 : 12) + hour).toString().padStart(2, '0');
+    const _minute = minute.toString().padStart(2, '0');
+    const taskTime = `${_hour}:${_minute}`;
+    dispatch(addTaskSlice.actions.setTaskFormData({ taskTime }));
+    handleAddTaskFormStep(ADD_TASK_FORM_STEPS.INIT);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="mt-2 flex items-center justify-center gap-x-4">
@@ -36,9 +73,10 @@ const TimePickerForm = () => {
             onReady={updateTransform}
             onMove={updateTransform}
             className={'h-[90px]'}
-            onChanged={(e) => console.log(e)}
+            onChanged={(e) => handleChangeFlicking(e, 'h')}
+            defaultIndex={handleTimeDefaultValue('h')}
           >
-            {new Array(24).fill('hour').map((_, index) => (
+            {new Array(12).fill('hour').map((_, index) => (
               <div className={`text-center`} key={_ + index}>
                 {index.toString().padStart(2, '0')}
               </div>
@@ -60,7 +98,8 @@ const TimePickerForm = () => {
             onReady={updateTransform}
             onMove={updateTransform}
             className={'h-[90px]'}
-            onChanged={(e) => console.log(e)}
+            onChanged={(e) => handleChangeFlicking(e, 'm')}
+            defaultIndex={handleTimeDefaultValue('m')}
           >
             {new Array(60).fill('hour').map((_, index) => (
               <div className="text-center" key={_ + index}>
@@ -84,7 +123,8 @@ const TimePickerForm = () => {
             onReady={updateTransform}
             onMove={updateTransform}
             className={'h-[90px]'}
-            onChanged={(e) => console.log(e)}
+            onChanged={(e) => handleChangeFlicking(e, 'ap')}
+            defaultIndex={handleTimeDefaultValue('ap')}
           >
             {['AM', 'PM'].map((value, index) => (
               <div className="text-center" key={value}>
@@ -101,19 +141,20 @@ const TimePickerForm = () => {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="mt-6 flex">
         <div className="basis-1/2">
           <Button
             className="w-full"
-            onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEP.CALENDAR)}
+            onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.CALENDAR)}
           >
             Cancel
           </Button>
         </div>
         <div className="basis-1/2">
           <Button
-            className="w-full"
-            onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEP.INIT)}
+            className="w-full rounded-md"
+            variant="contained"
+            onClick={handleSaveTime}
           >
             Save
           </Button>
