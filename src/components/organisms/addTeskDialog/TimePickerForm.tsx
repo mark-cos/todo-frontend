@@ -1,7 +1,7 @@
 import { Button } from '@/components/atoms';
 import { useDispatch, useSelector } from '@/libs/redux';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
-import { ADD_TASK_FORM_STEPS } from '@/types/task/task.type';
+import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 import Flicking, {
   ChangedEvent,
   MoveEvent,
@@ -9,15 +9,19 @@ import Flicking, {
   ViewportSlot,
 } from '@egjs/react-flicking';
 import React, { useState } from 'react';
+import { Control, Controller } from 'react-hook-form';
 
-const TimePickerForm = () => {
-  const dispatch = useDispatch();
-  const task = useSelector((state) => state.addTask.task);
+export type TimePickerFormProps = {
+  taskTime: string;
+  handleSetFormValue: (name: keyof AddTask, value: any) => void;
+  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
+};
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
-    dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
-  };
-
+const TimePickerForm = ({
+  taskTime,
+  handleSetFormValue,
+  handleSetTaskFormStep,
+}: TimePickerFormProps) => {
   const updateTransform = (e: MoveEvent<Flicking> | ReadyEvent<Flicking>) => {
     e.currentTarget.panels.forEach((panel) => {
       const rotateVal = -panel.progress * 20;
@@ -28,7 +32,7 @@ const TimePickerForm = () => {
     });
   };
 
-  const timeArr = task.taskTime.split(':');
+  const timeArr = taskTime.split(':');
   const hour24 = Number(timeArr[0]);
   const [ap, setAp] = useState(hour24 >= 12 ? 1 : 0); //AM:0, PM:1. Flicking의 기본값(인덱스)로 사용
   const [hour, setHour] = useState(ap === 0 ? hour24 : hour24 - 12);
@@ -60,8 +64,8 @@ const TimePickerForm = () => {
     const _hour = ((ap === 0 ? 0 : 12) + hour).toString().padStart(2, '0');
     const _minute = minute.toString().padStart(2, '0');
     const taskTime = `${_hour}:${_minute}`;
-    dispatch(addTaskSlice.actions.setTaskFormData({ taskTime }));
-    handleAddTaskFormStep(ADD_TASK_FORM_STEPS.INIT);
+    handleSetFormValue('taskTime', taskTime);
+    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
 
   return (
@@ -145,7 +149,7 @@ const TimePickerForm = () => {
         <div className="basis-1/2">
           <Button
             className="w-full"
-            onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.CALENDAR)}
+            onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.CALENDAR)}
           >
             Cancel
           </Button>

@@ -2,8 +2,8 @@ import { Button } from '@/components/atoms';
 import { useDispatch, useSelector } from '@/libs/redux';
 import React, { useState } from 'react';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
-import { Control } from 'react-hook-form';
-import { ADD_TASK_FORM_STEPS, AddTask, Category } from '@/types/task/task.type';
+import { Control, Controller } from 'react-hook-form';
+import { TASK_FORM_STEP, AddTask, Category, Task } from '@/types/task/task.type';
 
 const categories: Category[] = [
   {
@@ -32,24 +32,25 @@ const categories: Category[] = [
   },
 ];
 type CategorySelectFormProps = {
-  control: Control<AddTask>;
+  category: Category;
+  handleSetFormValue: (name: keyof AddTask, value: any) => void;
+  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
 };
 
-const CategorySelectForm = ({ control }: CategorySelectFormProps) => {
-  const dispatch = useDispatch();
-  const { task } = useSelector((state) => state.addTask);
-  const [selectedCategory, setSelectedCategory] = useState<Category>(task.category);
+const CategorySelectForm = ({
+  category,
+  handleSetFormValue,
+  handleSetTaskFormStep,
+}: CategorySelectFormProps) => {
+  const [selectedCategory, setSelectedCategory] = useState<Category>(category);
+
   const handleSelectedCategory = (category: Category) => {
     setSelectedCategory(category);
   };
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
-    dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
-  };
-
-  const handleCategory = () => {
-    dispatch(addTaskSlice.actions.setTaskFormData({ category: selectedCategory }));
-    handleAddTaskFormStep(ADD_TASK_FORM_STEPS.INIT);
+  const handleSaveCategory = () => {
+    handleSetFormValue('category', selectedCategory);
+    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
 
   return (
@@ -76,7 +77,7 @@ const CategorySelectForm = ({ control }: CategorySelectFormProps) => {
         <div className="basis-1/2">
           <Button
             className="w-full"
-            onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.INIT)}
+            onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
           >
             Cancel
           </Button>
@@ -85,7 +86,7 @@ const CategorySelectForm = ({ control }: CategorySelectFormProps) => {
           <Button
             className="w-full rounded-md"
             variant="contained"
-            onClick={handleCategory}
+            onClick={handleSaveCategory}
           >
             Save
           </Button>

@@ -1,32 +1,31 @@
 import { Button } from '@/components/atoms';
-import { useDispatch, useSelector } from '@/libs/redux';
+import { useSelector } from '@/libs/redux';
 import React, { useEffect, useRef, useState } from 'react';
-import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
 import FlagIcon from '@/images/icons/flag.svg';
-import { ADD_TASK_FORM_STEPS } from '@/types/task/task.type';
+import { AddTask, TASK_FORM_STEP } from '@/types/task/task.type';
 
-const PrioritySelectForm = () => {
-  const dispatch = useDispatch();
-  const task = useSelector((state) => state.addTask.task);
+export type PrioritySelectFormProps = {
+  priority: number;
+  handleSetFormValue: (name: keyof AddTask, value: any) => void;
+  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
+};
+const PrioritySelectForm = ({
+  priority,
+  handleSetFormValue,
+  handleSetTaskFormStep,
+}: PrioritySelectFormProps) => {
   const firstPriorityBtnRef = useRef<HTMLButtonElement>(null);
+  const [selectedPriority, setSelectedPriority] = useState(priority);
 
   // 아이폰 미니12에서 메인 모달창 -> 중요도 아이콘 선택 -> 10번이 selected표시되는 이슈가 있어서 0번 인덱스 포커스 처리
   useEffect(() => {
     firstPriorityBtnRef.current?.focus();
   }, []);
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
-    dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
-  };
-
   const handleSavePriority = () => {
-    dispatch(
-      addTaskSlice.actions.setTaskFormData({ ...task, priority: selectedPriority }),
-    );
-    handleAddTaskFormStep(ADD_TASK_FORM_STEPS.INIT);
+    handleSetFormValue('priority', selectedPriority);
+    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
-
-  const [selectedPriority, setSelectedPriority] = useState(task.priority);
 
   return (
     <div className="flex flex-col">
@@ -56,7 +55,7 @@ const PrioritySelectForm = () => {
         <div className="basis-1/2">
           <Button
             className="w-full"
-            onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.INIT)}
+            onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
           >
             Cancel
           </Button>

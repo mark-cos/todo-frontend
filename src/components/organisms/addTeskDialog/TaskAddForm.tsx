@@ -1,53 +1,56 @@
 import { InputText } from '@/components/atoms';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import TimerIcon from '@/images/icons/timer.svg';
 import TagIcon from '@/images/icons/tag.svg';
 import FlagIcon from '@/images/icons/flag.svg';
 import SendIcon from '@/images/icons/send.svg';
-import { useDispatch, useSelector } from '@/libs/redux';
-import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
-import { Control, Controller } from 'react-hook-form';
-import { ADD_TASK_FORM_STEPS, AddTask } from '@/types/task/task.type';
+import { TASK_FORM_STEP, AddTask, Task } from '@/types/task/task.type';
 
 type TaskAddFormProps = {
-  control: Control<AddTask>;
+  title: string;
+  description: string;
+  handleSetFormValue: (name: keyof AddTask, value: any) => void;
+  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
 };
 
-const TaskAddForm = ({ control }: TaskAddFormProps) => {
-  const dispatch = useDispatch();
+const TaskAddForm = ({
+  title,
+  description,
+  handleSetFormValue,
+  handleSetTaskFormStep,
+}: TaskAddFormProps) => {
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
 
-  const handleAddTaskFormStep = (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
-    dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
+  useEffect(() => {
+    if (titleRef.current) titleRef.current.value = title;
+    if (descriptionRef.current) descriptionRef.current.value = description;
+  }, []);
+
+  const handleOnClickTaskStep = (taskFormStep: TASK_FORM_STEP) => {
+    if (titleRef.current) handleSetFormValue('title', titleRef.current?.value);
+    if (descriptionRef.current)
+      handleSetFormValue('description', descriptionRef.current?.value);
+    handleSetTaskFormStep(taskFormStep);
   };
 
   return (
     <div className="flex flex-col">
       <div className="flex-grow">
-        <Controller
-          control={control}
+        <InputText
+          placeholder="Title"
+          className="mb-2"
           name="title"
-          render={({ field: { onChange, value } }) => (
-            <InputText
-              placeholder="Title"
-              className="mb-2"
-              onChange={onChange}
-              name="title"
-              defaultValue={value}
-            />
-          )}
+          inputRef={titleRef}
+          onBlur={(e) => handleSetFormValue('title', e.currentTarget.value)}
         />
-        <Controller
-          control={control}
+
+        <InputText
+          placeholder="description"
+          className="mb-2"
           name="description"
-          render={({ field: { onChange, value } }) => (
-            <InputText
-              placeholder="Description"
-              className="mb-2"
-              onChange={onChange}
-              name="description"
-              defaultValue={value}
-            />
-          )}
+          inputRef={descriptionRef}
+          onBlur={(e) => handleSetFormValue('description', e.currentTarget.value)}
         />
       </div>
 
@@ -56,7 +59,7 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           <div className="flex-none">
             <button
               type="button"
-              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.CALENDAR)}
+              onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.CALENDAR)}
             >
               <TimerIcon />
             </button>
@@ -64,7 +67,7 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           <div className="flex-none">
             <button
               type="button"
-              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.CATEGORY)}
+              onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.CATEGORY)}
             >
               <TagIcon />
             </button>
@@ -72,7 +75,7 @@ const TaskAddForm = ({ control }: TaskAddFormProps) => {
           <div className="flex-none">
             <button
               type="button"
-              onClick={() => handleAddTaskFormStep(ADD_TASK_FORM_STEPS.PRIORITY)}
+              onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.PRIORITY)}
             >
               <FlagIcon />
             </button>

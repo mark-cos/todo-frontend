@@ -10,14 +10,37 @@ import CategorySelectForm from './CategorySelectForm';
 import { useForm, FieldErrors } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
-import { ADD_TASK_FORM_STEPS, AddTask, addTaskSchema } from '@/types/task/task.type';
+import {
+  TASK_FORM_STEP,
+  AddTask,
+  Task,
+  addTaskSchema,
+  taskSchema,
+} from '@/types/task/task.type';
+import { format } from 'date-fns';
 
 type AddTaskDialogProps = {
   dictionary?: {};
+  task?: Task;
 };
 
-const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
-  const onSuccess = (data: AddTask) => {
+const defaultAddTask: AddTask = {
+  title: '',
+  description: '',
+  taskDate: format(new Date(), 'yyyy-MM-dd'),
+  taskTime: '00:00',
+  category: {
+    id: 0,
+    name: '',
+    icon: '',
+    color: '',
+  },
+  priority: 5,
+};
+
+const AddTaskDialog = ({ dictionary, task }: AddTaskDialogProps) => {
+  const isNewTask = !!task;
+  const onSuccess = (data: Task | AddTask) => {
     console.log(data);
   };
 
@@ -26,8 +49,9 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
       console.log(key, value);
     }
   };
+
   const [isOpen, setIsOpen] = useState(true);
-  const { addTaskFormStep, task } = useSelector((state) => state.addTask);
+  const { addTaskFormStep } = useSelector((state) => state.addTask);
 
   const {
     reset,
@@ -35,13 +59,10 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
     handleSubmit,
     control,
     setValue,
+    getValues,
   } = useForm<AddTask>({
-    defaultValues: {
-      priority: task.priority,
-      taskDate: task.taskDate,
-      taskTime: task.taskTime,
-    },
-    resolver: yupResolver(addTaskSchema),
+    defaultValues: isNewTask ? task : defaultAddTask,
+    resolver: yupResolver(isNewTask ? taskSchema : addTaskSchema),
   });
 
   const dialogTitle = useCallback(() => {
@@ -50,20 +71,20 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
       className: 'text-center border-b-[1px] border-[#979797] pb-2',
     };
     switch (addTaskFormStep) {
-      case ADD_TASK_FORM_STEPS.INIT: {
+      case TASK_FORM_STEP.MAIN: {
         title.label = 'Add Task';
         title.className = '';
         break;
       }
-      case ADD_TASK_FORM_STEPS.TIME: {
+      case TASK_FORM_STEP.TIME: {
         title.label = 'Choose Time';
         break;
       }
-      case ADD_TASK_FORM_STEPS.CATEGORY: {
+      case TASK_FORM_STEP.CATEGORY: {
         title.label = 'Choose Category';
         break;
       }
-      case ADD_TASK_FORM_STEPS.PRIORITY: {
+      case TASK_FORM_STEP.PRIORITY: {
         title.label = 'Task Priority';
         break;
       }
@@ -71,44 +92,59 @@ const AddTaskDialog = ({ dictionary }: AddTaskDialogProps) => {
     return title;
   }, [addTaskFormStep]);
 
-  useEffect(() => {
-    if (task.taskDate) setValue('taskDate', task.taskDate);
-    if (task.taskTime) setValue('taskTime', task.taskTime);
-    if (task.category) setValue('category', task.category);
-  }, [task]);
-
   const dispatch = useDispatch();
-  const setAddTask = (addTask: AddTask) => {
-    dispatch(addTaskSlice.actions.setTaskFormData(addTask));
-  };
 
-  const handleAddTaskFormStep = useCallback(
-    (addTaskFormStep: ADD_TASK_FORM_STEPS) => {
+  const handleSetTaskFormStep = useCallback(
+    (addTaskFormStep: TASK_FORM_STEP) => {
       dispatch(addTaskSlice.actions.setAddTaskFormStep(addTaskFormStep));
     },
     [dispatch],
   );
 
+  const handleSetFormValue = (name: keyof AddTask, value: any) => {
+    setValue(name, value);
+  };
+
   return (
     <>
       <Dialog isOpen={isOpen} setIsOpen={setIsOpen} title={dialogTitle()}>
         <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
-          {addTaskFormStep === ADD_TASK_FORM_STEPS.INIT && (
-            <TaskAddForm control={control} />
-          )}
-          {addTaskFormStep === ADD_TASK_FORM_STEPS.CALENDAR && (
-            <CalendarPickerForm
-              control={control}
-              task={task}
-              setAddTask={setAddTask}
-              handleAddTaskFormStep={handleAddTaskFormStep}
+          {addTaskFormStep === TASK_FORM_STEP.MAIN && (
+            <TaskAddForm
+              title={getValues('title')}
+              description={getValues('description')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
             />
           )}
-          {addTaskFormStep === ADD_TASK_FORM_STEPS.TIME && <TimePickerForm />}
-          {addTaskFormStep === ADD_TASK_FORM_STEPS.CATEGORY && (
-            <CategorySelectForm control={control} />
+          {addTaskFormStep === TASK_FORM_STEP.CALENDAR && (
+            <CalendarPickerForm
+              taskDate={getValues('taskDate')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
           )}
-          {addTaskFormStep === ADD_TASK_FORM_STEPS.PRIORITY && <PrioritySelectForm />}
+          {addTaskFormStep === TASK_FORM_STEP.TIME && (
+            <TimePickerForm
+              taskTime={getValues('taskTime')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+          {addTaskFormStep === TASK_FORM_STEP.CATEGORY && (
+            <CategorySelectForm
+              category={getValues('category')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+          {addTaskFormStep === TASK_FORM_STEP.PRIORITY && (
+            <PrioritySelectForm
+              priority={getValues('priority')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
         </form>
       </Dialog>
     </>

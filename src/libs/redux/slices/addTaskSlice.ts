@@ -1,15 +1,15 @@
-import { ADD_TASK_FORM_STEPS, AddTask } from '@/types/task/task.type';
+import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 
 /* Types */
 export interface AddTaskSliceState {
-  addTaskFormStep: ADD_TASK_FORM_STEPS;
+  addTaskFormStep: TASK_FORM_STEP;
   task: AddTask;
 }
 
 const initialState: AddTaskSliceState = {
-  addTaskFormStep: ADD_TASK_FORM_STEPS.INIT,
+  addTaskFormStep: TASK_FORM_STEP.MAIN,
   task: {
     title: '',
     description: '',
@@ -31,7 +31,7 @@ const addTaskSlice = createSlice({
   reducers: {
     setAddTaskFormStep: (
       state,
-      { payload: addTaskFormStep }: PayloadAction<ADD_TASK_FORM_STEPS>,
+      { payload: addTaskFormStep }: PayloadAction<TASK_FORM_STEP>,
     ) => {
       state.addTaskFormStep = addTaskFormStep;
     },

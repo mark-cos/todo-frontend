@@ -22,8 +22,8 @@ export type Task = InferType<typeof taskSchema>;
 export const addTaskSchema = taskSchema.omit(['id']);
 export type AddTask = InferType<typeof addTaskSchema>;
 
-export enum ADD_TASK_FORM_STEPS {
-  INIT,
+export enum TASK_FORM_STEP {
+  MAIN,
   CALENDAR,
   TIME,
   CATEGORY,
