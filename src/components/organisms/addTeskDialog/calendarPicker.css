@@ -21,7 +21,7 @@
   width: 100%;
 }
 .rdp-day_today:not(.rdp-day_outside) {
-  @apply text-primary;
+  @apply text-amber-200;
   font-weight: bold !important;
 }
 
