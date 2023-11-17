@@ -1,31 +1,20 @@
 import { Button } from '@/components/atoms';
-import { useSelector } from '@/libs/redux';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import FlagIcon from '@/images/icons/flag.svg';
-import { AddTask, TASK_FORM_STEP } from '@/types/task/task.type';
+import { TASK_FORM_STEP } from '@/types/task/task.type';
+import { PrioritySelectFormProps, usePrioritySelectForm } from './data';
 
-export type PrioritySelectFormProps = {
-  priority: number;
-  handleSetFormValue: (name: keyof AddTask, value: any) => void;
-  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
-};
 const PrioritySelectForm = ({
   priority,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: PrioritySelectFormProps) => {
-  const firstPriorityBtnRef = useRef<HTMLButtonElement>(null);
-  const [selectedPriority, setSelectedPriority] = useState(priority);
-
-  // 아이폰 미니12에서 메인 모달창 -> 중요도 아이콘 선택 -> 10번이 selected표시되는 이슈가 있어서 0번 인덱스 포커스 처리
-  useEffect(() => {
-    firstPriorityBtnRef.current?.focus();
-  }, []);
-
-  const handleSavePriority = () => {
-    handleSetFormValue('priority', selectedPriority);
-    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
-  };
+  const {
+    firstPriorityBtnRef,
+    selectedPriority,
+    setSelectedPriority,
+    handleSavePriority,
+  } = usePrioritySelectForm(priority, handleSetFormValue, handleSetTaskFormStep);
 
   return (
     <div className="flex flex-col">

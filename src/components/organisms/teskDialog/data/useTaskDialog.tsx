@@ -12,7 +12,7 @@ import { defaultAddTask } from '.';
 import { yupResolver } from '@hookform/resolvers/yup';
 import taskSlice from '@/libs/redux/slices/taskSlice';
 
-const useTaskDialog = (task?: Task) => {
+export const useTaskDialog = (task?: Task) => {
   const isNewTask = !!task;
   const onSuccess = (data: Task | AddTask) => {
     console.log(data);
@@ -84,5 +84,3 @@ const useTaskDialog = (task?: Task) => {
     handleSetTaskFormStep,
   };
 };
-
-export default useTaskDialog;

@@ -1,57 +1,15 @@
 import { Button } from '@/components/atoms';
-import { useDispatch, useSelector } from '@/libs/redux';
-import React, { useState } from 'react';
-import addTaskSlice from '@/libs/redux/slices/taskSlice';
-import { Control, Controller } from 'react-hook-form';
-import { TASK_FORM_STEP, AddTask, Category, Task } from '@/types/task/task.type';
-
-const categories: Category[] = [
-  {
-    id: 1,
-    name: 'work',
-    color: 'bg-red-200',
-    icon: '🌈',
-  },
-  {
-    id: 2,
-    name: 'java study',
-    color: 'bg-amber-950',
-    icon: '🔥',
-  },
-  {
-    id: 3,
-    name: 'travel',
-    color: 'bg-yellow-200',
-    icon: '⚡',
-  },
-  {
-    id: 4,
-    name: 'work',
-    color: 'bg-blue-400',
-    icon: '🎶',
-  },
-];
-type CategorySelectFormProps = {
-  category: Category;
-  handleSetFormValue: (name: keyof AddTask, value: any) => void;
-  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
-};
+import React from 'react';
+import { TASK_FORM_STEP } from '@/types/task/task.type';
+import { CategorySelectFormProps, categories, useCategorySelectForm } from './data';
 
 const CategorySelectForm = ({
   category,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: CategorySelectFormProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<Category>(category);
-
-  const handleSelectedCategory = (category: Category) => {
-    setSelectedCategory(category);
-  };
-
-  const handleSaveCategory = () => {
-    handleSetFormValue('category', selectedCategory);
-    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
-  };
+  const { handleSelectedCategory, selectedCategory, handleSaveCategory } =
+    useCategorySelectForm(category, handleSetFormValue, handleSetTaskFormStep);
 
   return (
     <div className="flex flex-col">

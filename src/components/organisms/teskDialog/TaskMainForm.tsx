@@ -6,7 +6,7 @@ import FlagIcon from '@/images/icons/flag.svg';
 import SendIcon from '@/images/icons/send.svg';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
 import { TaskMainFormProps } from './data';
-import useTaskMainForm from './data/useTaskMainForm';
+import { useTaskMainForm } from './data';
 
 const TaskMainForm = ({
   title,

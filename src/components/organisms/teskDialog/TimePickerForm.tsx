@@ -1,72 +1,20 @@
 import { Button } from '@/components/atoms';
-import { useDispatch, useSelector } from '@/libs/redux';
-import addTaskSlice from '@/libs/redux/slices/taskSlice';
-import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
-import Flicking, {
-  ChangedEvent,
-  MoveEvent,
-  ReadyEvent,
-  ViewportSlot,
-} from '@egjs/react-flicking';
-import React, { useState } from 'react';
-import { Control, Controller } from 'react-hook-form';
-
-export type TimePickerFormProps = {
-  taskTime: string;
-  handleSetFormValue: (name: keyof AddTask, value: any) => void;
-  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
-};
+import { TASK_FORM_STEP } from '@/types/task/task.type';
+import Flicking, { ViewportSlot } from '@egjs/react-flicking';
+import React from 'react';
+import { TimePickerFormProps, useTimePickerForm } from './data';
 
 const TimePickerForm = ({
   taskTime,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: TimePickerFormProps) => {
-  const updateTransform = (e: MoveEvent<Flicking> | ReadyEvent<Flicking>) => {
-    e.currentTarget.panels.forEach((panel) => {
-      const rotateVal = -panel.progress * 20;
-      const sinRot = Math.sin(Math.abs((rotateVal * Math.PI) / 180));
-      const depth = 150 * sinRot * sinRot;
-      panel.element.style.transform = `translateZ(-${depth}px) rotateX(${rotateVal}deg)`;
-      panel.element.style.color = `rgba(255,255,255, ${1 - sinRot * 2})`;
-    });
-  };
-
-  const timeArr = taskTime.split(':');
-  const hour24 = Number(timeArr[0]);
-  const [ap, setAp] = useState(hour24 >= 12 ? 1 : 0); //AM:0, PM:1. Flicking의 기본값(인덱스)로 사용
-  const [hour, setHour] = useState(ap === 0 ? hour24 : hour24 - 12);
-  const [minute, setMinute] = useState(Number(timeArr[1]));
-
-  // 기본으로 보여질 각 시간 단위의 Flicking 인덱스.
-  const handleTimeDefaultValue = (type: string) => {
-    if (type === 'ap') {
-      return ap === 0 ? 0 : 1;
-    } else if (type === 'h') {
-      return hour;
-    } else {
-      return minute;
-    }
-  };
-
-  // chage이벤트 타입에 따른 각 단위에 state 설정
-  const handleChangeFlicking = (e: ChangedEvent<Flicking>, type: string) => {
-    if (type === 'ap') {
-      setAp(e.index);
-    } else if (type === 'h') {
-      setHour(e.index);
-    } else {
-      setMinute(e.index);
-    }
-  };
-
-  const handleSaveTime = () => {
-    const _hour = ((ap === 0 ? 0 : 12) + hour).toString().padStart(2, '0');
-    const _minute = minute.toString().padStart(2, '0');
-    const taskTime = `${_hour}:${_minute}`;
-    handleSetFormValue('taskTime', taskTime);
-    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
-  };
+  const {
+    updateTransform,
+    handleChangeFlicking,
+    handleTimeDefaultValue,
+    handleSaveTime,
+  } = useTimePickerForm(taskTime, handleSetFormValue, handleSetTaskFormStep);
 
   return (
     <div className="flex flex-col">

@@ -1,4 +1,4 @@
-import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
+import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 
 export type TaskDialogProps = {
   dictionary?: {};
@@ -8,6 +8,30 @@ export type TaskDialogProps = {
 export type TaskMainFormProps = {
   title: string;
   description: string;
+  handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
+  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+};
+
+export type CalendarPickerFormProps = {
+  taskDate: string;
+  handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
+  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+};
+
+export type TimePickerFormProps = {
+  taskTime: string;
+  handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
+  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+};
+
+export type CategorySelectFormProps = {
+  category: Category;
+  handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
+  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+};
+
+export type PrioritySelectFormProps = {
+  priority: number;
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
 };

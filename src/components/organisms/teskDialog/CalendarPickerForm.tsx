@@ -1,39 +1,22 @@
 import { Button } from '@/components/atoms';
-import React, { useState } from 'react';
+import React from 'react';
 import { DayPicker } from 'react-day-picker';
-import { format } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import 'react-day-picker/dist/style.module.css';
-import './calendarPicker.css';
-import { Control, Controller } from 'react-hook-form';
-import { TASK_FORM_STEP, AddTask, Task } from '@/types/task/task.type';
-
-type CalendarPickerFormProps = {
-  taskDate: string;
-  handleSetFormValue: (name: keyof AddTask, value: any) => void;
-  handleSetTaskFormStep: (addTaskFormStep: TASK_FORM_STEP) => void;
-};
+import './data/calendarPicker.css';
+import { TASK_FORM_STEP } from '@/types/task/task.type';
+import { CalendarPickerFormProps, useCalendarPickerForm } from './data';
 
 const CalendarPickerForm = ({
   taskDate,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: CalendarPickerFormProps) => {
-  console.log(11111111111);
-
-  const date = new Date(taskDate);
-  const [selected, setSelected] = useState<Date>(date);
-
-  const onSelect = (selectedDate: Date | undefined) => {
-    if (!selectedDate) return;
-    setSelected(selectedDate);
-  };
-
-  const handleSaveDate = () => {
-    handleSetFormValue('taskDate', format(selected, 'yyyy-MM-dd'));
-    handleSetTaskFormStep(TASK_FORM_STEP.TIME);
-  };
-
+  const { selected, onSelect, handleSaveDate } = useCalendarPickerForm(
+    taskDate,
+    handleSetFormValue,
+    handleSetTaskFormStep,
+  );
   return (
     <div className="flex flex-col">
       <div className="flex-auto">

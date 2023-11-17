@@ -1,7 +1,7 @@
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import React, { useEffect, useRef } from 'react';
 
-const useTaskMainForm = (
+export const useTaskMainForm = (
   title: string,
   description: string,
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void,
@@ -24,5 +24,3 @@ const useTaskMainForm = (
 
   return { titleRef, descriptionRef, handleOnClickTaskStep };
 };
-
-export default useTaskMainForm;

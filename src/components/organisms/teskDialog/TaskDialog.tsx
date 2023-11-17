@@ -1,18 +1,15 @@
 'use client';
 import { Dialog } from '@/components/atoms';
 import React from 'react';
-import TaskAddForm from './TaskMainForm';
-
 import CalendarPickerForm from './CalendarPickerForm';
 import TimePickerForm from './TimePickerForm';
 import PrioritySelectForm from './PrioritySelectForm';
 import CategorySelectForm from './CategorySelectForm';
-
 import { TASK_FORM_STEP } from '@/types/task/task.type';
 import { TaskDialogProps } from './data/taskDialog.types';
 
-import useTaskDialog from './data/useTaskDialog';
 import TaskMainForm from './TaskMainForm';
+import { useTaskDialog } from './data';
 
 const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
   const {
