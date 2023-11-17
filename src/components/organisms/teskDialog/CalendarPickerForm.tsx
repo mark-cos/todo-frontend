@@ -19,6 +19,8 @@ const CalendarPickerForm = ({
   handleSetFormValue,
   handleSetTaskFormStep,
 }: CalendarPickerFormProps) => {
+  console.log(11111111111);
+
   const date = new Date(taskDate);
   const [selected, setSelected] = useState<Date>(date);
 

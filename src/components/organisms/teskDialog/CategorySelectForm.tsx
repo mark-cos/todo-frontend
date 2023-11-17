@@ -1,7 +1,7 @@
 import { Button } from '@/components/atoms';
 import { useDispatch, useSelector } from '@/libs/redux';
 import React, { useState } from 'react';
-import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import addTaskSlice from '@/libs/redux/slices/taskSlice';
 import { Control, Controller } from 'react-hook-form';
 import { TASK_FORM_STEP, AddTask, Category, Task } from '@/types/task/task.type';
 

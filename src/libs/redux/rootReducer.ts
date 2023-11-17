@@ -1,7 +1,7 @@
 /* Instruments */
 
-import addTaskSlice from './slices/addTaskSlice';
+import tskSlice from './slices/taskSlice';
 
 export const reducer = {
-  addTask: addTaskSlice.reducer,
+  task: tskSlice.reducer,
 };

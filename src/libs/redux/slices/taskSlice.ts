@@ -3,13 +3,13 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 
 /* Types */
-export interface AddTaskSliceState {
-  addTaskFormStep: TASK_FORM_STEP;
-  task: AddTask;
+export interface TaskSliceState {
+  taskFormStep: TASK_FORM_STEP;
+  task: AddTask; //FIXME:
 }
 
-const initialState: AddTaskSliceState = {
-  addTaskFormStep: TASK_FORM_STEP.MAIN,
+const initialState: TaskSliceState = {
+  taskFormStep: TASK_FORM_STEP.MAIN,
   task: {
     title: '',
     description: '',
@@ -25,15 +25,15 @@ const initialState: AddTaskSliceState = {
   },
 };
 
-const addTaskSlice = createSlice({
-  name: 'addTask',
+const taskSlice = createSlice({
+  name: 'taks',
   initialState,
   reducers: {
-    setAddTaskFormStep: (
+    setTaskFormStep: (
       state,
-      { payload: addTaskFormStep }: PayloadAction<TASK_FORM_STEP>,
+      { payload: taskFormStep }: PayloadAction<TASK_FORM_STEP>,
     ) => {
-      state.addTaskFormStep = addTaskFormStep;
+      state.taskFormStep = taskFormStep;
     },
     setTaskFormData: (
       state,
@@ -44,4 +44,4 @@ const addTaskSlice = createSlice({
   },
 });
 
-export default addTaskSlice;
+export default taskSlice;

@@ -1,6 +1,6 @@
 import { Button } from '@/components/atoms';
 import { useDispatch, useSelector } from '@/libs/redux';
-import addTaskSlice from '@/libs/redux/slices/addTaskSlice';
+import addTaskSlice from '@/libs/redux/slices/taskSlice';
 import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 import Flicking, {
   ChangedEvent,
