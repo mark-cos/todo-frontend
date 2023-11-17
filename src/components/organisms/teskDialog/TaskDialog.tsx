@@ -1,7 +1,7 @@
 'use client';
 import { Dialog } from '@/components/atoms';
 import React from 'react';
-import TaskAddForm from './TaskAddForm';
+import TaskAddForm from './TaskMainForm';
 
 import CalendarPickerForm from './CalendarPickerForm';
 import TimePickerForm from './TimePickerForm';
@@ -12,6 +12,7 @@ import { TASK_FORM_STEP } from '@/types/task/task.type';
 import { TaskDialogProps } from './data/taskDialog.types';
 
 import useTaskDialog from './data/useTaskDialog';
+import TaskMainForm from './TaskMainForm';
 
 const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
   const {
@@ -32,7 +33,7 @@ const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
       <Dialog isOpen={isOpen} setIsOpen={setIsOpen} title={dialogTitle()}>
         <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
           {taskFormStep === TASK_FORM_STEP.MAIN && (
-            <TaskAddForm
+            <TaskMainForm
               title={getValues('title')}
               description={getValues('description')}
               handleSetFormValue={handleSetFormValue}

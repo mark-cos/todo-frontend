@@ -1,38 +1,25 @@
 import { InputText } from '@/components/atoms';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import TimerIcon from '@/images/icons/timer.svg';
 import TagIcon from '@/images/icons/tag.svg';
 import FlagIcon from '@/images/icons/flag.svg';
 import SendIcon from '@/images/icons/send.svg';
-import { TASK_FORM_STEP, AddTask, Task } from '@/types/task/task.type';
+import { TASK_FORM_STEP } from '@/types/task/task.type';
+import { TaskMainFormProps } from './data';
+import useTaskMainForm from './data/useTaskMainForm';
 
-type TaskAddFormProps = {
-  title: string;
-  description: string;
-  handleSetFormValue: (name: keyof AddTask, value: any) => void;
-  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
-};
-
-const TaskAddForm = ({
+const TaskMainForm = ({
   title,
   description,
   handleSetFormValue,
   handleSetTaskFormStep,
-}: TaskAddFormProps) => {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (titleRef.current) titleRef.current.value = title;
-    if (descriptionRef.current) descriptionRef.current.value = description;
-  }, []);
-
-  const handleOnClickTaskStep = (taskFormStep: TASK_FORM_STEP) => {
-    if (titleRef.current) handleSetFormValue('title', titleRef.current?.value);
-    if (descriptionRef.current)
-      handleSetFormValue('description', descriptionRef.current?.value);
-    handleSetTaskFormStep(taskFormStep);
-  };
+}: TaskMainFormProps) => {
+  const { titleRef, descriptionRef, handleOnClickTaskStep } = useTaskMainForm(
+    title,
+    description,
+    handleSetFormValue,
+    handleSetTaskFormStep,
+  );
 
   return (
     <div className="flex flex-col">
@@ -91,4 +78,4 @@ const TaskAddForm = ({
   );
 };
 
-export default TaskAddForm;
+export default TaskMainForm;
