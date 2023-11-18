@@ -1,18 +1,13 @@
 import Image from 'next/image';
 import React from 'react';
-import sortIcon from './images/sort.svg';
+import SortIcon from '@/images/icons/sort.svg';
 
 const Header = () => {
   const title = 'Index';
   return (
     <div className="p-base flex items-center justify-between">
       <div className="flex-none">
-        <Image
-          src={sortIcon}
-          alt="sortIcon"
-          className="cursor-pointer"
-          style={{ color: 'rgba(255, 255, 255, 0.87)' }}
-        />
+        <SortIcon />
       </div>
       <div className="flex-none text-xl font-normal tracking-tighter">{title}</div>
       <div className="flex-none">
@@ -22,6 +17,7 @@ const Header = () => {
           alt="profile-image"
           width={42}
           height={42}
+          priority={false}
         />
       </div>
     </div>

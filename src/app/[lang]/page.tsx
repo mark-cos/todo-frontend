@@ -1,4 +1,5 @@
 import LocaleSwitcher from '@/components/molecules/buttonTest/LocaleSwitcher';
+
 import { InputTest } from '@/components/organisms';
 import { Locale } from '@/libs/i18n';
 import getDictionary from '@/libs/i18n/getDictionary';
@@ -17,6 +18,7 @@ export default async function RootPage({ params }: RootPageProps) {
       <br /> <br /> <br />
       {t['button']}
       <InputTest dictionary={{ button1: t['btn-name'], button2: t['button'] }} />
+      server
       <br /> <br /> <br />
       <h2>Link</h2>
       <Link href={'/intro'}> - /intro</Link>
