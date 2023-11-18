@@ -1,6 +1,5 @@
 'use client';
 import { Button } from '@/components/atoms';
-import LocaleSwitcher from '@/components/molecules/buttonTest/LocaleSwitcher';
 import React, { useState } from 'react';
 
 type InputTestProps = {
@@ -25,25 +24,17 @@ const InputTest = ({ dictionary }: InputTestProps) => {
     setLang((pre) => (pre === 'ko' ? 'en' : 'ko'));
   };
   return (
-    <div className="flex h-20 w-full items-center border border-black dark:bg-black">
-      <div className="flex-1">
-        <Button onClick={onToggleDarkMode} className="w-full">
-          {isDarkMode ? 'light' : 'drak'}
-        </Button>
+    <div className="flex h-20 w-[550px] items-center border border-black dark:bg-black">
+      <div className="basis-1/3">
+        <Button onClick={onToggleDarkMode}>{isDarkMode ? 'light' : 'drak'}</Button>
       </div>
-      <div className="flex-1">
-        <Button
-          variant="contained"
-          onClick={onToggleLang}
-          className="w-full text-red-950"
-        >
+      <div className="basis-1/3">
+        <Button variant="contained" onClick={onToggleLang} className="text-red-950">
           {dictionary.button1}
         </Button>
       </div>
-      <div className="flex-1">
-        <Button variant="outlined" className="w-full">
-          {dictionary.button2}
-        </Button>
+      <div className="basis-1/3">
+        <Button variant="outlined">{dictionary.button2}</Button>
       </div>
     </div>
   );
