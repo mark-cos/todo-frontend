@@ -4,8 +4,8 @@ import { Dialog as Modal, Transition } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
 
 type DialogProps = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isShowModal: boolean;
+  close: () => void;
   title?: {
     label: string;
     className?: string;
@@ -20,8 +20,8 @@ type DialogProps = {
 };
 
 const Dialog = ({
-  isOpen,
-  setIsOpen,
+  isShowModal,
+  close,
   title,
   children,
   closeBtn,
@@ -29,10 +29,10 @@ const Dialog = ({
   className = '',
 }: DialogProps) => {
   const closeModal = () => {
-    setIsOpen(false);
+    close();
   };
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={isShowModal} as={Fragment}>
       <Modal
         as="div"
         className={`relative z-10 ${className}`}

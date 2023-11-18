@@ -6,7 +6,7 @@ import {
   addTaskSchema,
   taskSchema,
 } from '@/types/task/task.type';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { defaultAddTask } from '.';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,6 +14,13 @@ import taskSlice from '@/libs/redux/slices/taskSlice';
 
 export const useTaskDialog = (task?: Task) => {
   const isNewTask = !!task;
+  const { taskFormStep, isShowModal } = useSelector((state) => state.task);
+  const dispatch = useDispatch();
+
+  const handleCloseModal = () => {
+    dispatch(taskSlice.actions.setIsShoModal(false));
+  };
+
   const onSuccess = (data: Task | AddTask) => {
     console.log(data);
   };
@@ -23,9 +30,6 @@ export const useTaskDialog = (task?: Task) => {
       console.log(key, value);
     }
   };
-
-  const [isOpen, setIsOpen] = useState(true);
-  const { taskFormStep } = useSelector((state) => state.task);
 
   const { reset, handleSubmit, setValue, getValues } = useForm<AddTask | Task>({
     defaultValues: isNewTask ? task : defaultAddTask,
@@ -59,8 +63,6 @@ export const useTaskDialog = (task?: Task) => {
     return title;
   }, [taskFormStep]);
 
-  const dispatch = useDispatch();
-
   const handleSetTaskFormStep = useCallback(
     (taskFormStep: TASK_FORM_STEP) => {
       dispatch(taskSlice.actions.setTaskFormStep(taskFormStep));
@@ -72,8 +74,6 @@ export const useTaskDialog = (task?: Task) => {
     setValue(name, value);
   };
   return {
-    isOpen,
-    setIsOpen,
     handleSubmit,
     onSuccess,
     onSubmitError,
@@ -82,5 +82,7 @@ export const useTaskDialog = (task?: Task) => {
     getValues,
     handleSetFormValue,
     handleSetTaskFormStep,
+    isShowModal,
+    handleCloseModal,
   };
 };

@@ -1,6 +1,4 @@
-import { NavIcon } from '@/components/atoms';
-import { AddTaskDialog, Header } from '@/components/organisms';
-import Nav from '@/components/organisms/nav/Nav';
+import { TaskDialog } from '@/components/organisms';
 import React, { ReactNode } from 'react';
 
 type TasksPageTemplProps = {
@@ -8,7 +6,7 @@ type TasksPageTemplProps = {
 };
 
 const TasksPageTempl = ({ children }: TasksPageTemplProps) => {
-  return <AddTaskDialog />;
+  return <TaskDialog />;
 };
 
 export default TasksPageTempl;

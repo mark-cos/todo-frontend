@@ -13,8 +13,6 @@ import { useTaskDialog } from './data';
 
 const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
   const {
-    isOpen,
-    setIsOpen,
     handleSubmit,
     onSuccess,
     onSubmitError,
@@ -23,51 +21,51 @@ const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
     getValues,
     handleSetFormValue,
     handleSetTaskFormStep,
+    isShowModal,
+    handleCloseModal,
   } = useTaskDialog(task);
 
   return (
-    <>
-      <Dialog isOpen={isOpen} setIsOpen={setIsOpen} title={dialogTitle()}>
-        <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
-          {taskFormStep === TASK_FORM_STEP.MAIN && (
-            <TaskMainForm
-              title={getValues('title')}
-              description={getValues('description')}
-              handleSetFormValue={handleSetFormValue}
-              handleSetTaskFormStep={handleSetTaskFormStep}
-            />
-          )}
-          {taskFormStep === TASK_FORM_STEP.CALENDAR && (
-            <CalendarPickerForm
-              taskDate={getValues('taskDate')}
-              handleSetFormValue={handleSetFormValue}
-              handleSetTaskFormStep={handleSetTaskFormStep}
-            />
-          )}
-          {taskFormStep === TASK_FORM_STEP.TIME && (
-            <TimePickerForm
-              taskTime={getValues('taskTime')}
-              handleSetFormValue={handleSetFormValue}
-              handleSetTaskFormStep={handleSetTaskFormStep}
-            />
-          )}
-          {taskFormStep === TASK_FORM_STEP.CATEGORY && (
-            <CategorySelectForm
-              category={getValues('category')}
-              handleSetFormValue={handleSetFormValue}
-              handleSetTaskFormStep={handleSetTaskFormStep}
-            />
-          )}
-          {taskFormStep === TASK_FORM_STEP.PRIORITY && (
-            <PrioritySelectForm
-              priority={getValues('priority')}
-              handleSetFormValue={handleSetFormValue}
-              handleSetTaskFormStep={handleSetTaskFormStep}
-            />
-          )}
-        </form>
-      </Dialog>
-    </>
+    <Dialog isShowModal={isShowModal} close={handleCloseModal} title={dialogTitle()}>
+      <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
+        {taskFormStep === TASK_FORM_STEP.MAIN && (
+          <TaskMainForm
+            title={getValues('title')}
+            description={getValues('description')}
+            handleSetFormValue={handleSetFormValue}
+            handleSetTaskFormStep={handleSetTaskFormStep}
+          />
+        )}
+        {taskFormStep === TASK_FORM_STEP.CALENDAR && (
+          <CalendarPickerForm
+            taskDate={getValues('taskDate')}
+            handleSetFormValue={handleSetFormValue}
+            handleSetTaskFormStep={handleSetTaskFormStep}
+          />
+        )}
+        {taskFormStep === TASK_FORM_STEP.TIME && (
+          <TimePickerForm
+            taskTime={getValues('taskTime')}
+            handleSetFormValue={handleSetFormValue}
+            handleSetTaskFormStep={handleSetTaskFormStep}
+          />
+        )}
+        {taskFormStep === TASK_FORM_STEP.CATEGORY && (
+          <CategorySelectForm
+            category={getValues('category')}
+            handleSetFormValue={handleSetFormValue}
+            handleSetTaskFormStep={handleSetTaskFormStep}
+          />
+        )}
+        {taskFormStep === TASK_FORM_STEP.PRIORITY && (
+          <PrioritySelectForm
+            priority={getValues('priority')}
+            handleSetFormValue={handleSetFormValue}
+            handleSetTaskFormStep={handleSetTaskFormStep}
+          />
+        )}
+      </form>
+    </Dialog>
   );
 };
 

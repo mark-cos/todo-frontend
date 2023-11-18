@@ -5,11 +5,13 @@ import { format } from 'date-fns';
 /* Types */
 export interface TaskSliceState {
   taskFormStep: TASK_FORM_STEP;
+  isShowModal: boolean;
   task: AddTask; //FIXME:
 }
 
 const initialState: TaskSliceState = {
   taskFormStep: TASK_FORM_STEP.MAIN,
+  isShowModal: false,
   task: {
     title: '',
     description: '',
@@ -34,6 +36,9 @@ const taskSlice = createSlice({
       { payload: taskFormStep }: PayloadAction<TASK_FORM_STEP>,
     ) => {
       state.taskFormStep = taskFormStep;
+    },
+    setIsShoModal: (state, { payload: isShowModal }: PayloadAction<boolean>) => {
+      state.isShowModal = isShowModal;
     },
     setTaskFormData: (
       state,
