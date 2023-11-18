@@ -6,11 +6,13 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'text' | 'contained' | 'outlined';
 };
 
-const Button = ({ children, variant = 'text', ...props }: ButtonProps) => {
+const Button = ({ children, variant, ...props }: ButtonProps) => {
   return (
     <button
       {...props}
-      className={`${props.className ? `${props.className} ` : ''}btn-${variant}`}
+      className={`${props.className ? `${props.className} ` : ''} ${
+        variant ? `btn-${variant}` : ''
+      }`}
       type={props.type ? props.type : 'button'}
     >
       {children}

@@ -43,6 +43,7 @@ const PrioritySelectForm = ({
       <div className="flex">
         <div className="basis-1/2">
           <Button
+            variant="text"
             className="w-full"
             onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
           >
