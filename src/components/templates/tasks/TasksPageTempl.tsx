@@ -17,8 +17,6 @@ const TasksPageTempl = ({ children }: TasksPageTemplProps) => {
           <TodayTaskNone />
         </div>
       )}
-
-      <TaskDialog />
     </>
   );
 };
