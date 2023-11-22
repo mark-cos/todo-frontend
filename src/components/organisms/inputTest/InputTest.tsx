@@ -26,7 +26,9 @@ const InputTest = ({ dictionary }: InputTestProps) => {
   return (
     <div className="flex h-20 w-[550px] items-center border border-black dark:bg-black">
       <div className="basis-1/3">
-        <Button onClick={onToggleDarkMode}>{isDarkMode ? 'light' : 'drak'}</Button>
+        <Button variant="text" onClick={onToggleDarkMode}>
+          {isDarkMode ? 'light' : 'drak'}
+        </Button>
       </div>
       <div className="basis-1/3">
         <Button variant="contained" onClick={onToggleLang} className="text-red-950">

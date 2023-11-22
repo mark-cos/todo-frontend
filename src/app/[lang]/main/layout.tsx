@@ -1,6 +1,5 @@
-import { Header } from '@/components/organisms';
+import { Header, TaskDialog } from '@/components/organisms';
 import Nav from '@/components/organisms/nav/Nav';
-import TasksPageTempl from '@/components/templates/tasks/TasksPageTempl';
 
 export type RootLayoutProps = {
   children: React.ReactNode;
@@ -21,6 +20,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
           <Nav />
         </div>
       </div>
+      <TaskDialog />
     </>
   );
 }
