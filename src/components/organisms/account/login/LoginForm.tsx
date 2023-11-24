@@ -7,13 +7,15 @@ const LoginForm = () => {
   return (
     <form>
       <div className="mb-6">
-        <label htmlFor="email" className="">
+        <label htmlFor="email" className="mb-2 inline-block">
           Email
         </label>
         <InputText name="email" placeholder="email" id="email" />
       </div>
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="mb-2 inline-block">
+          Password
+        </label>
         <InputText type="password" name="password" placeholder="password" id="password" />
       </div>
 
