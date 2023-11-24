@@ -27,9 +27,11 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
           <ToastContainer
             position="top-center"
             autoClose={5000}
-            hideProgressBar={false}
+            hideProgressBar
             newestOnTop={false}
+            pauseOnFocusLoss={false}
             rtl={false}
+            theme="dark"
             pauseOnHover
           />
           {children}
