@@ -1,31 +1,12 @@
 'use client';
 
 import { Button, InputText } from '@/components/atoms';
-import { Login, UserJoin, loginSchema, userJoinSchema } from '@/types/user/user.typs';
-import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
-import { FieldErrors, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import useLoginForm from './data/useLoginForm';
 
 const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Login>({
-    resolver: yupResolver(loginSchema),
-  });
-
-  const handleSubmitSuccess = (loginInfo: Login) => {
-    console.log(loginInfo);
-  };
-
-  const handleSubmitError = (e: FieldErrors<Login>) => {
-    for (const [key, value] of Object.entries(e)) {
-      toast.error(value.message);
-      return;
-    }
-  };
+  const { handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
+    useLoginForm();
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitError)}>
       <div className="mb-6">

@@ -14,6 +14,7 @@
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.2",
     "@reduxjs/toolkit": "^1.9.7",
+    "axios": "^1.6.2",
     "date-fns": "^2.30.0",
     "negotiator": "^0.6.3",
     "next": "13.5.4",
