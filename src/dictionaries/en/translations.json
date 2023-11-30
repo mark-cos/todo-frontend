@@ -2,5 +2,8 @@
   "button": {
     "btn-name": "button",
     "button": "button"
+  },
+  "login": {
+    "email": "email"
   }
 }

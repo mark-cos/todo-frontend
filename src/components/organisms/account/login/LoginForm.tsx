@@ -5,13 +5,13 @@ import React from 'react';
 import useLoginForm from './data/useLoginForm';
 
 const LoginForm = () => {
-  const { handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
+  const { t, handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
     useLoginForm();
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitError)}>
       <div className="mb-6">
         <label htmlFor="email" className="mb-2 inline-block">
-          Email
+          {t('login.email')}
         </label>
         <InputText {...register('email')} placeholder="email" id="email" />
       </div>
