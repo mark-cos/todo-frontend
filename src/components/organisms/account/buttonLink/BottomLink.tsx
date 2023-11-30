@@ -1,8 +1,10 @@
+'use client';
 import React from 'react';
-import { BottomLinkProps } from './data/bottomLink.types';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-const BottomLink = ({ isLoginPage }: BottomLinkProps) => {
+const BottomLink = () => {
+  const isLoginPage = usePathname().includes('/login');
   return isLoginPage ? (
     <div className="text-center text-xs">
       <span className="text-secondary">Don’t have an account?</span>{' '}
