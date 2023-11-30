@@ -40,8 +40,6 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
-  console.log('pathname', pathname);
-
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
 

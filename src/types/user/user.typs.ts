@@ -17,7 +17,7 @@ export const userJoinSchema = object({
   confirmPassword: string()
     .required('비밀번호 확인은 필수 입니다.')
     .oneOf([ref('password')], 'Your passwords do not match.'),
-}).concat(userSchema);
+}).concat(userSchema.pick(['email', 'name']));
 
 export type UserJoin = InferType<typeof userJoinSchema>;
 
