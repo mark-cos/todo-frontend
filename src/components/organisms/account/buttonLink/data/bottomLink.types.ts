@@ -1,3 +1,3 @@
 export type BottomLinkProps = {
-  currentPage: string;
+  isLoginPage: boolean;
 };

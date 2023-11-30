@@ -14,9 +14,11 @@ const Intro1 = () => {
             LOGIN
           </Button>
         </Link>
-        <Button variant="outlined" className="w-full">
-          CREATE ACCOUNT
-        </Button>
+        <Link href={'/account/register'}>
+          <Button variant="outlined" className="w-full">
+            CREATE ACCOUNT
+          </Button>
+        </Link>
       </div>
     </div>
   );

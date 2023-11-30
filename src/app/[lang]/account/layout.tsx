@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { BottomLink } from '@/components/organisms/account/buttonLink';
+import { NextPageContext } from 'next';
 
 export type AccountLayoutProps = {
   children: React.ReactNode;
@@ -12,9 +13,8 @@ export type AccountLayoutProps = {
 };
 
 export default function AccountLayout({ children, params }: AccountLayoutProps) {
-  const referer = headers().get('referer');
-  const currentPage = (referer?.match(/\/([^\/]+)\/?$/g) || [])[0] || '';
-  console.log(referer, '[' + currentPage + ']', '/login' === currentPage);
+  const _header = headers();
+  const isLoginPage = _header.get('x-pathname')?.includes('/login') || false;
 
   return (
     <div className="container-100svh flex flex-col justify-between px-5 py-4">
@@ -26,14 +26,14 @@ export default function AccountLayout({ children, params }: AccountLayoutProps) 
         </div>
 
         <div className="mb-16 mt-11 flex-grow text-2xl font-bold">
-          {currentPage === '/login' ? 'Login' : 'Register'}
+          {isLoginPage ? 'Login' : 'Register'}
         </div>
 
         <div className="flex-auto">{children}</div>
       </div>
 
       <div className="flex-none">
-        <BottomLink currentPage={currentPage} />
+        <BottomLink isLoginPage={isLoginPage} />
       </div>
     </div>
   );

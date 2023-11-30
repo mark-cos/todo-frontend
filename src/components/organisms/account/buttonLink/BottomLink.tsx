@@ -2,14 +2,16 @@ import React from 'react';
 import { BottomLinkProps } from './data/bottomLink.types';
 import Link from 'next/link';
 
-const BottomLink = ({ currentPage }: BottomLinkProps) => {
-  return currentPage === '/login' ? (
-    <div className="text-center">
-      <span>Don’t have an account?</span> <Link href={'/register'}>Register</Link>
+const BottomLink = ({ isLoginPage }: BottomLinkProps) => {
+  return isLoginPage ? (
+    <div className="text-center text-xs">
+      <span className="text-secondary">Don’t have an account?</span>{' '}
+      <Link href={'/account/register'}>Register</Link>
     </div>
   ) : (
-    <div className="text-center">
-      <span>Already have an account?</span> <Link href={'/login'}>Login</Link>
+    <div className="text-center text-xs">
+      <span className="text-secondary">Already have an account?</span>{' '}
+      <Link href={'/account/login'}>Login</Link>
     </div>
   );
 };

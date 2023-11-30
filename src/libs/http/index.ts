@@ -11,7 +11,6 @@ const httpLib: HttpLib = {
   instance: null,
   getInstance: () => {
     if (!httpLib.instance) {
-      console.log(process.env.NEXT_PUBLIC_API_SERVER_URL);
       httpLib.instance = axios.create({
         baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL,
         timeout: 1000 * 10,
