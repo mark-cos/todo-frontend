@@ -9,7 +9,7 @@ import { NavTaskAddButton } from '@/components/molecules';
 // TODO: 정보배열로 빼서 map돌리기
 const Nav = () => {
   return (
-    <div className="flex justify-between bg-[#363636] px-8 pb-9 pt-5">
+    <div className="bg-dark flex justify-between px-8 pb-9 pt-5">
       <NavIcon
         src={homeIcon}
         alt="homeIcon"

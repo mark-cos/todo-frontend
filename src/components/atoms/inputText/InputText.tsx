@@ -18,7 +18,7 @@ const InputText = React.forwardRef(
         name={name}
         type={type}
         {...porps}
-        className={`w-full border border-secondary bg-transparent p-2 outline-0 hover:border-[#979797] focus:border-[#979797] ${porps.className}`}
+        className={`border-dark w-full border bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary ${porps.className}`}
       />
     );
   },

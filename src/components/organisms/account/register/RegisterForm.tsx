@@ -2,11 +2,11 @@
 
 import { Button, InputText } from '@/components/atoms';
 import React from 'react';
-import useLoginForm from './data/useLoginForm';
+import useRegisterForm from './data/useRegisterForm';
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const { handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
-    useLoginForm();
+    useRegisterForm();
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitError)}>
       <div className="mb-6">
@@ -15,7 +15,7 @@ const LoginForm = () => {
         </label>
         <InputText {...register('email')} placeholder="email" id="email" />
       </div>
-      <div>
+      <div className="mb-6">
         <label htmlFor="password" className="mb-2 inline-block">
           Password
         </label>
@@ -27,19 +27,32 @@ const LoginForm = () => {
         />
       </div>
 
-      <div className="mt-16">
-        <Button variant="contained" className="w-full" type="submit">
-          Login
-        </Button>
+      <div className="mb-6">
+        <label htmlFor="confirmPassword" className="mb-2 inline-block">
+          Confirm Password
+        </label>
+        <InputText
+          type="password"
+          {...register('confirmPassword')}
+          placeholder="Confirm Password"
+          id="confirmPassword"
+        />
       </div>
 
-      <div className="relative my-11 h-[1px] border border-secondary">
-        <div className="absolute left-[50%] top-[-14px] translate-x-[-50%] bg-black px-1 text-secondary">
-          or
-        </div>
+      <div className="mb-6">
+        <label htmlFor="name" className="mb-2 inline-block">
+          name
+        </label>
+        <InputText type="text" {...register('name')} placeholder="name" id="name" />
+      </div>
+
+      <div className="mt-16">
+        <Button variant="contained" className="w-full" type="submit">
+          Register
+        </Button>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

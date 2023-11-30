@@ -31,14 +31,10 @@ const ProfileUserInfo = ({ user, taskStatus }: ProfileUserInfoProps) => {
       <div className={'flex-auto'}>
         <div className="flex justify-center">
           <div className="basis-52 px-4">
-            <Button className="w-full bg-secondary py-4">
-              {taskStatus.left} Task left
-            </Button>
+            <Button className="bg-dark w-full py-4">{taskStatus.left} Task left</Button>
           </div>
           <div className="basis-52 px-4">
-            <Button className="w-full bg-secondary py-4">
-              {taskStatus.done} Task done
-            </Button>
+            <Button className="bg-dark w-full py-4">{taskStatus.done} Task done</Button>
           </div>
         </div>
       </div>
