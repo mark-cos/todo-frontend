@@ -3,10 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FieldErrors } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { login } from '.';
-import { useTranslation } from '@/libs/i18n/useI18n';
+import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 
 const useLoginForm = () => {
-  const { t } = useTranslation('login');
+  const { t } = useClientTranslation('login');
   const {
     register,
     handleSubmit,

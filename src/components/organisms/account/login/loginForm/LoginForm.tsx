@@ -2,27 +2,33 @@
 
 import { Button, InputText } from '@/components/atoms';
 import React from 'react';
-import useLoginForm from './data/useLoginForm';
+import useLoginForm from './LoginForm.hook';
+import ROUTE from '@/libs/route';
 
 const LoginForm = () => {
   const { t, handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
     useLoginForm();
+  console.log(ROUTE.ACCOUNT.LOGIN.path);
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitError)}>
       <div className="mb-6">
         <label htmlFor="email" className="mb-2 inline-block">
-          {t('login.email')}
+          {t('input.email.label')}
         </label>
-        <InputText {...register('email')} placeholder="email" id="email" />
+        <InputText
+          {...register('email')}
+          placeholder={t('input.email.placeholder')}
+          id="email"
+        />
       </div>
       <div>
         <label htmlFor="password" className="mb-2 inline-block">
-          Password
+          {t('input.password.label')}
         </label>
         <InputText
           type="password"
-          {...register('password')}
-          placeholder="password"
+          {...register('email')}
+          placeholder={t('input.password.placeholder')}
           id="password"
         />
       </div>

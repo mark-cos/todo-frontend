@@ -6,6 +6,7 @@ import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18
 import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { usePathname } from 'next/navigation';
+import { i18nLangOptions } from '.';
 
 const runsOnServerSide = typeof window === 'undefined';
 
@@ -14,24 +15,25 @@ i18next
   .use(LanguageDetector)
   .use(
     resourcesToBackend(
-      (language: string) => import(`@/dictionaries/${language}/translations.json`),
+      (language: string, ns: string) => import(`@/dictionaries/${language}/${ns}.json`),
     ),
   )
   .init({
-    debug: true,
+    // debug: true,
     lng: undefined, // let detect the language on client side
     detection: {
       order: ['path'],
     },
-    preload: runsOnServerSide ? ['en', 'ko'] : [],
+    preload: runsOnServerSide ? i18nLangOptions.locales : [],
+    fallbackLng: i18nLangOptions.locales[0],
   });
 
-export function useTranslation(ns: string) {
+export function useClientTranslation(ns: string) {
   const pathname = usePathname();
   const lang = (pathname.match(/([^\/]+)/g) || [])[0];
   const ret = useTranslationOrg(ns);
-
   const { i18n } = ret;
+
   if (runsOnServerSide && lang && i18n.resolvedLanguage !== lang) {
     i18n.changeLanguage(lang);
   } else {
@@ -39,11 +41,13 @@ export function useTranslation(ns: string) {
     const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
+      console.log(222);
       if (activeLng === i18n.resolvedLanguage) return;
       setActiveLng(i18n.resolvedLanguage);
     }, [activeLng, i18n.resolvedLanguage]);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
+      console.log(333);
       if (!lang || i18n.resolvedLanguage === lang) return;
       i18n.changeLanguage(lang);
     }, [lang, i18n]);

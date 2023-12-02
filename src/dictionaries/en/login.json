@@ -1,0 +1,18 @@
+{
+  "title": "Login",
+  "input": {
+    "email": {
+      "label": "Email",
+      "placeholder": "email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "password"
+    }
+  },
+  "button": {
+    "login": "Login",
+    "login_google": "Login with Google",
+    "login_apple": "Loign with Apple"
+  }
+}
