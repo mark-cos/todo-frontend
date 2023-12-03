@@ -40,7 +40,10 @@ export function middleware(request: NextRequest) {
   );
 
   const requestHeaders = new Headers(request.headers);
+  console.log('pathname', pathname);
   requestHeaders.set('x-pathname', pathname);
+
+  const response = NextResponse.next();
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {

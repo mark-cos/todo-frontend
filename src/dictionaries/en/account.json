@@ -11,10 +11,22 @@
       "label": "Password",
       "placeholder": "password",
       "required": "password is required."
+    },
+    "confirmPassword": {
+      "label": "ConfirmPassword",
+      "placeholder": "Confirm Pasasword",
+      "required": "ConfirmPassword is required.",
+      "not_match": "Your passwords do not match."
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "name",
+      "required": "name is required."
     }
   },
   "button": {
     "login": "Login",
+    "register": "Register",
     "login_google": "Login with Google",
     "login_apple": "Loign with Apple"
   }

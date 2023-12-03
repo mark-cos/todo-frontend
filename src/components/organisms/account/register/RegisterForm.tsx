@@ -2,53 +2,58 @@
 
 import { Button, InputText } from '@/components/atoms';
 import React from 'react';
-import useRegisterForm from './data/useRegisterForm';
+import useRegisterForm from './RegisterForm.hook';
 
 const RegisterForm = () => {
-  const { handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
+  const { t, handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
     useRegisterForm();
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitError)}>
       <div className="mb-6">
         <label htmlFor="email" className="mb-2 inline-block">
-          Email
+          {t('input.email.label')}
         </label>
-        <InputText {...register('email')} placeholder="email" id="email" />
+        <InputText {...register('email')} placeholder={t('input.email.placeholder')} />
       </div>
       <div className="mb-6">
         <label htmlFor="password" className="mb-2 inline-block">
-          Password
+          {t('input.password.label')}
         </label>
         <InputText
           type="password"
           {...register('password')}
-          placeholder="password"
+          placeholder={t('input.password.placeholder')}
           id="password"
         />
       </div>
 
       <div className="mb-6">
         <label htmlFor="confirmPassword" className="mb-2 inline-block">
-          Confirm Password
+          {t('input.confirmPassword.label')}
         </label>
         <InputText
           type="password"
           {...register('confirmPassword')}
-          placeholder="Confirm Password"
+          placeholder={t('input.confirmPassword.placeholder')}
           id="confirmPassword"
         />
       </div>
 
       <div className="mb-6">
         <label htmlFor="name" className="mb-2 inline-block">
-          name
+          {t('input.name.label')}
         </label>
-        <InputText type="text" {...register('name')} placeholder="name" id="name" />
+        <InputText
+          type="text"
+          {...register('name')}
+          placeholder={t('input.name.placeholder')}
+          id="name"
+        />
       </div>
 
       <div className="mt-16">
         <Button variant="contained" className="w-full" type="submit">
-          Register
+          {t('button.register')}
         </Button>
       </div>
     </form>

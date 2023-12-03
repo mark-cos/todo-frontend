@@ -21,9 +21,6 @@ i18next
   .init({
     // debug: true,
     lng: undefined, // let detect the language on client side
-    detection: {
-      order: ['path'],
-    },
     preload: runsOnServerSide ? i18nLangOptions.locales : [],
     fallbackLng: i18nLangOptions.locales[0],
   });
@@ -41,14 +38,15 @@ export function useClientTranslation(ns: string) {
     const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      console.log(222);
+      /*  console.log(222, activeLng, i18n.resolvedLanguage);
       if (activeLng === i18n.resolvedLanguage) return;
-      setActiveLng(i18n.resolvedLanguage);
+      setActiveLng(i18n.resolvedLanguage); */
     }, [activeLng, i18n.resolvedLanguage]);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      console.log(333);
-      if (!lang || i18n.resolvedLanguage === lang) return;
+      console.log(333, lang, i18n.resolvedLanguage);
+      // if (!lang || !i18n.resolvedLanguage || i18n.resolvedLanguage === lang) return;
+      console.log('change');
       i18n.changeLanguage(lang);
     }, [lang, i18n]);
   }

@@ -6,7 +6,7 @@ import { login } from '.';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 
 const useLoginForm = () => {
-  const { t } = useClientTranslation('login');
+  const { t } = useClientTranslation('account');
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const useLoginForm = () => {
 
   const handleSubmitError = (e: FieldErrors<Login>) => {
     for (const [key, value] of Object.entries(e)) {
-      toast.error(t(value.message));
+      toast.error(t(value.message!));
       return false;
     }
   };

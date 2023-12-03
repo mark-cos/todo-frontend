@@ -26,6 +26,7 @@ const initI18next = async (lng: Locale, ns: string) => {
 async function useServerTranslation(ns: string) {
   const pathname = headers().get('x-pathname') ?? '';
   const lng = (pathname.match(/([^\/]+)/g) || [])[0] ?? 'en';
+  console.log('lng', lng, pathname, '///' + headers().get('x-pathname'));
   const i18nextInstance = await initI18next(lng as Locale, ns);
 
   return {

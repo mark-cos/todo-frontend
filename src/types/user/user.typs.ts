@@ -2,7 +2,7 @@ import { InferType, object, ref, string } from 'yup';
 
 export const userSchema = object({
   email: string().email('input.email.format').required('input.email.required'),
-  name: string().required(),
+  name: string().required('input.name.required'),
   avatarUrl: string(), //FIXME: BE와 협의해서 수정 필요.
   theme: string<'dark' | 'light'>().required().default('dark'),
   font: string().required(), //FIXME:
@@ -10,12 +10,14 @@ export const userSchema = object({
 });
 export type User = InferType<typeof userSchema>;
 
-export const userJoinSchema = object({
-  password: string().required('input.email.password'),
-  confirmPassword: string()
-    .required('비밀번호 확인은 필수 입니다.')
-    .oneOf([ref('password')], 'Your passwords do not match.'),
-}).concat(userSchema.pick(['email', 'name']));
+export const userJoinSchema = userSchema.pick(['email', 'name']).concat(
+  object({
+    password: string().required('input.password.required'),
+    confirmPassword: string()
+      .required('input.confirmPassword.required')
+      .oneOf([ref('password')], 'input.confirmPassword.not_match'),
+  }),
+);
 
 export type UserJoin = InferType<typeof userJoinSchema>;
 
