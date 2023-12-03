@@ -1,9 +1,7 @@
 import { InferType, object, ref, string } from 'yup';
 
 export const userSchema = object({
-  email: string()
-    .email('이메일 형식이 맞지 않습니다.')
-    .required('이메일 주소는 필수 입니다.'),
+  email: string().email('input.email.format').required('input.email.required'),
   name: string().required(),
   avatarUrl: string(), //FIXME: BE와 협의해서 수정 필요.
   theme: string<'dark' | 'light'>().required().default('dark'),
@@ -13,7 +11,7 @@ export const userSchema = object({
 export type User = InferType<typeof userSchema>;
 
 export const userJoinSchema = object({
-  password: string().required('비밀번호는 필수 입니다.'),
+  password: string().required('input.email.password'),
   confirmPassword: string()
     .required('비밀번호 확인은 필수 입니다.')
     .oneOf([ref('password')], 'Your passwords do not match.'),

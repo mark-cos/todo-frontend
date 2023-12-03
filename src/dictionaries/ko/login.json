@@ -3,11 +3,14 @@
   "input": {
     "email": {
       "label": "이메일",
-      "placeholder": "이메일"
+      "placeholder": "이메일",
+      "required": " 이메일은 필수 항목입니다.",
+      "format": "이메일 형식을 입력하세요."
     },
     "password": {
       "label": "비밀번호",
-      "placeholder": "비밀번호"
+      "placeholder": "비밀번호",
+      "required": "비밀번호는 필수 항목입니다."
     }
   },
   "button": {

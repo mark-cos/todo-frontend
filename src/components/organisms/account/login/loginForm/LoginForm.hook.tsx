@@ -22,8 +22,8 @@ const useLoginForm = () => {
 
   const handleSubmitError = (e: FieldErrors<Login>) => {
     for (const [key, value] of Object.entries(e)) {
-      toast.error(value.message);
-      return;
+      toast.error(t(value.message));
+      return false;
     }
   };
 

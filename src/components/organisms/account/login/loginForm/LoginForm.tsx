@@ -3,12 +3,11 @@
 import { Button, InputText } from '@/components/atoms';
 import React from 'react';
 import useLoginForm from './LoginForm.hook';
-import ROUTE from '@/libs/route';
 
 const LoginForm = () => {
   const { t, handleSubmit, handleSubmitSuccess, handleSubmitError, register } =
     useLoginForm();
-  console.log(ROUTE.ACCOUNT.LOGIN.path);
+
   return (
     <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitError)}>
       <div className="mb-6">
@@ -27,7 +26,7 @@ const LoginForm = () => {
         </label>
         <InputText
           type="password"
-          {...register('email')}
+          {...register('password')}
           placeholder={t('input.password.placeholder')}
           id="password"
         />

@@ -3,11 +3,14 @@
   "input": {
     "email": {
       "label": "Email",
-      "placeholder": "email"
+      "placeholder": "email",
+      "required": "Email is required.",
+      "format": "Please enter an email format."
     },
     "password": {
       "label": "Password",
-      "placeholder": "password"
+      "placeholder": "password",
+      "required": "password is required."
     }
   },
   "button": {
