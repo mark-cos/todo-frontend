@@ -1,7 +1,10 @@
 import backButtonIcon from '@/images/icons/back-button.svg?url';
 import Image from 'next/image';
-import { headers } from 'next/headers';
 import Link from 'next/link';
+import { BottomLink } from '@/components/organisms/account/buttonLink';
+import { AccountTitle } from '@/components/organisms/account/title';
+import getLink from '@/libs/route/getLink';
+import ROUTE from '@/libs/route';
 
 export type AccountLayoutProps = {
   children: React.ReactNode;
@@ -11,23 +14,23 @@ export type AccountLayoutProps = {
 };
 
 export default function AccountLayout({ children, params }: AccountLayoutProps) {
-  const referer = headers().get('referer');
-  const currentPage = (referer?.match(/\/([^\/]+)\/?$/g) || [])[0];
-  console.log(referer, '[' + currentPage + ']', '/login' === currentPage);
-
   return (
-    <div className="flex flex-col px-5 py-4">
-      <div className="flex-auto cursor-pointer">
-        <Link href={'/'}>
-          <Image src={backButtonIcon} alt="backButtonIcon" />
-        </Link>
+    <div className="container-100svh flex flex-col justify-between px-5 py-4">
+      <div className="flex-auto">
+        <div className="flex-auto cursor-pointer">
+          <Link href={getLink(ROUTE.INTRO.path)}>
+            <Image src={backButtonIcon} alt="backButtonIcon" />
+          </Link>
+        </div>
+
+        <AccountTitle />
+
+        <div className="flex-auto">{children}</div>
       </div>
 
-      <div className="mb-16 mt-11 flex-auto text-2xl font-bold">
-        {currentPage === '/login' ? 'Login' : 'Register'}
+      <div className="flex-none">
+        <BottomLink />
       </div>
-
-      <div className="flex-auto">{children}</div>
     </div>
   );
 }

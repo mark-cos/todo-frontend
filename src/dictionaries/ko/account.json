@@ -1,0 +1,33 @@
+{
+  "title": "로그인",
+  "input": {
+    "email": {
+      "label": "이메일",
+      "placeholder": "이메일",
+      "required": " 이메일은 필수 항목입니다.",
+      "format": "이메일 형식을 입력하세요."
+    },
+    "password": {
+      "label": "비밀번호",
+      "placeholder": "비밀번호",
+      "required": "비밀번호는 필수 항목입니다."
+    },
+    "confirmPassword": {
+      "label": "비밀번호 확인",
+      "placeholder": "비밀번호 확인",
+      "required": "비밀번호 확인은 필수 입니다.",
+      "not_match": "두 비밀번호가 맞지 않습니다."
+    },
+    "name": {
+      "label": "이름",
+      "placeholder": "이름",
+      "required": "이름은 필수 항목입니다."
+    }
+  },
+  "button": {
+    "login": "로그인",
+    "register": "등록",
+    "login_google": "구글계정으로 로그인",
+    "login_apple": "애플계정으로 로그인"
+  }
+}

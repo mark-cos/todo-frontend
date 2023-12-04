@@ -39,7 +39,7 @@ export const useTaskDialog = (task?: Task) => {
   const dialogTitle = useCallback(() => {
     let title = {
       label: '',
-      className: 'text-center border-b-[1px] border-[#979797] pb-2',
+      className: 'text-center border-b-[1px] border-secondary pb-2',
     };
     switch (taskFormStep) {
       case TASK_FORM_STEP.MAIN: {
