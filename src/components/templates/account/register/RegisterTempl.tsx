@@ -1,4 +1,4 @@
-import { RegisterForm } from '@/components/organisms/account/register';
+import RegisterForm from '@/components/organisms/account/register/RegisterForm';
 import React from 'react';
 
 const RegisterTempl = () => {

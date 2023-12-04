@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import arrowLeftIcon from '@/images/icons/arrow-left.svg?url';
-import Link from 'next/link';
-import getLink from '@/libs/route/getLink';
+import Link from '@/components/atoms/link/Link';
 
 export type ProfileMenuItemProps = {
   iconSrc: string;
@@ -12,7 +11,7 @@ export type ProfileMenuItemProps = {
 
 const ProfileMenuItem = ({ iconSrc, text, href }: ProfileMenuItemProps) => {
   return (
-    <Link href={getLink(href)}>
+    <Link href={href}>
       {/* FIXME: Log out 다국어 고려 필요 */}
       <div
         className={`mb-6 flex w-full justify-between ${

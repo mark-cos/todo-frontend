@@ -1,4 +1,3 @@
-import InputTest from './inputTest/InputTest';
 import Header from './header/Header';
 import TaskDialog from './teskDialog/TaskDialog';
 import ProfileUserInfo from './profile/ProfileUserInfo';
@@ -9,7 +8,6 @@ import Intro3 from './intro/Intro3';
 import Intro4 from './intro/Intro4';
 
 export {
-  InputTest,
   Header,
   TaskDialog,
   ProfileUserInfo,

@@ -29,5 +29,8 @@
     "register": "Register",
     "login_google": "Login with Google",
     "login_apple": "Loign with Apple"
-  }
+  },
+
+  "dont_account": "Don’t have an account?",
+  "already_account": "Already have an account?"
 }
