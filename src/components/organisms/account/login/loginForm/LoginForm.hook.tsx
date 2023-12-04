@@ -2,7 +2,7 @@ import { Login, loginSchema } from '@/types/user/user.typs';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FieldErrors } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { login } from '.';
+import { login } from './loginForm.api';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 
 const useLoginForm = () => {
