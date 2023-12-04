@@ -1,7 +1,7 @@
-import { createInstance } from 'i18next';
+import i18next, { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
-import { headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import { Locale, i18nLangOptions } from '.';
 
 const initI18next = async (lng: Locale, ns: string) => {
@@ -16,7 +16,7 @@ const initI18next = async (lng: Locale, ns: string) => {
     .init({
       // debug: true,
       supportedLngs: i18nLangOptions.locales,
-      fallbackLng: i18nLangOptions.locales[0],
+      fallbackLng: i18nLangOptions.defaultLocale,
       lng,
       ns,
     });
@@ -24,9 +24,8 @@ const initI18next = async (lng: Locale, ns: string) => {
 };
 
 async function useServerTranslation(ns: string) {
-  const pathname = headers().get('x-pathname') ?? '';
-  const lng = (pathname.match(/([^\/]+)/g) || [])[0] ?? 'en';
-  console.log('lng', lng, pathname, '///' + headers().get('x-pathname'));
+  const lng = cookies().get('lng')?.value || i18nLangOptions.defaultLocale;
+  console.log('lng', lng, i18next.resolvedLanguage);
   const i18nextInstance = await initI18next(lng as Locale, ns);
 
   return {

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import Negotiator from 'negotiator';
 import { i18nLangOptions } from './libs/i18n';
+import { cookies } from 'next/headers';
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -43,29 +44,34 @@ export function middleware(request: NextRequest) {
   console.log('pathname', pathname);
   requestHeaders.set('x-pathname', pathname);
 
-  const response = NextResponse.next();
-
+  let response;
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
-    return NextResponse.redirect(
+    response = NextResponse.redirect(
       new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, request.url),
       {
         headers: requestHeaders,
       },
     );
   } else {
-    const response = NextResponse.next({
+    response = NextResponse.next({
       request: {
         // New request headers
         headers: requestHeaders,
       },
     });
-    return response;
   }
+
+  const lng = pathnameIsMissingLocale
+    ? 'en'
+    : (pathname.match(/([^\/]+)/g) || [])[0] || '';
+
+  if (response.cookies.get('lng')?.value !== lng) response.cookies.set('lng', lng);
+  return response;
 }
 
 export const config = {
