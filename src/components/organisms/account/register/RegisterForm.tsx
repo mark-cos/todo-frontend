@@ -1,8 +1,9 @@
 'use client';
 
-import { Button, InputText } from '@/components/atoms';
 import React from 'react';
 import useRegisterForm from './RegisterForm.hook';
+import InputText from '@/components/atoms/inputText/InputText';
+import Button from '@/components/atoms/button/Button';
 
 const RegisterForm = () => {
   const { t, handleSubmit, handleSubmitSuccess, handleSubmitError, register } =

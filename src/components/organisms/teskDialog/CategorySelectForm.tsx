@@ -1,7 +1,9 @@
-import { Button } from '@/components/atoms';
 import React from 'react';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
-import { CategorySelectFormProps, categories, useCategorySelectForm } from './data';
+import { categories } from './data';
+import Button from '@/components/atoms/button/Button';
+import { useCategorySelectForm } from './CategorySelectForm.hook';
+import { CategorySelectFormProps } from './taskDialog.types';
 
 const CategorySelectForm = ({
   category,

@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@/components/atoms';
+import Button from '@/components/atoms/button/Button';
 import React, { useState } from 'react';
 
 type InputTestProps = {

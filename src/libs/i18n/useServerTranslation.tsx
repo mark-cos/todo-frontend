@@ -25,7 +25,6 @@ const initI18next = async (lng: Locale, ns: string) => {
 
 async function useServerTranslation(ns: string) {
   const lng = cookies().get('lng')?.value || i18nLangOptions.defaultLocale;
-  console.log('lng', lng, i18next.resolvedLanguage);
   const i18nextInstance = await initI18next(lng as Locale, ns);
 
   return {

@@ -1,16 +1,14 @@
-import { ProfileMenuItem } from '@/components/molecules';
 import React, { Fragment } from 'react';
 import settingIcon from '@/images/icons/setting-2.svg?url';
 import userIcon from '@/images/icons/user.svg?url';
 import keyIcon from '@/images/icons/key.svg?url';
 import cameraIcon from '@/images/icons/camera.svg?url';
-
 import menuIcon from '@/images/icons/menu.svg?url';
 import infoCircleIcon from '@/images/icons/info-circle.svg?url';
 import flashIcon from '@/images/icons/flash.svg?url';
 import likeIcon from '@/images/icons/like.svg?url';
 import logoutIcon from '@/images/icons/logout.svg?url';
-import getLink from '@/libs/route/getLink';
+import ProfileMenuItem from '@/components/molecules/profile/ProfileMenuItem';
 
 // FIXME: 별도 파일로 빼야함. href ROUTE로 설정
 const profileMenus = [
@@ -56,7 +54,7 @@ const ProfileMenuList = () => {
               key={menu.id}
               iconSrc={menu.icon}
               text={menu.text}
-              href={getLink(menu.href)}
+              href={menu.href}
             />
           ))}
         </div>

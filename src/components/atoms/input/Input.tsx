@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Button } from '@/components/atoms';
+import Button from '../button/Button';
 
 const Input = () => {
   const [toDo, setToDo] = useState('');

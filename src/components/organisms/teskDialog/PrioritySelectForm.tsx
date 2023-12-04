@@ -1,8 +1,9 @@
-import { Button } from '@/components/atoms';
 import React from 'react';
 import FlagIcon from '@/images/icons/flag.svg';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
-import { PrioritySelectFormProps, usePrioritySelectForm } from './data';
+import Button from '@/components/atoms/button/Button';
+import { usePrioritySelectForm } from './PrioritySelectForm.hook';
+import { PrioritySelectFormProps } from './taskDialog.types';
 
 const PrioritySelectForm = ({
   priority,

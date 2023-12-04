@@ -1,8 +1,9 @@
-import { Button } from '@/components/atoms';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
 import Flicking, { ViewportSlot } from '@egjs/react-flicking';
 import React from 'react';
-import { TimePickerFormProps, useTimePickerForm } from './data';
+import Button from '@/components/atoms/button/Button';
+import { useTimePickerForm } from './TimePickerForm.hook';
+import { TimePickerFormProps } from './taskDialog.types';
 
 const TimePickerForm = ({
   taskTime,

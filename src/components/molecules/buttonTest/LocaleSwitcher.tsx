@@ -2,8 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/atoms';
 import { i18nLangOptions } from '@/libs/i18n';
+import Button from '@/components/atoms/button/Button';
 
 export default function LocaleSwitcher() {
   const pathName = usePathname();

@@ -1,8 +1,8 @@
 'use client';
-
-import { Button, InputText } from '@/components/atoms';
 import React from 'react';
 import useLoginForm from './LoginForm.hook';
+import InputText from '@/components/atoms/inputText/InputText';
+import Button from '@/components/atoms/button/Button';
 
 const LoginForm = () => {
   const { t, handleSubmit, handleSubmitSuccess, handleSubmitError, register } =

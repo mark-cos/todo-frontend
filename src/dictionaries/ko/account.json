@@ -1,5 +1,6 @@
 {
-  "title": "로그인",
+  "title_login": "로그인",
+  "title_register": "회원가입",
   "input": {
     "email": {
       "label": "이메일",
@@ -29,5 +30,8 @@
     "register": "등록",
     "login_google": "구글계정으로 로그인",
     "login_apple": "애플계정으로 로그인"
-  }
+  },
+
+  "dont_account": "계정이 없나요?",
+  "already_account": "이미 계정이 있나요?"
 }

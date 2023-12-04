@@ -1,4 +1,4 @@
-import { Button } from '@/components/atoms';
+import Button from '@/components/atoms/button/Button';
 import { User } from '@/types/user/user.typs';
 import Image from 'next/image';
 import React from 'react';
@@ -31,10 +31,10 @@ const ProfileUserInfo = ({ user, taskStatus }: ProfileUserInfoProps) => {
       <div className={'flex-auto'}>
         <div className="flex justify-center">
           <div className="basis-52 px-4">
-            <Button className="bg-dark w-full py-4">{taskStatus.left} Task left</Button>
+            <Button className="w-full bg-dark py-4">{taskStatus.left} Task left</Button>
           </div>
           <div className="basis-52 px-4">
-            <Button className="bg-dark w-full py-4">{taskStatus.done} Task done</Button>
+            <Button className="w-full bg-dark py-4">{taskStatus.done} Task done</Button>
           </div>
         </div>
       </div>

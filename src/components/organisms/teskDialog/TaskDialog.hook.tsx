@@ -8,7 +8,7 @@ import {
 } from '@/types/task/task.type';
 import React, { useCallback } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
-import { defaultAddTask } from '.';
+import { defaultAddTask } from '@/components/organisms/teskDialog/data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import taskSlice from '@/libs/redux/slices/taskSlice';
 
