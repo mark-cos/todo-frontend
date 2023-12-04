@@ -1,3 +1,4 @@
+'use client';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
