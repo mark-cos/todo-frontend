@@ -8,6 +8,9 @@ const ProfilePageTempl = () => {
     email: 'dev@google.com',
     name: 'Martha Hays',
     avatarUrl: '/images/Mask group.png',
+    font: '',
+    language: 'en',
+    theme: 'dark',
   };
 
   const taskStatus = {

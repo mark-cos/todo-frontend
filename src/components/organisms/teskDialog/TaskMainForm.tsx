@@ -28,7 +28,7 @@ const TaskMainForm = ({
           placeholder="Title"
           className="mb-2"
           name="title"
-          inputRef={titleRef}
+          ref={titleRef}
           onBlur={(e) => handleSetFormValue('title', e.currentTarget.value)}
         />
 
@@ -36,7 +36,7 @@ const TaskMainForm = ({
           placeholder="description"
           className="mb-2"
           name="description"
-          inputRef={descriptionRef}
+          ref={descriptionRef}
           onBlur={(e) => handleSetFormValue('description', e.currentTarget.value)}
         />
       </div>

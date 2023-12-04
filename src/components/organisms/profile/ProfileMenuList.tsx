@@ -10,7 +10,9 @@ import infoCircleIcon from '@/images/icons/info-circle.svg?url';
 import flashIcon from '@/images/icons/flash.svg?url';
 import likeIcon from '@/images/icons/like.svg?url';
 import logoutIcon from '@/images/icons/logout.svg?url';
+import getLink from '@/libs/route/getLink';
 
+// FIXME: 별도 파일로 빼야함. href ROUTE로 설정
 const profileMenus = [
   {
     title: 'Settings',
@@ -54,7 +56,7 @@ const ProfileMenuList = () => {
               key={menu.id}
               iconSrc={menu.icon}
               text={menu.text}
-              href={menu.href}
+              href={getLink(menu.href)}
             />
           ))}
         </div>

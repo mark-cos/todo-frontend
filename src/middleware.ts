@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
-import { i18n } from './libs/i18n';
+import { i18nLangOptions } from './libs/i18n';
+import { cookies } from 'next/headers';
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -10,7 +10,7 @@ function getLocale(request: NextRequest): string | undefined {
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
   // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales;
+  const locales: string[] = i18nLangOptions.locales;
 
   // Use negotiator and intl-localematcher to get best locale
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales);
@@ -36,20 +36,42 @@ export function middleware(request: NextRequest) {
   //   return
 
   // Check if there is any supported locale in the pathname
-  const pathnameIsMissingLocale = i18n.locales.every(
+  const pathnameIsMissingLocale = i18nLangOptions.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
+  const requestHeaders = new Headers(request.headers);
+  console.log('pathname', pathname);
+  requestHeaders.set('x-pathname', pathname);
+
+  let response;
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
-    return NextResponse.redirect(
+    response = NextResponse.redirect(
       new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, request.url),
+      {
+        headers: requestHeaders,
+      },
     );
+  } else {
+    response = NextResponse.next({
+      request: {
+        // New request headers
+        headers: requestHeaders,
+      },
+    });
   }
+
+  const lng = pathnameIsMissingLocale
+    ? 'en'
+    : (pathname.match(/([^\/]+)/g) || [])[0] || '';
+
+  if (response.cookies.get('lng')?.value !== lng) response.cookies.set('lng', lng);
+  return response;
 }
 
 export const config = {

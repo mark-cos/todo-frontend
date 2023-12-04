@@ -63,7 +63,7 @@ const Dialog = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Modal.Panel className="w-full transform overflow-hidden rounded-2xl bg-secondary p-6 text-left align-middle shadow-xl transition-all md:max-w-md">
+              <Modal.Panel className="bg-dark w-full transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all md:max-w-md">
                 {title?.label && (
                   <Modal.Title
                     as="h3"

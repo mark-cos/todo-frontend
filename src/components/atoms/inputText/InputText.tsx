@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 
 type InputTextProps = React.HtmlHTMLAttributes<HTMLInputElement> & {
   name: string;
   value?: string;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  type?: string;
 };
 
-const InputText = ({ name, value, inputRef, ...porps }: InputTextProps) => {
-  return (
-    <input
-      ref={inputRef}
-      value={value}
-      name={name}
-      {...porps}
-      className={`w-full border border-secondary bg-transparent p-2 outline-0 hover:border-[#979797] focus:border-[#979797] ${porps.className}`}
-    ></input>
-  );
-};
-
+const InputText = React.forwardRef(
+  (
+    { name, value, type = 'text', ...porps }: InputTextProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
+    return (
+      <input
+        ref={ref}
+        value={value}
+        name={name}
+        type={type}
+        {...porps}
+        className={`border-dark w-full border bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary ${porps.className}`}
+      />
+    );
+  },
+);
+InputText.displayName = 'InputText';
 export default InputText;
