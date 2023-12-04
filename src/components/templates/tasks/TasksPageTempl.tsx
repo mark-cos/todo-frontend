@@ -1,5 +1,4 @@
-import { TodayTaskNone } from '@/components/molecules';
-import { TaskDialog } from '@/components/organisms';
+import TodayTaskNone from '@/components/molecules/todayTaskNone/TodayTaskNone';
 import React, { ReactNode } from 'react';
 
 type TasksPageTemplProps = {
