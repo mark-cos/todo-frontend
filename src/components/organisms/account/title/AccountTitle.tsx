@@ -1,12 +1,11 @@
-'use client';
-import { usePathname } from 'next/navigation';
 import React from 'react';
+import useAccountTitle from './AccountTitle.hook';
 
 const AccountTitle = () => {
-  const isLoginPage = usePathname().includes('/login');
+  const { isLoginPage, t } = useAccountTitle();
   return (
     <div className="mb-16 mt-11 flex-grow text-2xl font-bold">
-      {isLoginPage ? 'Login' : 'Register'}
+      {isLoginPage ? t('title_login') : t('title_register')}
     </div>
   );
 };

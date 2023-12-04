@@ -1,5 +1,6 @@
 {
-  "title": "Login",
+  "title_login": "Login",
+  "title_register": "Register",
   "input": {
     "email": {
       "label": "Email",

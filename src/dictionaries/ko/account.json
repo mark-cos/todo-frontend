@@ -1,5 +1,6 @@
 {
-  "title": "로그인",
+  "title_login": "로그인",
+  "title_register": "회원가입",
   "input": {
     "email": {
       "label": "이메일",

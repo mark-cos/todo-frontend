@@ -1,14 +1,11 @@
 'use client';
 import React from 'react';
-import { usePathname, useRouter } from 'next/navigation';
 import ROUTE from '@/libs/route';
-import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import Button from '@/components/atoms/button/Button';
+import useBottomLink from './BottomLink.hook';
 
 const BottomLink = () => {
-  const isLoginPage = usePathname().includes('/login');
-  const router = useRouter();
-  const { t } = useClientTranslation('account');
+  const { t, isLoginPage, router } = useBottomLink();
   return isLoginPage ? (
     <div className="text-center text-xs">
       <span className="text-secondary">{t('dont_account')}</span>{' '}
