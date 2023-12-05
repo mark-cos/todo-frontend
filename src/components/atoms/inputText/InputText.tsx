@@ -1,10 +1,5 @@
 import React, { ForwardedRef, forwardRef } from 'react';
-
-type InputTextProps = React.HtmlHTMLAttributes<HTMLInputElement> & {
-  name: string;
-  value?: string;
-  type?: string;
-};
+import { InputTextProps } from './inputText.types';
 
 const InputText = React.forwardRef(
   (
@@ -18,7 +13,9 @@ const InputText = React.forwardRef(
         name={name}
         type={type}
         {...porps}
-        className={`border-dark w-full border bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary ${porps.className}`}
+        className={`w-full rounded border border-dark bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary ${
+          porps.className || ''
+        }`}
       />
     );
   },
