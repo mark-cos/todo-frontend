@@ -7,7 +7,7 @@ import TaskCategoryIcon from '../taskCategoryIcon/TaskCategoryIcon';
 
 const TaskItem = ({ task }: TaskItemProps) => {
   return (
-    <div className="flex items-center gap-x-4 rounded bg-dark p-2">
+    <div className="flex items-center gap-x-4 rounded border border-dark bg-dark p-2">
       <div className="flex-none">
         <Image src={ellipseIcon} alt="ellipse" />
       </div>

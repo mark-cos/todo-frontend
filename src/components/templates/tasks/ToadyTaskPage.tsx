@@ -1,5 +1,6 @@
 import IconInputText from '@/components/molecules/iconInputText/IconInputText';
 import TaskItem from '@/components/molecules/taskItem/TaskItem';
+import TaskList from '@/components/organisms/taskList/TaskList';
 import searchIcon from '@/images/icons/search-normal.svg?url';
 import React from 'react';
 
@@ -23,13 +24,13 @@ const ToadyTaskPage = () => {
     <div className="flex flex-col">
       <div className="flex-none">
         <IconInputText
-          iconSrc={searchIcon}
+          iconsrc={searchIcon}
           alt="searchIcon"
           placeholder="Search for your task..."
         />
       </div>
       <div>
-        <TaskItem task={task} />
+        <TaskList />
       </div>
     </div>
   );
