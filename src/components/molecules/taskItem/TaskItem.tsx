@@ -17,8 +17,8 @@ const TaskItem = ({ task }: TaskItemProps) => {
         <div className="flex flex-none gap-x-3">
           <TaskCategoryIcon category={task.category} />
           {/* 중요도 */}
-          <div className="flex items-center gap-x-2 rounded border border-primary px-2 py-1">
-            <FlagIcon className="font-light" />
+          <div className="flex h-6 items-center gap-x-2 rounded border border-primary px-2 py-1">
+            <FlagIcon className="h-5 font-light" />
             <div> {task.priority}</div>
           </div>
         </div>

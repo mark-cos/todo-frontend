@@ -1,31 +1,23 @@
 'use client';
-import { StrictModeDroppable } from '@/components/molecules/strictModeDroppable/StrictModeDroppable';
-import React from 'react';
 
-import { DragDropContext, Draggable } from 'react-beautiful-dnd';
+import React from 'react';
 import useTaskList from './TaskList.hook';
 import TaskItem from '@/components/molecules/taskItem/TaskItem';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 
 function TaskList() {
-  const { columns, onDragEnd, getStyle } = useTaskList();
+  const { columns, onDragEnd, getStyle, getTitle } = useTaskList();
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          height: '100%',
-        }}
-      >
+      <div className="flex h-full flex-col justify-center gap-y-4">
         <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
           {Object.entries(columns).map(([columnId, column]) => {
             return (
               <div className="flex flex-col" key={columnId}>
-                <h2>{column.name}</h2>
-                <div style={{ margin: 8 }}>
-                  <StrictModeDroppable droppableId={columnId} key={columnId}>
+                <h2>{getTitle(column.name)}</h2>
+                <div>
+                  <Droppable droppableId={columnId} key={columnId}>
                     {(provided, snapshot) => {
                       return (
                         <div
@@ -70,7 +62,7 @@ function TaskList() {
                         </div>
                       );
                     }}
-                  </StrictModeDroppable>
+                  </Droppable>
                 </div>
               </div>
             );
