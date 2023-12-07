@@ -2,10 +2,11 @@
   "searchInput": {
     "placeholder": "당신의 할일을 검색하세요."
   },
-  "todoList": {
-    "title": {
-      "todo": "할일",
-      "complete": "완료"
+  "select": {
+    "period": {
+      "today": "일",
+      "week": "주",
+      "month": "월"
     }
   }
 }

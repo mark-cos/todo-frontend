@@ -2,10 +2,11 @@
   "searchInput": {
     "placeholder": "Search for your task..."
   },
-  "todoList": {
-    "title": {
-      "todo": "Todo",
-      "complete": "Complete"
+  "select": {
+    "period": {
+      "today": "Today",
+      "week": "Week",
+      "month": "Month"
     }
   }
 }
