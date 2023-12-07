@@ -1,6 +1,6 @@
 import React from 'react';
 import { TaskItemProps } from './taskItem.types';
-import ellipseIcon from '@/images/icons/Ellipse.svg?url';
+import CheckIcon from '@/images/icons/check.svg';
 import FlagIcon from '@/images/icons/flag.svg';
 import Image from 'next/image';
 import TaskCategoryIcon from '../taskCategoryIcon/TaskCategoryIcon';
@@ -8,8 +8,10 @@ import TaskCategoryIcon from '../taskCategoryIcon/TaskCategoryIcon';
 const TaskItem = ({ task }: TaskItemProps) => {
   return (
     <div className="flex items-center gap-x-4 rounded border border-dark bg-dark p-2">
-      <div className="flex-none">
-        <Image src={ellipseIcon} alt="ellipse" />
+      <div className="group flex-none cursor-pointer">
+        <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-600 group-hover:border-white/70">
+          <CheckIcon className={'h-4 w-4 text-gray-600 group-hover:text-emerald-700'} />
+        </div>
       </div>
       <div className="flex flex-col gap-y-1">
         <div className="flex-none">{task.title}</div>

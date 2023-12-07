@@ -7,6 +7,11 @@
       "today": "Today",
       "week": "Week",
       "month": "Month"
+    },
+    "filter": {
+      "all": "All",
+      "task": "Task",
+      "done": "Done"
     }
   }
 }

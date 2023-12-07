@@ -3,6 +3,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import ChevronUpDownIcon from '@/images/icons/chevron-upDown.svg';
 import ChevronDownIcon from '@/images/icons/chevron-down.svg';
 import { SelectProps } from './select.types';
+import useSelect from './Select.hook';
 
 export default function Select({
   options,
@@ -10,7 +11,7 @@ export default function Select({
   onChange,
   className = '',
 }: SelectProps) {
-  const selectedOption = options.find((option) => option.value === select);
+  const { selectedOption } = useSelect(options, select);
   return (
     <div className={className}>
       <Listbox value={select} onChange={onChange}>
@@ -33,7 +34,7 @@ export default function Select({
                   key={option.id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 text-white ${
-                      active ? 'bg-black' : ''
+                      active ? 'bg-secondary' : ''
                     }`
                   }
                   value={option.value}
