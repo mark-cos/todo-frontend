@@ -6,9 +6,10 @@ import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 const TaskSearchInput = () => {
   const { t } = useClientTranslation('task');
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const handleSearchTask = () => {
+  const handleSearchTask = (e: KeyboardEvent) => {
     //TODO: 서버통신 구현 필요
-    console.log(searchInputRef.current?.value);
+    if (e.nativeEvent.isComposing) return;
+    if (e.key === 'Enter') console.log(searchInputRef.current?.value);
   };
   return (
     <IconInputText
@@ -16,9 +17,7 @@ const TaskSearchInput = () => {
       alt="searchIcon"
       placeholder={t('searchInput.placeholder')}
       inputRef={searchInputRef}
-      onKeyDown={(e: KeyboardEvent) => {
-        if (e.key === 'Enter') handleSearchTask();
-      }}
+      onKeyDown={handleSearchTask}
     />
   );
 };
