@@ -1,0 +1,17 @@
+{
+  "searchInput": {
+    "placeholder": "Search for your task..."
+  },
+  "select": {
+    "period": {
+      "today": "Today",
+      "week": "Week",
+      "month": "Month"
+    },
+    "filter": {
+      "all": "All",
+      "task": "Task",
+      "done": "Done"
+    }
+  }
+}
