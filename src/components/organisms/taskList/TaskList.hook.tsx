@@ -1,7 +1,7 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getTaskList } from '@/service/task';
+import { getTaskList } from '@/services/task';
 
 const useTaskList = () => {
   const { data: resTasks } = useQuery({
