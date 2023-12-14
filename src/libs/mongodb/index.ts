@@ -9,20 +9,21 @@ const createClient = () =>
       deprecationErrors: true,
     },
   });
-
 let client: MongoClient | null = null;
+
 export const connDB = async <T extends Object>(
   collectionName: string,
   dbName = 'todos',
 ) => {
-  if (!client) client = await createClient();
-  const db = await client.db(dbName);
+  const client = await global._mongoClientPromise;
+  const db = client.db(dbName);
   const collection = await db.collection<T>(collectionName);
   return collection;
 };
 
 declare module global {
   let _mongoClientPromise: Promise<MongoClient>;
+  let client: MongoClient;
 }
 
 let clientPromise: Promise<MongoClient>;
@@ -30,13 +31,13 @@ if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!global._mongoClientPromise) {
-    client = new MongoClient(url);
+    client = createClient();
     global._mongoClientPromise = client.connect();
   }
   clientPromise = global._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(url);
+  client = createClient();
   clientPromise = client.connect();
 }
 
