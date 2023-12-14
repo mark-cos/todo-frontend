@@ -33,5 +33,7 @@
   },
 
   "dont_account": "Don’t have an account?",
-  "already_account": "Already have an account?"
+  "already_account": "Already have an account?",
+  "api_error_unauthorized": "Please check your email or password.",
+  "api_error_default": "An error occurred while logging in."
 }
