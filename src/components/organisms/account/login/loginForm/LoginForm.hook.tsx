@@ -2,11 +2,14 @@ import { Login, loginSchema } from '@/types/user/user.typs';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FieldErrors } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { login } from './loginForm.api';
+import { signIn } from 'next-auth/react';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
+import { useRouter } from 'next/navigation';
+import ROUTE from '@/libs/route';
 
 const useLoginForm = () => {
   const { t } = useClientTranslation('account');
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -15,9 +18,15 @@ const useLoginForm = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const handleSubmitSuccess = (loginInfo: Login) => {
-    console.log(loginInfo);
-    login(loginInfo);
+  const handleSubmitSuccess = async (loginInfo: Login) => {
+    const resSignIn = await signIn('credentials', { ...loginInfo, redirect: false });
+    if (resSignIn?.ok) {
+      router.push(ROUTE.MAIN.path);
+    } else {
+      toast.error(
+        resSignIn?.status === 401 ? t('api_error_unauthorized') : t('api_error_default'),
+      );
+    }
   };
 
   const handleSubmitError = (e: FieldErrors<Login>) => {

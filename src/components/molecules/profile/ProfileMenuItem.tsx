@@ -12,7 +12,6 @@ export type ProfileMenuItemProps = {
 const ProfileMenuItem = ({ iconSrc, text, href }: ProfileMenuItemProps) => {
   return (
     <Link href={href}>
-      {/* FIXME: Log out 다국어 고려 필요 */}
       <div
         className={`mb-6 flex w-full justify-between ${
           text === 'Log out' ? 'text-red-500' : ''
