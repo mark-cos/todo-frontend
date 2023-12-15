@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { IUser, IUserInfo } from '../../types/auth';
 import bcrypt from 'bcrypt';
-import ROUTE from '@/libs/route';
 
 export const authOptions: AuthOptions = {
   providers: [

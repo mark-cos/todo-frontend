@@ -11,8 +11,10 @@ import { FieldErrors, useForm } from 'react-hook-form';
 import { defaultAddTask } from '@/components/organisms/teskDialog/data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import taskSlice from '@/libs/redux/slices/taskSlice';
+import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 
 export const useTaskDialog = (task?: Task) => {
+  const { t } = useClientTranslation('taskDialog');
   const isNewTask = !!task;
   const { taskFormStep, isShowModal } = useSelector((state) => state.task);
   const dispatch = useDispatch();
@@ -53,6 +55,10 @@ export const useTaskDialog = (task?: Task) => {
       }
       case TASK_FORM_STEP.CATEGORY: {
         title.label = 'Choose Category';
+        break;
+      }
+      case TASK_FORM_STEP.CREATE_CATEGORY: {
+        title.label = t('category_create.title');
         break;
       }
       case TASK_FORM_STEP.PRIORITY: {

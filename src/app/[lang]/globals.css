@@ -26,3 +26,17 @@ body {
 .btn-outlined {
   @apply box-border h-12 rounded-[4px] border-2 border-primary bg-white px-4 py-1 text-black dark:bg-black dark:text-white;
 }
+
+.EmojiPickerReact .epr-preview {
+  display: none !important;
+}
+
+.EmojiPickerReact .epr-hidden-on-search {
+  display: none !important;
+}
+
+/* @media not all and (min-width: 640px) {
+  .EmojiPickerReact .epr-emoji-category-label {
+    display: none !important;
+  }
+} */
