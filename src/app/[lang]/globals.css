@@ -35,8 +35,19 @@ body {
   display: none !important;
 }
 
-/* @media not all and (min-width: 640px) {
-  .EmojiPickerReact .epr-emoji-category-label {
-    display: none !important;
-  }
-} */
+/* 스크롤바의 폭 너비 */
+*::-webkit-scrollbar {
+  @apply w-2;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-md border bg-secondary;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-secondary/20;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  @apply hidden;
+}
