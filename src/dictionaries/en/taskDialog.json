@@ -1,0 +1,16 @@
+{
+  "button": {
+    "create_new": "Create New",
+    "save": "Save",
+    "cancle": "Cancle"
+  },
+
+  "category_create": {
+    "title": "Create new category",
+    "category_name": "Category name : ",
+    "category_name_placeholder": "Please enter a new category name.",
+    "category_icon_placeholder": "Category icon",
+    "category_color": "Category color : ",
+    "emoji_search_placeholder": "Only English is searched."
+  }
+}

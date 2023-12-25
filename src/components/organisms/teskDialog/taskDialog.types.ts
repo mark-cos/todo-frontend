@@ -31,6 +31,10 @@ export type CategorySelectFormProps = {
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
 };
 
+export type CategoryCreateFormProps = {
+  handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+};
+
 export type PrioritySelectFormProps = {
   priority: number;
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;

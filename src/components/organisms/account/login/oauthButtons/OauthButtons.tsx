@@ -13,7 +13,7 @@ const OauthButtons = () => {
       <Button
         variant="outlined"
         className="flex w-full items-center justify-center"
-        onClick={() => signIn('google', { callbackUrl: ROUTE.MAIN.path })}
+        onClick={() => signIn('google', { callbackUrl: ROUTE.MAIN.path, redirect: true })}
       >
         <GoogleIcon /> <p className="ml-2">{t('button.login_google')}</p>
       </Button>

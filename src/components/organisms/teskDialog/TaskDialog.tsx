@@ -9,6 +9,7 @@ import { TaskDialogProps } from './taskDialog.types';
 import TaskMainForm from './TaskMainForm';
 import Dialog from '@/components/atoms/dialog/Dialog';
 import { useTaskDialog } from './TaskDialog.hook';
+import CategoryCreateForm from './CategoryCreateForm';
 
 const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
   const {
@@ -64,6 +65,9 @@ const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
           />
         )}
       </form>
+      {taskFormStep === TASK_FORM_STEP.CREATE_CATEGORY && (
+        <CategoryCreateForm handleSetTaskFormStep={handleSetTaskFormStep} />
+      )}
     </Dialog>
   );
 };

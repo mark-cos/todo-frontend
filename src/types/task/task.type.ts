@@ -8,6 +8,9 @@ export const categorySchema = object({
 });
 export type Category = InferType<typeof categorySchema>;
 
+export const categoryAddSchema = categorySchema.omit(['id']);
+export type CategoryAdd = InferType<typeof categoryAddSchema>;
+
 export const taskSchema = object({
   id: number().required(),
   title: string().required('title is 필수').min(4).max(20),
@@ -28,4 +31,5 @@ export enum TASK_FORM_STEP {
   TIME,
   CATEGORY,
   PRIORITY,
+  CREATE_CATEGORY,
 }

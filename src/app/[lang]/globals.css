@@ -26,3 +26,28 @@ body {
 .btn-outlined {
   @apply box-border h-12 rounded-[4px] border-2 border-primary bg-white px-4 py-1 text-black dark:bg-black dark:text-white;
 }
+
+.EmojiPickerReact .epr-preview {
+  display: none !important;
+}
+
+.EmojiPickerReact .epr-hidden-on-search {
+  display: none !important;
+}
+
+/* 스크롤바의 폭 너비 */
+*::-webkit-scrollbar {
+  @apply w-2;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-md border bg-secondary;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-secondary/20;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  @apply hidden;
+}

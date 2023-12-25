@@ -4,14 +4,20 @@ import { categories } from './data';
 import Button from '@/components/atoms/button/Button';
 import { useCategorySelectForm } from './CategorySelectForm.hook';
 import { CategorySelectFormProps } from './taskDialog.types';
+import AddIcon from '@/images/icons/add.svg';
 
 const CategorySelectForm = ({
   category,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: CategorySelectFormProps) => {
-  const { handleSelectedCategory, selectedCategory, handleSaveCategory } =
-    useCategorySelectForm(category, handleSetFormValue, handleSetTaskFormStep);
+  const {
+    t,
+    handleSelectedCategory,
+    selectedCategory,
+    handleSaveCategory,
+    handleCreateCategory,
+  } = useCategorySelectForm(category, handleSetFormValue, handleSetTaskFormStep);
 
   return (
     <div className="flex flex-col">
@@ -21,7 +27,9 @@ const CategorySelectForm = ({
             <button key={category.id} onClick={() => handleSelectedCategory(category)}>
               <div
                 className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${category.color} ${
-                  category.id === selectedCategory?.id ? `border-4 border-primary` : ''
+                  category.id === selectedCategory?.id
+                    ? `border-[3px] border-primary`
+                    : ''
                 }`}
               >
                 <div className="flex h-full items-center justify-center p-1.5">
@@ -31,6 +39,19 @@ const CategorySelectForm = ({
               <div className="mt-2 text-sm">{category.name}</div>
             </button>
           ))}
+          {/* category add button*/}
+          <button onClick={() => handleCreateCategory()}>
+            <div
+              className={`mx-auto h-16 w-16 basis-1/4 rounded-md border-[3px] border-white/25`}
+            >
+              <div className="flex h-full items-center justify-center p-1.5">
+                <div className="flex-none text-2xl">
+                  <AddIcon />
+                </div>
+              </div>
+            </div>
+            <div className="mt-2 text-sm">{t('button.create_new')}</div>
+          </button>
         </div>
       </div>
       <div className="flex">
