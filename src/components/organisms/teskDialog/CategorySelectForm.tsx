@@ -1,10 +1,11 @@
 import React from 'react';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
-import { categories } from './data';
 import Button from '@/components/atoms/button/Button';
 import { useCategorySelectForm } from './CategorySelectForm.hook';
 import { CategorySelectFormProps } from './taskDialog.types';
 import AddIcon from '@/images/icons/add.svg';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const CategorySelectForm = ({
   category,
@@ -13,6 +14,7 @@ const CategorySelectForm = ({
 }: CategorySelectFormProps) => {
   const {
     t,
+    categories,
     handleSelectedCategory,
     selectedCategory,
     handleSaveCategory,
@@ -23,17 +25,19 @@ const CategorySelectForm = ({
     <div className="flex flex-col">
       <div className="my-5 flex-auto">
         <div className="grid grid-cols-4 items-center justify-center gap-y-4 text-center">
-          {categories.map((category) => (
-            <button key={category.id} onClick={() => handleSelectedCategory(category)}>
+          {(categories || []).map((category) => (
+            <button key={category._id} onClick={() => handleSelectedCategory(category)}>
               <div
                 className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${category.color} ${
-                  category.id === selectedCategory?.id
+                  category._id === selectedCategory?._id
                     ? `border-[3px] border-primary`
                     : ''
                 }`}
               >
                 <div className="flex h-full items-center justify-center p-1.5">
-                  <div className="flex-none text-2xl">{category.icon}</div>
+                  <div className="flex-none">
+                    <Image src={category.icon} alt="icon" width={42} height={42} />
+                  </div>
                 </div>
               </div>
               <div className="mt-2 text-sm">{category.name}</div>

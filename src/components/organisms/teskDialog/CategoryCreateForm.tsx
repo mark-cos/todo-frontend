@@ -11,8 +11,6 @@ import Image from 'next/image';
 const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) => {
   const {
     t,
-    nameInputRef,
-    handleSaveCategory,
     handleClickEmoji,
     categoryPreview,
     handleSetColor,

@@ -1,15 +1,19 @@
 import { connDB } from '@/libs/mongodb';
 import { ApiErrorResponse } from '@/types/http/http.type';
-import { CategoryAdd } from '@/types/task/task.type';
 import { getServerSession } from 'next-auth';
+import { ICategory, ICategoryAdd } from '../types/category';
 
 export async function POST(request: Request) {
   const seesion = await getServerSession();
   if (!seesion?.user?.email) return;
-  let newCategory = (await request.json()) as CategoryAdd & { email: string };
+  let newCategory = (await request.json()) as ICategoryAdd;
 
-  newCategory.email = seesion?.user?.email;
-  const collection = await connDB<CategoryAdd>('category');
+  newCategory = {
+    ...newCategory,
+    email: seesion?.user?.email,
+    careatedBy: new Date(),
+  };
+  const collection = await connDB<ICategoryAdd>('category');
   const result = await collection.insertOne({
     ...newCategory,
   });
@@ -23,6 +27,23 @@ export async function POST(request: Request) {
       status: 400,
     });
   }
+
+  return Response.json(result, {
+    status: 200,
+  });
+}
+
+export async function GET(request: Request) {
+  const seesion = await getServerSession();
+  if (!seesion?.user?.email) return;
+
+  const collection = await connDB<ICategory>('category');
+  const result = await collection
+    .find({
+      email: seesion?.user?.email,
+    })
+    .sort('careatedBy', -1)
+    .toArray();
 
   return Response.json(result, {
     status: 200,

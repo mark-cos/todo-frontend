@@ -19,7 +19,7 @@ const initialState: TaskSliceState = {
     taskDate: format(new Date(), 'yyyy-MM-dd'),
     taskTime: '00:00:00',
     category: {
-      id: 0,
+      _id: 0,
       name: '',
       color: '',
       icon: '',
