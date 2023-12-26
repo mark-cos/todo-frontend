@@ -1,6 +1,8 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
+import { postCategory } from '@/services/category';
 import { CategoryAdd, TASK_FORM_STEP, categoryAddSchema } from '@/types/task/task.type';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EmojiClickData } from 'emoji-picker-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
@@ -22,13 +24,7 @@ const useCategoryCreateForm = (
     setCategoryPreview((prev) => ({ ...prev, color }));
   };
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-    watch,
-  } = useForm({
+  const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       name: '',
       color: '',
@@ -54,14 +50,20 @@ const useCategoryCreateForm = (
     }
   };
 
+  const mutation = useMutation({
+    mutationFn: postCategory,
+    onSuccess: () => {},
+  });
+
   const handleSubmitSuccess = (newCategory: CategoryAdd) => {
-    console.log(newCategory);
+    mutation.mutate(newCategory);
   };
 
-  const handleClickEmoji = (emoji: EmojiClickData, event: MouseEvent) => {
+  const handleClickEmoji = (emoji: EmojiClickData) => {
     setCategoryPreview((prev) => ({ ...prev, icon: emoji.imageUrl }));
     setValue('icon', emoji.imageUrl);
   };
+
   return {
     t,
     nameInputRef,
