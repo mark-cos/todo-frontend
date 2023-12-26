@@ -1,10 +1,11 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
+import { rqKey } from '@/libs/react-query';
 import { postCategory } from '@/services/category';
 import { CategoryAdd, TASK_FORM_STEP, categoryAddSchema } from '@/types/task/task.type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EmojiClickData } from 'emoji-picker-react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -12,7 +13,7 @@ const useCategoryCreateForm = (
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
 ) => {
   const { t } = useClientTranslation('taskDialog');
-  const nameInputRef = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
   const [categoryPreview, setCategoryPreview] = useState<CategoryAdd>({
     color: '',
     icon: '',
@@ -39,10 +40,6 @@ const useCategoryCreateForm = (
     setCategoryPreview((prev) => ({ ...prev, name: watchName }));
   }, [watchName]);
 
-  const handleSaveCategory = () => {
-    handleSetTaskFormStep(TASK_FORM_STEP.CATEGORY);
-  };
-
   const handleSubmitError = (e: FieldErrors<CategoryAdd>) => {
     for (const [key, value] of Object.entries(e)) {
       toast.error(t(value.message!));
@@ -52,7 +49,11 @@ const useCategoryCreateForm = (
 
   const mutation = useMutation({
     mutationFn: postCategory,
-    onSuccess: () => {},
+    onSuccess: () => {
+      toast.success('');
+      handleSetTaskFormStep(TASK_FORM_STEP.CATEGORY);
+      queryClient.invalidateQueries({ queryKey: [rqKey.categories] });
+    },
   });
 
   const handleSubmitSuccess = (newCategory: CategoryAdd) => {
@@ -66,8 +67,6 @@ const useCategoryCreateForm = (
 
   return {
     t,
-    nameInputRef,
-    handleSaveCategory,
     handleClickEmoji,
     categoryPreview,
     handleSetColor,

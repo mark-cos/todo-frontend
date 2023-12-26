@@ -1,14 +1,14 @@
 import { InferType, date, number, object, string } from 'yup';
 
 export const categorySchema = object({
-  id: number().required(),
+  _id: number().required(),
   name: string().required(),
   icon: string().required(),
   color: string().required(),
 });
 export type Category = InferType<typeof categorySchema>;
 
-export const categoryAddSchema = categorySchema.omit(['id']);
+export const categoryAddSchema = categorySchema.omit(['_id']);
 export type CategoryAdd = InferType<typeof categoryAddSchema>;
 
 export const taskSchema = object({
