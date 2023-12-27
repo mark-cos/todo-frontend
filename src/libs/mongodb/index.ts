@@ -9,13 +9,13 @@ const createClient = () =>
       deprecationErrors: true,
     },
   });
-let client: MongoClient | null = null;
+export let client: MongoClient | null = null;
 
 export const connDB = async <T extends Object>(
   collectionName: string,
   dbName = 'todos',
 ) => {
-  const client = await global._mongoClientPromise;
+  client = createClient();
   const db = client.db(dbName);
   const collection = await db.collection<T>(collectionName);
   return collection;
