@@ -54,7 +54,7 @@ export const useTaskDialog = (task?: Task) => {
         break;
       }
       case TASK_FORM_STEP.CATEGORY: {
-        title.label = 'Choose Category';
+        title.label = t('category_select.title');
         break;
       }
       case TASK_FORM_STEP.CREATE_CATEGORY: {

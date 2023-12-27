@@ -4,13 +4,25 @@
     "save": "저장",
     "cancle": "취소"
   },
+  "category_select": {
+    "title": "카테고리 선택",
+    "required": "카테고리를 선택 해주세요."
+  },
 
   "category_create": {
     "title": "카테고리 생성",
-    "category_name": "카테고리 명 : ",
-    "category_name_placeholder": "카테고리 명",
-    "category_icon": "카테고리 아이콘 : ",
-    "category_color": "카테고리 색 : ",
-    "emoji_search_placeholder": "검색할 단어를 입력하세요. 영문만 가능"
+    "input": {
+      "name": {
+        "placeholder": "카테고리 명",
+        "required": "카테고리명은 필수입니다."
+      },
+      "color": {
+        "required": "색상을 선택해주세요."
+      },
+      "icon": {
+        "required": "아이콘을 선택해주세요."
+      }
+    },
+    "add_category": "새로운 카테고리 {{categoryName}}이(가) 추가 되었습니다."
   }
 }

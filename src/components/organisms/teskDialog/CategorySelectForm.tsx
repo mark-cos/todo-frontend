@@ -4,7 +4,6 @@ import Button from '@/components/atoms/button/Button';
 import { useCategorySelectForm } from './CategorySelectForm.hook';
 import { CategorySelectFormProps } from './taskDialog.types';
 import AddIcon from '@/images/icons/add.svg';
-import Link from 'next/link';
 import Image from 'next/image';
 
 const CategorySelectForm = ({
@@ -65,7 +64,7 @@ const CategorySelectForm = ({
             className="w-full"
             onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
           >
-            Cancel
+            {t('button.cancle')}
           </Button>
         </div>
         <div className="basis-1/2">
@@ -74,7 +73,7 @@ const CategorySelectForm = ({
             variant="contained"
             onClick={handleSaveCategory}
           >
-            Save
+            {t('button.save')}
           </Button>
         </div>
       </div>

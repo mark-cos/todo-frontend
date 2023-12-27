@@ -1,10 +1,10 @@
 import { InferType, date, number, object, string } from 'yup';
 
 export const categorySchema = object({
-  _id: number().required(),
-  name: string().required(),
-  icon: string().required(),
-  color: string().required(),
+  _id: string().required(),
+  name: string().required('category_create.input.name.required'),
+  icon: string().required('category_create.input.icon.required'),
+  color: string().required('category_create.input.color.required'),
 });
 export type Category = InferType<typeof categorySchema>;
 

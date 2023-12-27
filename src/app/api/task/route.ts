@@ -11,7 +11,7 @@ export async function POST() {
     taskDate: '2023-12-05',
     taskTime: '15:30',
     category: {
-      _id: 1,
+      _id: '',
       name: 'University',
       color: 'bg-red-400',
       icon: '🌈',

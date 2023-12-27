@@ -47,7 +47,7 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
           <div>
             <InputText
               {...register('name')}
-              placeholder={t('category_create.category_name_placeholder')}
+              placeholder={t('category_create.input.name.placeholder')}
               className="mt-5 border-white/25"
             />
           </div>
