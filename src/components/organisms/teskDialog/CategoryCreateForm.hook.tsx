@@ -49,8 +49,8 @@ const useCategoryCreateForm = (
 
   const mutation = useMutation({
     mutationFn: postCategory,
-    onSuccess: () => {
-      toast.success('');
+    onSuccess: ({ data }) => {
+      toast.success(t('category_create.add_category', { categoryName: data.name }));
       handleSetTaskFormStep(TASK_FORM_STEP.CATEGORY);
       queryClient.invalidateQueries({ queryKey: [rqKey.categories] });
     },

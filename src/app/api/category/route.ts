@@ -6,10 +6,10 @@ import { ICategory, ICategoryAdd } from '../types/category';
 export async function POST(request: Request) {
   const seesion = await getServerSession();
   if (!seesion?.user?.email) return;
-  let newCategory = (await request.json()) as ICategoryAdd;
+  const resCategory = (await request.json()) as ICategoryAdd;
 
-  newCategory = {
-    ...newCategory,
+  const newCategory = {
+    ...resCategory,
     email: seesion?.user?.email,
     careatedBy: new Date(),
   };
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     });
   }
 
-  return Response.json(result, {
+  return Response.json(resCategory, {
     status: 200,
   });
 }

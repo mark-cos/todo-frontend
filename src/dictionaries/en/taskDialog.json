@@ -4,13 +4,25 @@
     "save": "Save",
     "cancle": "Cancle"
   },
+  "category_select": {
+    "title": "Choose Category",
+    "required": "Please choose a category."
+  },
 
   "category_create": {
     "title": "Create new category",
-    "category_name": "Category name : ",
-    "category_name_placeholder": "Please enter a new category name.",
-    "category_icon_placeholder": "Category icon",
-    "category_color": "Category color : ",
-    "emoji_search_placeholder": "Only English is searched."
+    "input": {
+      "name": {
+        "placeholder": "Category Name",
+        "required": "Category name is required."
+      },
+      "color": {
+        "required": "Please select a color."
+      },
+      "icon": {
+        "required": "Please select an icon."
+      }
+    },
+    "add_category": "A new category {{categoryName}} has been added."
   }
 }

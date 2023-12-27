@@ -4,6 +4,7 @@ import { getCategories } from '@/services/category';
 import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const useCategorySelectForm = (
   category: Category,
@@ -25,6 +26,10 @@ export const useCategorySelectForm = (
   };
 
   const handleSaveCategory = () => {
+    if (!selectedCategory._id) {
+      toast.error(t('category_select.required'));
+      return;
+    }
     handleSetFormValue('category', selectedCategory);
     handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
