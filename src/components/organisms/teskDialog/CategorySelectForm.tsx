@@ -26,6 +26,7 @@ const CategorySelectForm = ({
         <div className="grid grid-cols-4 items-center justify-center gap-y-4 text-center">
           {(categories || []).map((category) => (
             <button
+              type="button"
               key={category._id}
               onClick={() => handleSelectedCategory(category._id)}
             >
@@ -44,7 +45,7 @@ const CategorySelectForm = ({
             </button>
           ))}
           {/* category add button*/}
-          <button onClick={() => handleCreateCategory()}>
+          <button onClick={() => handleCreateCategory()} type="button">
             <div
               className={`mx-auto h-16 w-16 basis-1/4 rounded-md border-[3px] border-white/25`}
             >

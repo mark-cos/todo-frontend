@@ -86,7 +86,7 @@ export const useTaskDialog = (task?: Task) => {
   );
 
   const handleSetFormValue = (name: keyof AddTask | keyof Task, value: any) => {
-    setValue(name, value, { shouldValidate: false });
+    setValue(name, value);
   };
   return {
     handleSubmit,
