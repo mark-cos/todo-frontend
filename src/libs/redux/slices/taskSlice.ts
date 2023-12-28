@@ -20,9 +20,6 @@ const initialState: TaskSliceState = {
     taskTime: '00:00:00',
     category: {
       _id: '',
-      name: '',
-      color: '',
-      icon: '',
     },
   },
 };

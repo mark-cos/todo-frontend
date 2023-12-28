@@ -7,7 +7,7 @@ import AddIcon from '@/images/icons/add.svg';
 import Image from 'next/image';
 
 const CategorySelectForm = ({
-  category,
+  categoryId,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: CategorySelectFormProps) => {
@@ -15,22 +15,23 @@ const CategorySelectForm = ({
     t,
     categories,
     handleSelectedCategory,
-    selectedCategory,
+    selectedCategoryId,
     handleSaveCategory,
     handleCreateCategory,
-  } = useCategorySelectForm(category, handleSetFormValue, handleSetTaskFormStep);
+  } = useCategorySelectForm(categoryId, handleSetFormValue, handleSetTaskFormStep);
 
   return (
     <div className="flex flex-col">
       <div className="my-5 flex-auto">
         <div className="grid grid-cols-4 items-center justify-center gap-y-4 text-center">
           {(categories || []).map((category) => (
-            <button key={category._id} onClick={() => handleSelectedCategory(category)}>
+            <button
+              key={category._id}
+              onClick={() => handleSelectedCategory(category._id)}
+            >
               <div
                 className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${category.color} ${
-                  category._id === selectedCategory?._id
-                    ? `border-[3px] border-primary`
-                    : ''
+                  category._id === selectedCategoryId ? `border-[3px] border-primary` : ''
                 }`}
               >
                 <div className="flex h-full items-center justify-center p-1.5">

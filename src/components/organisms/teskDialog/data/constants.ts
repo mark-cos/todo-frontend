@@ -6,11 +6,6 @@ export const defaultAddTask: AddTask = {
   description: '',
   taskDate: format(new Date(), 'yyyy-MM-dd'),
   taskTime: '00:00',
-  category: {
-    _id: '',
-    name: '',
-    icon: '',
-    color: '',
-  },
+  categoryId: '',
   priority: 5,
 };

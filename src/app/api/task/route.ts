@@ -5,7 +5,7 @@ export async function POST() {
   const collection = await connDB<Task>('tasks');
   const result = await collection.insertOne({
     title: 'Do Math Homework',
-    id: 1,
+    _id: 1,
     description: 'very hard',
     priority: 5,
     taskDate: '2023-12-05',

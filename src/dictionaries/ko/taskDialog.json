@@ -4,11 +4,24 @@
     "save": "저장",
     "cancle": "취소"
   },
+  "task_main": {
+    "title": "새로운 일정",
+    "input": {
+      "title": {
+        "required": "일정명을 입력해주세요."
+      },
+      "description": {
+        "required": "설명을 입력해주세요."
+      }
+    }
+  },
+  "task_time": {
+    "title": "날짜 선택"
+  },
   "category_select": {
     "title": "카테고리 선택",
     "required": "카테고리를 선택 해주세요."
   },
-
   "category_create": {
     "title": "카테고리 생성",
     "input": {
@@ -24,5 +37,8 @@
       }
     },
     "add_category": "새로운 카테고리 {{categoryName}}이(가) 추가 되었습니다."
+  },
+  "task_priority": {
+    "title": "중요도"
   }
 }

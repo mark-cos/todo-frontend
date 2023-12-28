@@ -52,7 +52,7 @@ const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
         )}
         {taskFormStep === TASK_FORM_STEP.CATEGORY && (
           <CategorySelectForm
-            category={getValues('category')}
+            categoryId={getValues('category._id')}
             handleSetFormValue={handleSetFormValue}
             handleSetTaskFormStep={handleSetTaskFormStep}
           />
