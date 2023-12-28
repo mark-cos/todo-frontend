@@ -11,6 +11,7 @@ const TimePickerForm = ({
   handleSetTaskFormStep,
 }: TimePickerFormProps) => {
   const {
+    t,
     updateTransform,
     handleChangeFlicking,
     handleTimeDefaultValue,
@@ -101,7 +102,7 @@ const TimePickerForm = ({
             className="w-full"
             onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.CALENDAR)}
           >
-            Cancel
+            {t('button.cancel')}
           </Button>
         </div>
         <div className="basis-1/2">
@@ -110,7 +111,7 @@ const TimePickerForm = ({
             variant="contained"
             onClick={handleSaveTime}
           >
-            Save
+            {t('button.save')}
           </Button>
         </div>
       </div>

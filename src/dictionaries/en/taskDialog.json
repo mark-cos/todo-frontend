@@ -2,16 +2,19 @@
   "button": {
     "create_new": "Create New",
     "save": "Save",
-    "cancle": "Cancle"
+    "cancel": "Cancel",
+    "choose_time": "Choose Time"
   },
   "task_main": {
     "title": "New Task",
     "input": {
       "title": {
-        "required": "Please enter the schedule name."
+        "required": "Please enter the schedule name.",
+        "placeholder": "Title"
       },
       "description": {
-        "required": "Please enter the description."
+        "required": "Please enter the description.",
+        "placeholder": "description"
       },
       "priority": {
         "required": "Please enter the priority."

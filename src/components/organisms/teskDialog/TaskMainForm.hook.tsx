@@ -1,3 +1,4 @@
+import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import React, { useEffect, useRef } from 'react';
 
@@ -7,6 +8,7 @@ export const useTaskMainForm = (
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void,
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
 ) => {
+  const { t } = useClientTranslation('taskDialog');
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
 
@@ -22,5 +24,5 @@ export const useTaskMainForm = (
     handleSetTaskFormStep(taskFormStep);
   };
 
-  return { titleRef, descriptionRef, handleOnClickTaskStep };
+  return { t, titleRef, descriptionRef, handleOnClickTaskStep };
 };

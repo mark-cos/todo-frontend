@@ -2,16 +2,19 @@
   "button": {
     "create_new": "생성",
     "save": "저장",
-    "cancle": "취소"
+    "cancel": "취소",
+    "choose_time": "시간 선택"
   },
   "task_main": {
     "title": "새로운 일정",
     "input": {
       "title": {
-        "required": "일정명을 입력해주세요."
+        "required": "일정명을 입력해주세요.",
+        "placeholder": "일정명"
       },
       "description": {
-        "required": "설명을 입력해주세요."
+        "required": "설명을 입력해주세요.",
+        "placeholder": "설명"
       }
     }
   },

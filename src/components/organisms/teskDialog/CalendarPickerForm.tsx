@@ -7,13 +7,14 @@ import { TASK_FORM_STEP } from '@/types/task/task.type';
 import Button from '@/components/atoms/button/Button';
 import { useCalendarPickerForm } from './CalendarPickerForm.hook';
 import { CalendarPickerFormProps } from './taskDialog.types';
+import { enUS, ko } from 'date-fns/locale';
 
 const CalendarPickerForm = ({
   taskDate,
   handleSetFormValue,
   handleSetTaskFormStep,
 }: CalendarPickerFormProps) => {
-  const { selected, onSelect, handleSaveDate } = useCalendarPickerForm(
+  const { t, lng, selected, onSelect, handleSaveDate } = useCalendarPickerForm(
     taskDate,
     handleSetFormValue,
     handleSetTaskFormStep,
@@ -22,6 +23,7 @@ const CalendarPickerForm = ({
     <div className="flex flex-col">
       <div className="flex-auto">
         <DayPicker
+          locale={lng === 'en' ? enUS : ko}
           mode="single"
           selected={selected}
           onSelect={(date) => onSelect(date)}
@@ -36,7 +38,7 @@ const CalendarPickerForm = ({
             className="w-full"
             onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
           >
-            Cancel
+            {t('button.cancel')}
           </Button>
         </div>
         <div className="basis-1/2">
@@ -45,7 +47,7 @@ const CalendarPickerForm = ({
             variant="contained"
             onClick={handleSaveDate}
           >
-            Choose Time
+            {t('button.choose_time')}
           </Button>
         </div>
       </div>

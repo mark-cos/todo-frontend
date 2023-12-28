@@ -104,7 +104,7 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
               className="w-full"
               onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.CATEGORY)}
             >
-              {t('button.cancle')}
+              {t('button.cancel')}
             </Button>
           </div>
           <div className="basis-1/2">

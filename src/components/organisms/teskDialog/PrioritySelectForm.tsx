@@ -11,6 +11,7 @@ const PrioritySelectForm = ({
   handleSetTaskFormStep,
 }: PrioritySelectFormProps) => {
   const {
+    t,
     firstPriorityBtnRef,
     selectedPriority,
     setSelectedPriority,
@@ -48,7 +49,7 @@ const PrioritySelectForm = ({
             className="w-full"
             onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
           >
-            Cancel
+            {t('button.cancel')}
           </Button>
         </div>
         <div className="basis-1/2">
@@ -57,7 +58,7 @@ const PrioritySelectForm = ({
             variant="contained"
             onClick={handleSavePriority}
           >
-            Save
+            {t('button.save')}
           </Button>
         </div>
       </div>

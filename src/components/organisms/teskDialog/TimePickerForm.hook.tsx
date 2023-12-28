@@ -1,3 +1,4 @@
+import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import Flicking, { ChangedEvent, ReadyEvent } from '@egjs/flicking';
 import { MoveEvent } from '@egjs/react-flicking';
@@ -8,6 +9,7 @@ export const useTimePickerForm = (
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void,
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
 ) => {
+  const { t } = useClientTranslation('taskDialog');
   const timeArr = taskTime.split(':'); //ex 12:25
   const hour24 = Number(timeArr[0]);
   const [ap, setAp] = useState(hour24 >= 12 ? 1 : 0); //AM:0, PM:1. Flicking의 기본값(인덱스)로 사용
@@ -56,6 +58,7 @@ export const useTimePickerForm = (
   };
 
   return {
+    t,
     updateTransform,
     handleChangeFlicking,
     handleTimeDefaultValue,
