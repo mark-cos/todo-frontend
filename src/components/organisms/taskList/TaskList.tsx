@@ -16,7 +16,7 @@ function TaskList() {
     handleChangeFilter,
   } = useTaskList();
   return (
-    <div>
+    <div className="mb-12">
       <div className="flex justify-between">
         <Select
           options={getPeriodOptions()}
