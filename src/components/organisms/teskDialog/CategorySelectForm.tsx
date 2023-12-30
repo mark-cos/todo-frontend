@@ -41,7 +41,7 @@ const CategorySelectForm = ({
                   </div>
                 </div>
               </div>
-              <div className="mt-2 text-sm">{category.name}</div>
+              <div className="mt-2 truncate text-sm">{category.name}</div>
             </button>
           ))}
           {/* category add button*/}

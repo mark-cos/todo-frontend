@@ -26,7 +26,7 @@ const PrioritySelectForm = ({
             <button
               ref={index === 0 ? firstPriorityBtnRef : null}
               key={`priority-${index}`}
-              className={`mx-auto h-16 w-16 basis-1/4 rounded-md bg-[#272727] hover:bg-primary ${
+              className={`mx-auto h-16 w-16 basis-1/4 rounded-md bg-[#272727] ${
                 index + 1 === selectedPriority ? 'bg-primary' : ''
               }`}
               type="button"
@@ -34,7 +34,7 @@ const PrioritySelectForm = ({
             >
               <div className="flex h-full flex-col items-center justify-between p-1.5">
                 <div className="flex-none">
-                  <FlagIcon className="m-auto" />
+                  <FlagIcon className="m-auto h-6 w-6" />
                 </div>
                 <div className="flex-none">{index + 1}</div>
               </div>

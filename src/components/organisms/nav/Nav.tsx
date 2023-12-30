@@ -9,7 +9,7 @@ import NavTaskAddButton from '@/components/molecules/layout/navTaskAddButton/Nav
 
 const Nav = () => {
   return (
-    <div className="flex justify-between bg-dark px-8 pb-9 pt-5">
+    <div className="flex justify-between bg-dark px-8 pb-8 pt-4">
       <NavIcon
         src={homeIcon}
         alt="homeIcon"

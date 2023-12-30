@@ -64,7 +64,7 @@ const TaskMainForm = ({
               type="button"
               onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.PRIORITY)}
             >
-              <FlagIcon />
+              <FlagIcon className="h-6 w-6" />
             </button>
           </div>
         </div>
