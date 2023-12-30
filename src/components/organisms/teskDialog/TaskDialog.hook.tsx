@@ -13,6 +13,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import taskSlice from '@/libs/redux/slices/taskSlice';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { postTask } from '@/services/task';
+import { rqKey } from '@/libs/react-query';
 
 export const useTaskDialog = (task?: Task) => {
   const { t } = useClientTranslation('taskDialog');
@@ -20,12 +23,26 @@ export const useTaskDialog = (task?: Task) => {
   const { taskFormStep, isShowModal } = useSelector((state) => state.task);
   const dispatch = useDispatch();
 
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: postTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [rqKey.tasks],
+      });
+      reset();
+      toast.success('task add success !');
+      handleCloseModal();
+    },
+  });
+
   const handleCloseModal = () => {
     dispatch(taskSlice.actions.setIsShoModal(false));
   };
 
   const onSuccess = (data: Task | AddTask) => {
     console.log(data);
+    mutation.mutate(data);
   };
 
   const onSubmitError = (errors: FieldErrors<AddTask>) => {

@@ -1,6 +1,6 @@
 {
   "button": {
-    "create_new": "Create New",
+    "create_new": "New",
     "save": "Save",
     "cancel": "Cancel",
     "choose_time": "Choose Time"
@@ -9,7 +9,7 @@
     "title": "New Task",
     "input": {
       "title": {
-        "required": "Please enter the schedule name.",
+        "required": "Please enter the task name.",
         "placeholder": "Title"
       },
       "description": {

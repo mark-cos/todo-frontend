@@ -7,19 +7,7 @@ type TasksPageTemplProps = {
 };
 
 const TasksPageTempl = ({ children }: TasksPageTemplProps) => {
-  //FIXME: TESTCODE
-  const tasks = [''];
-  return (
-    <>
-      {tasks.length === 0 ? (
-        <div className="flex h-full items-center justify-center">
-          <TodayTaskNone />
-        </div>
-      ) : (
-        <ToadyTaskPage />
-      )}
-    </>
-  );
+  return <ToadyTaskPage />;
 };
 
 export default TasksPageTempl;

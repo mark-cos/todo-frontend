@@ -2,7 +2,6 @@ import React from 'react';
 import { TaskItemProps } from './taskItem.types';
 import CheckIcon from '@/images/icons/check.svg';
 import FlagIcon from '@/images/icons/flag.svg';
-import Image from 'next/image';
 import TaskCategoryIcon from '../taskCategoryIcon/TaskCategoryIcon';
 
 const TaskItem = ({ task }: TaskItemProps) => {

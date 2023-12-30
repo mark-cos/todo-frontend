@@ -34,7 +34,7 @@ function TaskList() {
 
       <div className="mt-4 flex h-full flex-col justify-center gap-y-4">
         {(tasks ?? []).map((task) => (
-          <TaskItem key={task.id} task={task} />
+          <TaskItem key={task._id} task={task} />
         ))}
       </div>
     </div>

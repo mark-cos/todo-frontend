@@ -18,6 +18,7 @@ const initialState: TaskSliceState = {
     priority: 5,
     taskDate: format(new Date(), 'yyyy-MM-dd'),
     taskTime: '00:00:00',
+    isCompleted: false,
     category: {
       _id: '',
     },

@@ -1,4 +1,4 @@
-import { InferType, number, object, string } from 'yup';
+import { InferType, boolean, number, object, string } from 'yup';
 
 export const categorySchema = object({
   _id: string().required('task_main.input.categoryId.required'),
@@ -18,6 +18,7 @@ export const taskSchema = object({
   priority: number().required('task_main.input.priority.required'),
   taskDate: string().required('task_main.input.taskDate.required'),
   taskTime: string().required('task_main.input.taskTime.required'),
+  isCompleted: boolean().default(false),
   category: categorySchema.required('task_main.input.category.required'),
 });
 export type Task = InferType<typeof taskSchema>;
