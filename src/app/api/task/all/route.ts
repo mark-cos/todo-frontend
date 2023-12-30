@@ -1,4 +1,5 @@
 import { client, connDB } from '@/libs/mongodb';
+import { ApiErrorResponse } from '@/types/http/http.type';
 import { Task } from '@/types/task/task.type';
 import { getServerSession } from 'next-auth';
 
@@ -36,6 +37,13 @@ export async function GET() {
     return Response.json(taskList);
   } catch (e) {
     console.error(e);
+    const errorRes: ApiErrorResponse = {
+      code: 10002,
+      message: 'task 리스트 조회 에러 발생',
+    };
+    return Response.json(errorRes, {
+      status: 400,
+    });
   } finally {
     if (client) client.close();
   }

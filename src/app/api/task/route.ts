@@ -4,8 +4,8 @@ import { getServerSession } from 'next-auth';
 import { ITask } from '../types/task';
 import { ObjectId } from 'mongodb';
 
-export async function POST(response: Response) {
-  const data = (await response.json()) as AddTask;
+export async function POST(request: Request) {
+  const data = (await request.json()) as AddTask;
   const seesion = await getServerSession();
   if (!seesion?.user?.email) {
     return Response.json(

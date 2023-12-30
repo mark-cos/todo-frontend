@@ -41,7 +41,6 @@ export const useTaskDialog = (task?: Task) => {
   };
 
   const onSuccess = (data: Task | AddTask) => {
-    console.log(data);
     mutation.mutate(data);
   };
 
