@@ -7,12 +7,12 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 export const useCategorySelectForm = (
-  category: Category,
+  categoryId: string,
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void,
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
 ) => {
   const { t } = useClientTranslation('taskDialog');
-  const [selectedCategory, setSelectedCategory] = useState<Category>(category);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(categoryId);
 
   const { data } = useQuery({
     queryFn: getCategories,
@@ -21,16 +21,16 @@ export const useCategorySelectForm = (
 
   const categories = data?.data;
 
-  const handleSelectedCategory = (category: Category) => {
-    setSelectedCategory(category);
+  const handleSelectedCategory = (categoryId: string) => {
+    setSelectedCategoryId(categoryId);
   };
 
   const handleSaveCategory = () => {
-    if (!selectedCategory._id) {
+    if (!selectedCategoryId) {
       toast.error(t('category_select.required'));
       return;
     }
-    handleSetFormValue('category', selectedCategory);
+    handleSetFormValue('category', { _id: selectedCategoryId });
     handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
 
@@ -42,7 +42,7 @@ export const useCategorySelectForm = (
     t,
     categories,
     handleSelectedCategory,
-    selectedCategory,
+    selectedCategoryId,
     handleSaveCategory,
     handleCreateCategory,
   };

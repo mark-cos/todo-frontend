@@ -1,14 +1,42 @@
 {
   "button": {
-    "create_new": "Create New",
+    "create_new": "New",
     "save": "Save",
-    "cancle": "Cancle"
+    "cancel": "Cancel",
+    "choose_time": "Choose Time"
+  },
+  "task_main": {
+    "title": "New Task",
+    "input": {
+      "title": {
+        "required": "Please enter the task name.",
+        "placeholder": "Title"
+      },
+      "description": {
+        "required": "Please enter the description.",
+        "placeholder": "description"
+      },
+      "priority": {
+        "required": "Please enter the priority."
+      },
+      "taskDate": {
+        "required": "Please enter the task date."
+      },
+      "taskTime": {
+        "required": "Please enter the task time."
+      },
+      "categoryId": {
+        "required": "Please enter the category."
+      }
+    }
   },
   "category_select": {
     "title": "Choose Category",
     "required": "Please choose a category."
   },
-
+  "task_time": {
+    "title": "Choose Time"
+  },
   "category_create": {
     "title": "Create new category",
     "input": {
@@ -24,5 +52,8 @@
       }
     },
     "add_category": "A new category {{categoryName}} has been added."
+  },
+  "task_priority": {
+    "title": "Task Priority"
   }
 }

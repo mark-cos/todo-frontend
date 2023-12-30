@@ -12,30 +12,55 @@ import { defaultAddTask } from '@/components/organisms/teskDialog/data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import taskSlice from '@/libs/redux/slices/taskSlice';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
+import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { postTask } from '@/services/task';
+import { rqKey } from '@/libs/react-query';
 
 export const useTaskDialog = (task?: Task) => {
   const { t } = useClientTranslation('taskDialog');
-  const isNewTask = !!task;
+  const isNewTask = !!!task;
   const { taskFormStep, isShowModal } = useSelector((state) => state.task);
   const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: postTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [rqKey.tasks],
+      });
+      reset();
+      toast.success('task add success !');
+      handleCloseModal();
+    },
+  });
 
   const handleCloseModal = () => {
     dispatch(taskSlice.actions.setIsShoModal(false));
   };
 
   const onSuccess = (data: Task | AddTask) => {
-    console.log(data);
+    mutation.mutate(data);
   };
 
   const onSubmitError = (errors: FieldErrors<AddTask>) => {
     for (const [key, value] of Object.entries(errors)) {
-      console.log(key, value);
+      if (!value.message) {
+        for (const [key, value1] of Object.entries(value)) {
+          toast.error(t(value1.message!));
+          return false;
+        }
+      } else {
+        toast.error(t(value.message!));
+      }
+      return false;
     }
   };
 
   const { reset, handleSubmit, setValue, getValues } = useForm<AddTask | Task>({
-    defaultValues: isNewTask ? task : defaultAddTask,
-    resolver: yupResolver(isNewTask ? taskSchema : addTaskSchema),
+    defaultValues: isNewTask ? defaultAddTask : task,
+    resolver: yupResolver(isNewTask ? addTaskSchema : taskSchema),
   });
 
   const dialogTitle = useCallback(() => {
@@ -45,12 +70,12 @@ export const useTaskDialog = (task?: Task) => {
     };
     switch (taskFormStep) {
       case TASK_FORM_STEP.MAIN: {
-        title.label = 'Add Task';
+        title.label = t('task_main.title');
         title.className = '';
         break;
       }
       case TASK_FORM_STEP.TIME: {
-        title.label = 'Choose Time';
+        title.label = t('task_time.title');
         break;
       }
       case TASK_FORM_STEP.CATEGORY: {
@@ -62,7 +87,7 @@ export const useTaskDialog = (task?: Task) => {
         break;
       }
       case TASK_FORM_STEP.PRIORITY: {
-        title.label = 'Task Priority';
+        title.label = t('task_priority.title');
         break;
       }
     }

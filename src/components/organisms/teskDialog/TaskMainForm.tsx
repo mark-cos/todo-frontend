@@ -14,7 +14,7 @@ const TaskMainForm = ({
   handleSetFormValue,
   handleSetTaskFormStep,
 }: TaskMainFormProps) => {
-  const { titleRef, descriptionRef, handleOnClickTaskStep } = useTaskMainForm(
+  const { t, titleRef, descriptionRef, handleOnClickTaskStep } = useTaskMainForm(
     title,
     description,
     handleSetFormValue,
@@ -25,7 +25,7 @@ const TaskMainForm = ({
     <div className="flex flex-col">
       <div className="flex-grow">
         <InputText
-          placeholder="Title"
+          placeholder={t('task_main.input.title.placeholder')}
           className="mb-2"
           name="title"
           ref={titleRef}
@@ -33,7 +33,7 @@ const TaskMainForm = ({
         />
 
         <InputText
-          placeholder="description"
+          placeholder={t('task_main.input.description.placeholder')}
           className="mb-2"
           name="description"
           ref={descriptionRef}

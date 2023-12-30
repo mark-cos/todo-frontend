@@ -26,7 +26,7 @@ export type TimePickerFormProps = {
 };
 
 export type CategorySelectFormProps = {
-  category: Category;
+  categoryId: string;
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
 };
