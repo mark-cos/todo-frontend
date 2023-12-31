@@ -8,7 +8,7 @@
       "week": "Week",
       "month": "Month"
     },
-    "filter": {
+    "isCompleted": {
       "all": "All",
       "task": "Task",
       "done": "Done"

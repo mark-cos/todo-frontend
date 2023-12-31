@@ -8,7 +8,7 @@ import Select from '@/components/atoms/select/Select';
 function TaskList() {
   const {
     getPeriodOptions,
-    getFilterOptions,
+    getIsCompletedOptions,
     tasks,
     selectedPeriod,
     handleChangePeriod,
@@ -25,7 +25,7 @@ function TaskList() {
           className="w-28"
         />
         <Select
-          options={getFilterOptions()}
+          options={getIsCompletedOptions()}
           select={selectedFilter}
           onChange={handleChangeFilter}
           className="w-28"

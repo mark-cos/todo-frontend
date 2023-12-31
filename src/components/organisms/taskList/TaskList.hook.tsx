@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getTasks } from '@/services/task';
 import { rqKey } from '@/libs/react-query';
+import { useDispatch, useSelector } from '@/libs/redux';
 
 const useTaskList = () => {
   const { data: resTasks } = useQuery({
@@ -31,31 +32,34 @@ const useTaskList = () => {
     },
   ];
 
-  const getFilterOptions = () => [
+  const getIsCompletedOptions = () => [
     {
       id: 1,
       value: 'all',
-      text: t('select.filter.all'),
+      text: t('select.isCompleted.all'),
     },
     {
       id: 2,
       value: 'task',
-      text: t('select.filter.task'),
+      text: t('select.isCompleted.task'),
     },
     {
       id: 3,
       value: 'done',
-      text: t('select.filter.done'),
+      text: t('select.isCompleted.done'),
     },
   ];
+
+  const { filter } = useSelector((state) => state.task);
+  const dispatch = useDispatch();
 
   const [selectedPeriod, setSelectedPeriod] = useState(getPeriodOptions()[0].value);
   const handleChangePeriod = (_selectedPeriod: string) => {
     setSelectedPeriod(_selectedPeriod);
-    console.log(_selectedPeriod);
+    dispatch();
   };
 
-  const [selectedFilter, setSelectedFilter] = useState(getFilterOptions()[0].value);
+  const [selectedFilter, setSelectedFilter] = useState(getIsCompletedOptions()[0].value);
   const handleChangeFilter = (_selectedFilter: string) => {
     setSelectedFilter(_selectedFilter);
     console.log(_selectedFilter);
@@ -63,7 +67,7 @@ const useTaskList = () => {
 
   return {
     getPeriodOptions,
-    getFilterOptions,
+    getIsCompletedOptions,
     tasks,
     selectedPeriod,
     handleChangePeriod,
