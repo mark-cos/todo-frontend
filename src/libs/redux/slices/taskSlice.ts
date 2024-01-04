@@ -2,10 +2,10 @@ import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 
-interface TaskFilter {
-  word?: string;
-  period?: string;
-  isCompleted?: boolean;
+export interface TaskFilter {
+  keyword: string;
+  period: string;
+  isCompleted: string;
 }
 
 export interface TaskSliceState {
@@ -18,7 +18,11 @@ export interface TaskSliceState {
 const initialState: TaskSliceState = {
   taskFormStep: TASK_FORM_STEP.MAIN,
   isShowModal: false,
-  filter: {},
+  filter: {
+    isCompleted: 'all',
+    keyword: '',
+    period: 'today',
+  },
   task: {
     title: '',
     description: '',
