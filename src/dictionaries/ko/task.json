@@ -8,7 +8,7 @@
       "week": "주",
       "month": "월"
     },
-    "filter": {
+    "isCompleted": {
       "all": "전체",
       "task": "할일",
       "done": "완료"

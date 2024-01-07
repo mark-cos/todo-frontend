@@ -5,6 +5,7 @@ import TaskList from '@/components/organisms/taskList/TaskList';
 import TaskSearchInput from '@/components/organisms/taskSearchInput/TaskSearchInput';
 import React from 'react';
 import useToadyTaskPage from './ToadyTaskPage.hook';
+import TaskFilter from '@/components/organisms/taskFilter/TaskFilter';
 
 const ToadyTaskPage = () => {
   const { tasks } = useToadyTaskPage();
@@ -21,7 +22,8 @@ const ToadyTaskPage = () => {
             <TaskSearchInput />
           </div>
           <div className="mt-4">
-            <TaskList />
+            <TaskFilter />
+            <TaskList tasks={tasks} />
           </div>
         </>
       )}

@@ -2,16 +2,27 @@ import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 
-/* Types */
+export interface TaskFilter {
+  keyword: string;
+  period: string;
+  isCompleted: string;
+}
+
 export interface TaskSliceState {
   taskFormStep: TASK_FORM_STEP;
   isShowModal: boolean;
-  task: AddTask; //FIXME:
+  task: AddTask;
+  filter: TaskFilter;
 }
 
 const initialState: TaskSliceState = {
   taskFormStep: TASK_FORM_STEP.MAIN,
   isShowModal: false,
+  filter: {
+    isCompleted: 'all',
+    keyword: '',
+    period: 'today',
+  },
   task: {
     title: '',
     description: '',
@@ -43,6 +54,9 @@ const taskSlice = createSlice({
       { payload: taskFormData }: PayloadAction<Partial<AddTask>>,
     ) => {
       state.task = { ...state.task, ...taskFormData };
+    },
+    setFilter: (state, { payload: filter }: PayloadAction<Partial<TaskFilter>>) => {
+      state.filter = { ...state.filter, ...filter };
     },
   },
 });
