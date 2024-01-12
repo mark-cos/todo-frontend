@@ -1,3 +1,4 @@
+'use client';
 import IconInputText from '@/components/molecules/iconInputText/IconInputText';
 import React, { KeyboardEvent, useRef } from 'react';
 import searchIcon from '@/images/icons/search-normal.svg?url';

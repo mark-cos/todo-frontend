@@ -1,3 +1,4 @@
+'use client';
 import Select from '@/components/atoms/select/Select';
 import React from 'react';
 import useTaskFilter from './TaskFilter.hook';
