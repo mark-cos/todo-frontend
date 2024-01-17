@@ -80,7 +80,7 @@ export async function GET(request: Request) {
     const tasksAggregate = await collection.aggregate<Task>();
 
     const match = matchObjectGenerator(email, keyword, isCompleted, period);
-    console.log(match);
+    console.log('/tasks', match);
     let taskList = await tasksAggregate
       .lookup({
         from: 'category',

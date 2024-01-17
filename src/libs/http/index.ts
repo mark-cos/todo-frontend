@@ -23,7 +23,6 @@ const httpLib: HttpLib = {
 };
 
 export const axiosInstance = httpLib.getInstance();
-
 const http = {
   get: <T>(url: string, config?: AxiosRequestConfig<any>) =>
     axiosInstance.get<T>(url, config),

@@ -12,7 +12,7 @@ const Input = () => {
     if (toDo == '') {
       return;
     }
-    console.log(toDo);
+    // console.log(toDo);
     setToDo('');
   };
   return (

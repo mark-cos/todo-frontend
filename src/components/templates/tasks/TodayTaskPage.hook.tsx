@@ -2,21 +2,19 @@ import { rqKey } from '@/libs/react-query';
 import { useSelector } from '@/libs/redux';
 import { getTasks } from '@/services/task';
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
+import { useMemo } from 'react';
 
-const useToadyTaskPage = () => {
+const useTodayTaskPage = () => {
   const { filter } = useSelector((state) => state.task);
 
-  const { data, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryFn: () => getTasks(filter),
     queryKey: [rqKey.tasks, filter.isCompleted, filter.keyword, filter.period],
   });
-  const tasks = data?.data || [];
 
-  useEffect(() => {
-    refetch();
-  }, [filter]);
-  return { tasks };
+  const tasks = useMemo(() => data?.data || [], [data]);
+
+  return { tasks, isLoading };
 };
 
-export default useToadyTaskPage;
+export default useTodayTaskPage;
