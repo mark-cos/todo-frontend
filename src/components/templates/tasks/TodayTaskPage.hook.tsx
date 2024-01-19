@@ -12,9 +12,17 @@ const useTodayTaskPage = () => {
     queryKey: [rqKey.tasks, filter.isCompleted, filter.keyword, filter.period],
   });
 
-  const tasks = useMemo(() => data?.data || [], [data]);
+  const isTodayNone = useMemo(() => {
+    return (
+      filter.isCompleted === 'all' &&
+      filter.keyword === '' &&
+      filter.isCompleted === 'all'
+    );
+  }, [filter]);
 
-  return { tasks, isLoading };
+  const tasks = useMemo(() => data?.data, [data]);
+
+  return { tasks, isLoading, isTodayNone };
 };
 
 export default useTodayTaskPage;

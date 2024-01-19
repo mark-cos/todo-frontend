@@ -1,7 +1,7 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { rqKey } from '@/libs/react-query';
 import { getCategories } from '@/services/category';
-import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
+import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -14,7 +14,7 @@ export const useCategorySelectForm = (
   const { t } = useClientTranslation('taskDialog');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(categoryId);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryFn: getCategories,
     queryKey: [rqKey.categories],
   });
@@ -40,6 +40,7 @@ export const useCategorySelectForm = (
 
   return {
     t,
+    isLoading,
     categories,
     handleSelectedCategory,
     selectedCategoryId,

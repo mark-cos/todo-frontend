@@ -77,10 +77,10 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
                   category: Categories.ANIMALS_NATURE,
                   name: 'Animals & Nature',
                 },
-                {
+                /*   {
                   category: Categories.SMILEYS_PEOPLE,
                   name: 'Smileys & People',
-                },
+                }, */
                 {
                   category: Categories.TRAVEL_PLACES,
                   name: 'Travel & Places',

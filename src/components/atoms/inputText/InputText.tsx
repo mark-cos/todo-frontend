@@ -3,7 +3,7 @@ import { InputTextProps } from './inputText.types';
 
 const InputText = React.forwardRef(
   (
-    { name, value, type = 'text', ...porps }: InputTextProps,
+    { name, value, placeholder, type = 'text', ...porps }: InputTextProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
@@ -12,6 +12,7 @@ const InputText = React.forwardRef(
         value={value}
         name={name}
         type={type}
+        placeholder={placeholder}
         {...porps}
         className={`w-full rounded border border-dark bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary ${
           porps.className || ''

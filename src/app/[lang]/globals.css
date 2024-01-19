@@ -35,6 +35,10 @@ body {
   display: none !important;
 }
 
+.EmojiPickerReact > div:nth-child(3) {
+  display: none !important;
+}
+
 /* 스크롤바의 폭 너비 */
 *::-webkit-scrollbar {
   @apply w-2;

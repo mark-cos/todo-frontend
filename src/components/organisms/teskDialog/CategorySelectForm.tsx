@@ -4,7 +4,8 @@ import Button from '@/components/atoms/button/Button';
 import { useCategorySelectForm } from './CategorySelectForm.hook';
 import { CategorySelectFormProps } from './taskDialog.types';
 import AddIcon from '@/images/icons/add.svg';
-import Image from 'next/image';
+import CategoryIcon from '@/components/molecules/categoryIcon/CategoryIcon';
+import CategoryIconSkeleton from '@/components/molecules/categoryIcon/CategoryIcon.skeleton';
 
 const CategorySelectForm = ({
   categoryId,
@@ -13,6 +14,7 @@ const CategorySelectForm = ({
 }: CategorySelectFormProps) => {
   const {
     t,
+    isLoading,
     categories,
     handleSelectedCategory,
     selectedCategoryId,
@@ -24,39 +26,34 @@ const CategorySelectForm = ({
     <div className="flex flex-col">
       <div className="my-5 flex-auto">
         <div className="grid grid-cols-4 items-center justify-center gap-y-4 text-center">
-          {(categories || []).map((category) => (
-            <button
-              type="button"
-              key={category._id}
-              onClick={() => handleSelectedCategory(category._id)}
-            >
-              <div
-                className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${category.color} ${
-                  category._id === selectedCategoryId ? `border-[3px] border-primary` : ''
-                }`}
-              >
-                <div className="flex h-full items-center justify-center p-1.5">
-                  <div className="flex-none">
-                    <Image src={category.icon} alt="icon" width={42} height={42} />
+          {isLoading ? (
+            <CategoryIconSkeleton />
+          ) : (
+            <>
+              {(categories || []).map((category) => (
+                <CategoryIcon
+                  key={category._id}
+                  handleSelectedCategory={handleSelectedCategory}
+                  category={category}
+                  selectedCategoryId={selectedCategoryId}
+                />
+              ))}
+
+              {/* category add button*/}
+              <button onClick={() => handleCreateCategory()} type="button">
+                <div
+                  className={`mx-auto h-16 w-16 basis-1/4 rounded-md border-[3px] border-white/25`}
+                >
+                  <div className="flex h-full items-center justify-center p-1.5">
+                    <div className="flex-none text-2xl">
+                      <AddIcon />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="mt-2 truncate text-sm">{category.name}</div>
-            </button>
-          ))}
-          {/* category add button*/}
-          <button onClick={() => handleCreateCategory()} type="button">
-            <div
-              className={`mx-auto h-16 w-16 basis-1/4 rounded-md border-[3px] border-white/25`}
-            >
-              <div className="flex h-full items-center justify-center p-1.5">
-                <div className="flex-none text-2xl">
-                  <AddIcon />
-                </div>
-              </div>
-            </div>
-            <div className="mt-2 text-sm">{t('button.create_new')}</div>
-          </button>
+                <div className="mt-2 text-sm">{t('button.create_new')}</div>
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div className="flex">

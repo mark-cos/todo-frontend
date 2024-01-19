@@ -3,6 +3,7 @@ import { ApiErrorResponse } from '@/types/http/http.type';
 import { Task } from '@/types/task/task.type';
 import { format } from 'date-fns';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../../auth/[...nextauth]/route';
 
 const matchObjectGenerator = (
   email: string,
@@ -59,10 +60,11 @@ const matchObjectGenerator = (
   return match;
 };
 
-export async function GET(request: Request) {
+export async function GET(request: Request, response: Response) {
   try {
     const collection = await connDB<Task>('tasks');
-    const seesion = await getServerSession();
+    const seesion = await getServerSession(authOptions);
+    console.log('seesion', seesion);
     if (!seesion?.user?.email) {
       return Response.json(
         {
@@ -80,7 +82,7 @@ export async function GET(request: Request) {
     const tasksAggregate = await collection.aggregate<Task>();
 
     const match = matchObjectGenerator(email, keyword, isCompleted, period);
-    console.log('/tasks', match);
+
     let taskList = await tasksAggregate
       .lookup({
         from: 'category',
@@ -98,7 +100,7 @@ export async function GET(request: Request) {
         category: Array.isArray(task.category) ? task.category[0] : task.category,
       };
     });
-
+    console.log('✨ /tasks', taskList);
     return Response.json(taskList);
   } catch (e) {
     const errorRes: ApiErrorResponse = {

@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { IUser, IUserInfo } from '../../types/auth';
 import bcrypt from 'bcrypt';
+import { Adapter } from 'next-auth/adapters';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -85,7 +86,7 @@ export const authOptions: AuthOptions = {
 
   adapter: MongoDBAdapter(clientPromise, {
     databaseName: 'todos',
-  }),
+  }) as Adapter,
 };
 export const handler = NextAuth(authOptions);
 

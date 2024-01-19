@@ -2,12 +2,14 @@
 import TaskList from '@/components/organisms/taskList/TaskList';
 import React from 'react';
 import useTodayTaskPage from './TodayTaskPage.hook';
-import TaskListSkletion from '@/components/organisms/taskList/TaskList.skletion';
+import TaskListSkeleton from '@/components/organisms/taskList/TaskList.skeleton';
 import TaskSearchInput from '@/components/organisms/taskSearchInput/TaskSearchInput';
 import TaskFilter from '@/components/organisms/taskFilter/TaskFilter';
+import TodayTaskNone from '@/components/molecules/todayTaskNone/TodayTaskNone';
 
 const TodayTaskPage = () => {
-  const { tasks, isLoading } = useTodayTaskPage();
+  const { tasks, isLoading, isTodayNone } = useTodayTaskPage();
+
   return (
     <>
       <div className="flex-none">
@@ -15,7 +17,13 @@ const TodayTaskPage = () => {
       </div>
       <div className="mt-4">
         <TaskFilter />
-        {isLoading ? <TaskListSkletion /> : <TaskList tasks={tasks} />}
+        {isLoading || !tasks ? (
+          <TaskListSkeleton />
+        ) : isTodayNone && tasks.length === 0 ? (
+          <TodayTaskNone />
+        ) : (
+          <TaskList tasks={tasks} />
+        )}
       </div>
     </>
   );

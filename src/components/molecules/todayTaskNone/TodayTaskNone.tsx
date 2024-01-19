@@ -4,10 +4,14 @@ import todayTaskEmpty from '@/images/checklist-rafiki.svg?url';
 
 const TodayTaskNone = () => {
   return (
-    <div className="flex-none p-4 text-center">
-      <Image src={todayTaskEmpty} width={300} alt="empty task" priority />
-      <p className="mb-4 text-xl">What do you want to do today?</p>
-      <p>Tap + to add your tasks</p>
+    <div className="flex h-full flex-col items-center justify-center">
+      <div className="flex-none">
+        <Image src={todayTaskEmpty} width={220} alt="empty task" priority />
+      </div>
+      <div className="flex-none pt-2 text-center">
+        <p className="mb-4 text-xl">What do you want to do today?</p>
+        <p>Tap + to add your tasks</p>
+      </div>
     </div>
   );
 };
