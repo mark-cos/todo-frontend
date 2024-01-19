@@ -64,7 +64,7 @@ export async function GET(request: Request, response: Response) {
   try {
     const collection = await connDB<Task>('tasks');
     const seesion = await getServerSession(authOptions);
-    console.log('seesion', seesion);
+
     if (!seesion?.user?.email) {
       return Response.json(
         {
@@ -115,7 +115,7 @@ export async function GET(request: Request, response: Response) {
         // 이름이 같을 경우
         return 0;
       });
-    console.log('✨ /tasks', taskList);
+    console.log('✨[GET] /tasks', taskList.length);
     return Response.json(taskList);
   } catch (e) {
     const errorRes: ApiErrorResponse = {

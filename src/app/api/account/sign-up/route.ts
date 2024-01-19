@@ -3,7 +3,6 @@ import { IAccount, IUser } from '../../types/auth';
 import { UserJoin } from '@/types/user/user.typs';
 import bcrypt from 'bcrypt';
 import { ObjectId } from 'mongodb';
-import { redirect } from 'next/dist/server/api-utils';
 
 export const POST = async (request: Request) => {
   try {
