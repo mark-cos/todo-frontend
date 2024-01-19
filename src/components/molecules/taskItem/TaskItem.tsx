@@ -11,16 +11,19 @@ export type TaskItemProps = {
 };
 
 const TaskItem = ({ task }: TaskItemProps) => {
-  const { handleClickCompleteBtn } = useTaskItem();
+  const { handleClickCompleteBtn, handleClickTask } = useTaskItem();
   return (
-    <div className="flex items-center gap-x-4 rounded border border-dark bg-dark p-2">
+    <div
+      className="flex items-center gap-x-4 rounded border border-dark bg-dark p-2"
+      onClick={() => handleClickTask(task._id)}
+    >
       <div className="group flex-none cursor-pointer">
         <div
           onClick={() => handleClickCompleteBtn(task)}
           className={`flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-600 ${task.isCompleted && 'border-white/70'}`}
         >
           <CheckIcon
-            className={`h-4 w-4 text-gray-600 ${task.isCompleted && 'text-emerald-700'}`}
+            className={`h-4 w-4  ${task.isCompleted ? 'text-emerald-700' : 'text-gray-600'}`}
           />
         </div>
       </div>
