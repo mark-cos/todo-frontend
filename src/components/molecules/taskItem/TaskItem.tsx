@@ -1,17 +1,27 @@
 import React from 'react';
-import { TaskItemProps } from './taskItem.types';
+
 import CheckIcon from '@/images/icons/check.svg';
 import FlagIcon from '@/images/icons/flag.svg';
 import TaskCategoryIcon from '../taskCategoryIcon/TaskCategoryIcon';
-import { formatDistanceToNowStrict } from 'date-fns';
-import { ko } from 'date-fns/locale';
+import { Task } from '@/types/task/task.type';
+import useTaskItem from './TaskItem.hook';
+
+export type TaskItemProps = {
+  task: Task;
+};
 
 const TaskItem = ({ task }: TaskItemProps) => {
+  const { handleClickCompleteBtn } = useTaskItem();
   return (
     <div className="flex items-center gap-x-4 rounded border border-dark bg-dark p-2">
       <div className="group flex-none cursor-pointer">
-        <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-600 group-hover:border-white/70">
-          <CheckIcon className={'h-4 w-4 text-gray-600 group-hover:text-emerald-700'} />
+        <div
+          onClick={() => handleClickCompleteBtn(task)}
+          className={`flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-600 ${task.isCompleted && 'border-white/70'}`}
+        >
+          <CheckIcon
+            className={`h-4 w-4 text-gray-600 ${task.isCompleted && 'text-emerald-700'}`}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-y-1">

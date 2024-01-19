@@ -7,3 +7,5 @@ export const getTasks = (filter: TaskFilter) =>
     params: filter,
   });
 export const postTask = (newTask: AddTask) => http.post<Task>('/api/task', newTask);
+export const putTaskIsCompleted = (taskId: string, isCompleted: boolean) =>
+  http.put<Task>(`/api/task/completed/${taskId}`, { isCompleted });

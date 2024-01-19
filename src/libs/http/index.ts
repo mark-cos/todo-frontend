@@ -30,7 +30,7 @@ const http = {
     axiosInstance.post<T>(url, data, config),
   delete: <T>(url: string, config?: AxiosRequestConfig<any>) =>
     axiosInstance.delete<T>(url, config),
-  put: <T>(url: string, data: any, config: AxiosRequestConfig<any>) =>
+  put: <T>(url: string, data: any, config?: AxiosRequestConfig<any>) =>
     axiosInstance.put<T>(url, data, config),
 };
 

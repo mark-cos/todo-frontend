@@ -12,7 +12,7 @@ export const categoryAddSchema = categorySchema.omit(['_id']);
 export type CategoryAdd = InferType<typeof categoryAddSchema>;
 
 export const taskSchema = object({
-  _id: number().required(''),
+  _id: string().required(''),
   title: string().required('task_main.input.title.required').min(4).max(20),
   description: string().required('task_main.input.description.required'),
   priority: number().required('task_main.input.priority.required'),
