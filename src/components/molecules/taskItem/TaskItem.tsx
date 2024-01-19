@@ -3,6 +3,8 @@ import { TaskItemProps } from './taskItem.types';
 import CheckIcon from '@/images/icons/check.svg';
 import FlagIcon from '@/images/icons/flag.svg';
 import TaskCategoryIcon from '../taskCategoryIcon/TaskCategoryIcon';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 const TaskItem = ({ task }: TaskItemProps) => {
   return (
@@ -14,7 +16,9 @@ const TaskItem = ({ task }: TaskItemProps) => {
       </div>
       <div className="flex flex-col gap-y-1">
         <div className="flex-none">{task.title}</div>
-        <div className="flex-none text-sm text-[#AFAFAF]">Today At {task.taskTime}</div>
+        <div className="flex-none text-sm text-[#AFAFAF]">
+          {task.taskDate} {task.taskTime}
+        </div>
         <div className="flex flex-none gap-x-3">
           <TaskCategoryIcon category={task.category} />
           {/* 중요도 */}

@@ -94,12 +94,27 @@ export async function GET(request: Request, response: Response) {
       .toArray();
 
     // 카테고리도 배열로 넘어와서..0번 인덱스만 빼서 재정의
-    taskList = taskList.map((task) => {
-      return {
-        ...task,
-        category: Array.isArray(task.category) ? task.category[0] : task.category,
-      };
-    });
+    taskList = taskList
+      .map((task) => {
+        return {
+          ...task,
+          category: Array.isArray(task.category) ? task.category[0] : task.category,
+        };
+      })
+      .sort((a, b) => {
+        const dateA = new Date(`${a.taskDate} ${a.taskTime}`);
+        const dateB = new Date(`${b.taskDate} ${b.taskTime}`);
+
+        if (dateA < dateB) {
+          return -1;
+        }
+        if (dateA > dateB) {
+          return 1;
+        }
+
+        // 이름이 같을 경우
+        return 0;
+      });
     console.log('✨ /tasks', taskList);
     return Response.json(taskList);
   } catch (e) {
