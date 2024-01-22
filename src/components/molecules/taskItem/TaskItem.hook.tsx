@@ -3,8 +3,7 @@ import { putTaskIsCompleted } from '@/services/task';
 import { Task } from '@/types/task/task.type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 const useTaskItem = () => {
   const router = useRouter();
@@ -12,7 +11,8 @@ const useTaskItem = () => {
     mutationFn: (task: Task) => putTaskIsCompleted(task._id, !task.isCompleted),
   });
   const queryClient = useQueryClient();
-  const handleClickCompleteBtn = async (task: Task) => {
+  const handleClickCompleteBtn = async (event: MouseEvent, task: Task) => {
+    event.stopPropagation();
     await mutation.mutateAsync(task);
     queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
   };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 import CheckIcon from '@/images/icons/check.svg';
 import FlagIcon from '@/images/icons/flag.svg';
@@ -16,11 +16,13 @@ const TaskItem = ({ task }: TaskItemProps) => {
     <div
       className="flex items-center gap-x-4 rounded border border-dark bg-dark p-2"
       onClick={() => handleClickTask(task._id)}
+      tabIndex={0}
     >
       <div className="group flex-none cursor-pointer">
         <div
-          onClick={() => handleClickCompleteBtn(task)}
+          onClick={(event) => handleClickCompleteBtn(event, task)}
           className={`flex h-6 w-6 items-center justify-center rounded-full border-2 border-gray-600 ${task.isCompleted && 'border-white/70'}`}
+          tabIndex={0}
         >
           <CheckIcon
             className={`h-4 w-4  ${task.isCompleted ? 'text-emerald-700' : 'text-gray-600'}`}
