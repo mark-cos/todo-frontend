@@ -3,9 +3,10 @@ import { TaskFilter } from '@/libs/redux';
 import { AddTask, Task } from '@/types/task/task.type';
 
 export const getTasks = (filter: TaskFilter) =>
-  http.get<Task[]>('/api/task/all', {
+  http.get<Task[]>('/api/tasks', {
     params: filter,
   });
-export const postTask = (newTask: AddTask) => http.post<Task>('/api/task', newTask);
+export const getTask = (taskId: string) => http.get<Task[]>(`/api/tasks/${taskId}`);
+export const postTask = (newTask: AddTask) => http.post<Task>('/api/tasks', newTask);
 export const putTaskIsCompleted = (taskId: string, isCompleted: boolean) =>
-  http.put<Task>(`/api/task/completed/${taskId}`, { isCompleted });
+  http.put<Task>(`/api/tasks/completed/${taskId}`, { isCompleted });
