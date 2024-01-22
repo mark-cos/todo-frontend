@@ -35,17 +35,27 @@ export async function GET(request: Request, response: Response) {
     const taskId = match[1];
     console.log('✨[GET] /tasks/:taskId', taskId);
 
-    const fildReulst = await collection.findOne({
-      // @ts-ignore @FIXME:
-      _id: new ObjectId(taskId),
-      email,
-    });
-    if (!fildReulst) {
+    const tasksAggregate = await collection.aggregate<Task>();
+    const taskList = await tasksAggregate
+      .lookup({
+        from: 'category',
+        localField: 'categoryId',
+        foreignField: '_id',
+        as: 'category',
+      })
+      .match({ _id: new ObjectId(taskId) })
+      .toArray();
+
+    if (taskList.length === 0) {
       throw new Error();
     }
 
+    let task = taskList[0];
+    // @ts-ignore @FIXME:
+    task.category = task.category[0];
+
     // console.log('✨[PUT] /tasks/completed/:taskId', updateReulst.acknowledged);
-    return Response.json(fildReulst);
+    return Response.json(task);
   } catch (e) {
     const errorRes: ApiErrorResponse = {
       code: 10002,
