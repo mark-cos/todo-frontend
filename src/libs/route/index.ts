@@ -24,6 +24,9 @@ const ROUTE = {
     PROFILE: {
       path: `${getLng()}/main/profile`,
     },
+    TASKS: {
+      path: `${getLng()}/main/tasks`,
+    },
   },
 };
 

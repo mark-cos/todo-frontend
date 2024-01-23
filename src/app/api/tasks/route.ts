@@ -3,7 +3,6 @@ import { AddTask, Task } from '@/types/task/task.type';
 import { getServerSession } from 'next-auth';
 import { ITask } from '../types/task';
 import { ObjectId } from 'mongodb';
-
 import { authOptions } from '../auth/[...nextauth]/route';
 import { ApiErrorResponse } from '@/types/http/http.type';
 import { format } from 'date-fns';
@@ -35,7 +34,7 @@ export async function POST(request: Request) {
     const collection = await connDB<ITask>('tasks');
     const result = await collection.insertOne(newTask);
 
-    return Response.json(data);
+    return Response.json(result);
   } catch (e) {
     console.error(e);
   } finally {

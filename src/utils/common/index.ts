@@ -11,3 +11,9 @@ export const throttle = <T extends (...args: any[]) => any>(fn: T, ms: number) =
     }
   };
 };
+
+export const getLastPathname = (pathname: string) => {
+  const regex = /\/([^\/]+)\/?$/;
+  const match = pathname.match(regex);
+  return match ? match[1] : '';
+};

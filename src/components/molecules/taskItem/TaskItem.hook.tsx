@@ -1,4 +1,5 @@
 import { rqKey } from '@/libs/react-query';
+import ROUTE from '@/libs/route';
 import { putTaskIsCompleted } from '@/services/task';
 import { Task } from '@/types/task/task.type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -17,7 +18,7 @@ const useTaskItem = () => {
     queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
   };
   const handleClickTask = (taskId: string) => {
-    router.push(`/main/tasks/${taskId}`);
+    router.push(`${ROUTE.MAIN.TASKS.path}/${taskId}`);
   };
   return { handleClickCompleteBtn, handleClickTask };
 };
