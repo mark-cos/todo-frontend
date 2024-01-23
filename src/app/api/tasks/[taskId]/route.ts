@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]/route';
 import { ObjectId } from 'mongodb';
 import { ApiErrorResponse } from '@/types/http/http.type';
+import { getLastPathname } from '@/utils/common';
 
 export async function GET(request: Request, response: Response) {
   try {
@@ -20,10 +21,9 @@ export async function GET(request: Request, response: Response) {
     }
 
     const email = seesion.user.email;
-    const regex = /\/([^\/]+)\/?$/;
-    const match = request.url.match(regex);
+    const taskId = getLastPathname(request.url);
 
-    if (!match) {
+    if (!taskId) {
       return Response.json(
         {
           error: 'not found taskId..',
@@ -31,8 +31,6 @@ export async function GET(request: Request, response: Response) {
         { status: 404 },
       );
     }
-
-    const taskId = match[1];
     console.log('✨[GET] /tasks/:taskId', taskId);
 
     const tasksAggregate = await collection.aggregate<Task>();
@@ -60,6 +58,51 @@ export async function GET(request: Request, response: Response) {
     const errorRes: ApiErrorResponse = {
       code: 10002,
       message: 'task 단일 검색 에러 발생',
+    };
+    return Response.json(errorRes, {
+      status: 400,
+    });
+  } finally {
+    if (client) client.close();
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const collection = await connDB<Task>('tasks');
+    const seesion = await getServerSession(authOptions);
+
+    if (!seesion?.user?.email) {
+      return Response.json(
+        {
+          error: 'not found session..',
+        },
+        { status: 401 },
+      );
+    }
+
+    const taskId = getLastPathname(request.url);
+    if (!taskId) {
+      return Response.json(
+        {
+          error: 'not found taskId..',
+        },
+        { status: 404 },
+      );
+    }
+
+    console.log('✨[DELETE] /tasks/:taskId', taskId);
+    // @ts-ignore @FIXME:
+    const deleteResult = await collection.deleteOne({ _id: new ObjectId(taskId) });
+    if (deleteResult.deletedCount === 0) {
+      throw new Error();
+    }
+
+    return Response.json(deleteResult);
+  } catch (e) {
+    const errorRes: ApiErrorResponse = {
+      code: 10002,
+      message: 'task 삭제 에러 발생',
     };
     return Response.json(errorRes, {
       status: 400,
