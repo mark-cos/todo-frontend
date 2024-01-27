@@ -1,5 +1,6 @@
-import { Header, TaskDialog } from '@/components/organisms';
+import { Header } from '@/components/organisms';
 import Nav from '@/components/organisms/nav/Nav';
+import TaskDialog from '@/components/organisms/teskDialog/TaskDialog';
 
 export type RootLayoutProps = {
   children: React.ReactNode;
@@ -15,12 +16,12 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
         <div className="flex-none">
           <Header />
         </div>
-        <div className="p-base grow pb-24">{children}</div>
+        <div className="p-base grow pb-28">{children}</div>
         <div className="fixed bottom-0 w-full">
           <Nav />
         </div>
       </div>
-      <TaskDialog />
+      <TaskDialog isNewTask />
     </>
   );
 }

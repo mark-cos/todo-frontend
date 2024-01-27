@@ -11,7 +11,7 @@ type TaskDetailTemplProps = {
 // 할일 상세 페이지 탬플릿
 const TaskDetailTempl = ({ task }: TaskDetailTemplProps) => {
   return (
-    <div className="">
+    <div className="h-full">
       <TaskDetailHeader />
       <TaskDetailInfo task={task} />
     </div>

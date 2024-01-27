@@ -11,7 +11,7 @@ import Dialog from '@/components/atoms/dialog/Dialog';
 import { useTaskDialog } from './TaskDialog.hook';
 import CategoryCreateForm from './CategoryCreateForm';
 
-const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
+const TaskDialog = ({ dictionary, isNewTask = false }: TaskDialogProps) => {
   const {
     handleSubmit,
     onSuccess,
@@ -23,52 +23,54 @@ const TaskDialog = ({ dictionary, task }: TaskDialogProps) => {
     handleSetTaskFormStep,
     isShowModal,
     handleCloseModal,
-  } = useTaskDialog(task);
+  } = useTaskDialog(isNewTask);
 
   return (
-    <Dialog isShowModal={isShowModal} close={handleCloseModal} title={dialogTitle()}>
-      <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
-        {taskFormStep === TASK_FORM_STEP.MAIN && (
-          <TaskMainForm
-            title={getValues('title')}
-            description={getValues('description')}
-            handleSetFormValue={handleSetFormValue}
-            handleSetTaskFormStep={handleSetTaskFormStep}
-          />
+    isShowModal && (
+      <Dialog isShowModal={isShowModal} close={handleCloseModal} title={dialogTitle()}>
+        <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
+          {taskFormStep === TASK_FORM_STEP.MAIN && (
+            <TaskMainForm
+              title={getValues('title')}
+              description={getValues('description')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+          {taskFormStep === TASK_FORM_STEP.CALENDAR && (
+            <CalendarPickerForm
+              taskDate={getValues('taskDate')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+          {taskFormStep === TASK_FORM_STEP.TIME && (
+            <TimePickerForm
+              taskTime={getValues('taskTime')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+          {taskFormStep === TASK_FORM_STEP.CATEGORY && (
+            <CategorySelectForm
+              categoryId={getValues('category._id')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+          {taskFormStep === TASK_FORM_STEP.PRIORITY && (
+            <PrioritySelectForm
+              priority={getValues('priority')}
+              handleSetFormValue={handleSetFormValue}
+              handleSetTaskFormStep={handleSetTaskFormStep}
+            />
+          )}
+        </form>
+        {taskFormStep === TASK_FORM_STEP.CREATE_CATEGORY && (
+          <CategoryCreateForm handleSetTaskFormStep={handleSetTaskFormStep} />
         )}
-        {taskFormStep === TASK_FORM_STEP.CALENDAR && (
-          <CalendarPickerForm
-            taskDate={getValues('taskDate')}
-            handleSetFormValue={handleSetFormValue}
-            handleSetTaskFormStep={handleSetTaskFormStep}
-          />
-        )}
-        {taskFormStep === TASK_FORM_STEP.TIME && (
-          <TimePickerForm
-            taskTime={getValues('taskTime')}
-            handleSetFormValue={handleSetFormValue}
-            handleSetTaskFormStep={handleSetTaskFormStep}
-          />
-        )}
-        {taskFormStep === TASK_FORM_STEP.CATEGORY && (
-          <CategorySelectForm
-            categoryId={getValues('category._id')}
-            handleSetFormValue={handleSetFormValue}
-            handleSetTaskFormStep={handleSetTaskFormStep}
-          />
-        )}
-        {taskFormStep === TASK_FORM_STEP.PRIORITY && (
-          <PrioritySelectForm
-            priority={getValues('priority')}
-            handleSetFormValue={handleSetFormValue}
-            handleSetTaskFormStep={handleSetTaskFormStep}
-          />
-        )}
-      </form>
-      {taskFormStep === TASK_FORM_STEP.CREATE_CATEGORY && (
-        <CategoryCreateForm handleSetTaskFormStep={handleSetTaskFormStep} />
-      )}
-    </Dialog>
+      </Dialog>
+    )
   );
 };
 

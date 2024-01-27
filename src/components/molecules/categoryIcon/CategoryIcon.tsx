@@ -4,16 +4,16 @@ import React from 'react';
 
 type CategoryIconProps = {
   category: Category;
-  handleSelectedCategory: (categoryId: string) => void;
+  handleClickCategory: (category: Category) => void;
   selectedCategoryId: string;
 };
 const CategoryIcon = ({
   category,
-  handleSelectedCategory,
+  handleClickCategory,
   selectedCategoryId,
 }: CategoryIconProps) => {
   return (
-    <button type="button" onClick={() => handleSelectedCategory(category._id)}>
+    <button type="button" onClick={() => handleClickCategory(category)}>
       <div
         className={`mx-auto h-16 w-16 basis-1/4 rounded-md ${category.color} ${
           category._id === selectedCategoryId ? `border-[3px] border-primary` : ''

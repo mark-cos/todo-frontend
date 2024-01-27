@@ -3,7 +3,7 @@ import React from 'react';
 
 export type TaskDialogProps = {
   dictionary?: {};
-  task?: Task;
+  isNewTask?: boolean;
 };
 
 export type TaskMainFormProps = {

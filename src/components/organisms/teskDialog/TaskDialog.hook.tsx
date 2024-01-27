@@ -6,7 +6,7 @@ import {
   addTaskSchema,
   taskSchema,
 } from '@/types/task/task.type';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { defaultAddTask } from '@/components/organisms/teskDialog/data';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,20 +17,22 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postTask } from '@/services/task';
 import { rqKey } from '@/libs/react-query';
 
-export const useTaskDialog = (task?: Task) => {
+export const useTaskDialog = (isNewTask: boolean) => {
   const { t } = useClientTranslation('taskDialog');
-  const isNewTask = !!!task;
-  const { taskFormStep, isShowModal } = useSelector((state) => state.task);
+  const { taskFormStep, isShowModal, task, isEditMode } = useSelector(
+    (state) => state.task,
+  );
   const dispatch = useDispatch();
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: postTask,
     onSuccess: () => {
+      // task 리스트 갱신 및 dialog 초기화
       queryClient.invalidateQueries({
         queryKey: [rqKey.tasks],
       });
-      reset();
+      reset(defaultAddTask);
       toast.success('task add success !');
       handleCloseModal();
     },
@@ -44,6 +46,12 @@ export const useTaskDialog = (task?: Task) => {
     mutation.mutate(data);
   };
 
+  /**
+   * 유효성 검사 함수.
+   * 에러필드를 반복문으로 체크하여 첫번째 인덱스의 에러를 표시한다.
+   * 카테고리 유효성 체크 실패는 하위 객체로 value.message가 없는 경우로
+   * 해당 경우는 동일한 로직으로 한번 더 체크한다.
+   */
   const onSubmitError = (errors: FieldErrors<AddTask>) => {
     for (const [key, value] of Object.entries(errors)) {
       if (!value.message) {
@@ -59,9 +67,19 @@ export const useTaskDialog = (task?: Task) => {
   };
 
   const { reset, handleSubmit, setValue, getValues } = useForm<AddTask | Task>({
-    defaultValues: isNewTask ? defaultAddTask : task,
+    defaultValues: defaultAddTask,
     resolver: yupResolver(isNewTask ? addTaskSchema : taskSchema),
   });
+
+  // 수정 - 의 경우 전받은 task 데이터를 기준으로 초기화
+  // 입력 - 기본 빈값으로 초기화
+  useEffect(() => {
+    if (isEditMode) {
+      reset(task);
+    } else {
+      reset(defaultAddTask);
+    }
+  }, [task, isEditMode]);
 
   const dialogTitle = useCallback(() => {
     let title = {
@@ -70,8 +88,8 @@ export const useTaskDialog = (task?: Task) => {
     };
     switch (taskFormStep) {
       case TASK_FORM_STEP.MAIN: {
-        title.label = t('task_main.title');
-        title.className = '';
+        title.label = isEditMode ? 'Edit Task title' : t('task_main.title');
+        title.className = isEditMode ? title.className : '';
         break;
       }
       case TASK_FORM_STEP.TIME: {
@@ -87,18 +105,27 @@ export const useTaskDialog = (task?: Task) => {
         break;
       }
       case TASK_FORM_STEP.PRIORITY: {
-        title.label = t('task_priority.title');
+        title.label = isEditMode ? 'Edit Task Priority' : t('task_priority.title');
         break;
       }
     }
     return title;
-  }, [taskFormStep]);
+  }, [taskFormStep, isEditMode]);
 
+  /**
+   * 수정 다이얼로그에서 save버튼을 눌렀을 경우 메인이 아닌 다이얼로그를 닫음.
+   * 설정한 form 데이터 store에 설정
+   */
   const handleSetTaskFormStep = useCallback(
-    (taskFormStep: TASK_FORM_STEP) => {
-      dispatch(taskSlice.actions.setTaskFormStep(taskFormStep));
+    (_taskFormStep: TASK_FORM_STEP) => {
+      if (isEditMode && _taskFormStep === TASK_FORM_STEP.MAIN) {
+        dispatch(taskSlice.actions.setIsShoModal(false));
+        dispatch(taskSlice.actions.setTaskFormData(getValues()));
+        return;
+      }
+      dispatch(taskSlice.actions.setTaskFormStep(_taskFormStep));
     },
-    [dispatch],
+    [dispatch, isEditMode],
   );
 
   const handleSetFormValue = (name: keyof AddTask | keyof Task, value: any) => {
@@ -115,5 +142,6 @@ export const useTaskDialog = (task?: Task) => {
     handleSetTaskFormStep,
     isShowModal,
     handleCloseModal,
+    isEditMode,
   };
 };

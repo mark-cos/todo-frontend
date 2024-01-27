@@ -1,12 +1,10 @@
 import React from 'react';
-import TimerIcon from '@/images/icons/timer.svg';
-import TagIcon from '@/images/icons/tag.svg';
-import FlagIcon from '@/images/icons/flag.svg';
-import SendIcon from '@/images/icons/send.svg';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
 import InputText from '@/components/atoms/inputText/InputText';
 import { useTaskMainForm } from './TaskMainForm.hook';
 import { TaskMainFormProps } from './taskDialog.types';
+import Button from '@/components/atoms/button/Button';
+import TaskMainFormAddBtns from './TaskMainFormAddBtns';
 
 const TaskMainForm = ({
   title,
@@ -14,12 +12,14 @@ const TaskMainForm = ({
   handleSetFormValue,
   handleSetTaskFormStep,
 }: TaskMainFormProps) => {
-  const { t, titleRef, descriptionRef, handleOnClickTaskStep } = useTaskMainForm(
-    title,
-    description,
-    handleSetFormValue,
-    handleSetTaskFormStep,
-  );
+  const {
+    t,
+    titleRef,
+    descriptionRef,
+    handleOnClickTaskStep,
+    isEditMode,
+    handleCloseDialog,
+  } = useTaskMainForm(title, description, handleSetFormValue, handleSetTaskFormStep);
 
   return (
     <div className="flex flex-col">
@@ -41,39 +41,27 @@ const TaskMainForm = ({
         />
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
-        <div className="flex justify-between gap-x-5">
-          <div className="flex-none">
-            <button
-              type="button"
-              onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.CALENDAR)}
-            >
-              <TimerIcon />
-            </button>
+      {isEditMode ? (
+        <div className="flex">
+          <div className="basis-1/2">
+            <Button variant="text" className="w-full" onClick={handleCloseDialog}>
+              {t('button.cancel')}
+            </Button>
           </div>
-          <div className="flex-none">
-            <button
+          <div className="basis-1/2">
+            <Button
+              className="w-full rounded-md"
+              variant="contained"
               type="button"
-              onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.CATEGORY)}
+              onClick={() => handleSetTaskFormStep(TASK_FORM_STEP.MAIN)}
             >
-              <TagIcon />
-            </button>
-          </div>
-          <div className="flex-none">
-            <button
-              type="button"
-              onClick={() => handleOnClickTaskStep(TASK_FORM_STEP.PRIORITY)}
-            >
-              <FlagIcon className="h-6 w-6" />
-            </button>
+              Edit
+            </Button>
           </div>
         </div>
-        <div className="flex-none">
-          <button type="submit">
-            <SendIcon className="color-primary" />
-          </button>
-        </div>
-      </div>
+      ) : (
+        <TaskMainFormAddBtns handleOnClickTaskStep={handleOnClickTaskStep} />
+      )}
     </div>
   );
 };

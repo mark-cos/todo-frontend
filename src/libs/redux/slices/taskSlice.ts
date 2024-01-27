@@ -1,4 +1,4 @@
-import { TASK_FORM_STEP, AddTask } from '@/types/task/task.type';
+import { TASK_FORM_STEP, AddTask, Task } from '@/types/task/task.type';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
 
@@ -13,11 +13,12 @@ export interface TaskFilter {
 export interface TaskSliceState {
   taskFormStep: TASK_FORM_STEP;
   isShowModal: boolean;
-  task: AddTask;
+  task: AddTask | Task;
   filter: TaskFilter;
+  isEditMode: boolean;
 }
 
-const initialState: TaskSliceState = {
+export const initialTaskState: TaskSliceState = {
   taskFormStep: TASK_FORM_STEP.MAIN,
   isShowModal: false,
   filter: {
@@ -26,21 +27,26 @@ const initialState: TaskSliceState = {
     period: 'today',
   },
   task: {
+    _id: '',
     title: '',
     description: '',
     priority: 5,
     taskDate: format(new Date(), 'yyyy-MM-dd'),
-    taskTime: '00:00:00',
+    taskTime: '00:00',
     isCompleted: false,
     category: {
       _id: '',
+      color: '',
+      icon: '',
+      name: '',
     },
   },
+  isEditMode: false,
 };
 
 const taskSlice = createSlice({
   name: 'taks',
-  initialState,
+  initialState: initialTaskState,
   reducers: {
     setTaskFormStep: (
       state,
@@ -53,12 +59,15 @@ const taskSlice = createSlice({
     },
     setTaskFormData: (
       state,
-      { payload: taskFormData }: PayloadAction<Partial<AddTask>>,
+      { payload: taskFormData }: PayloadAction<Partial<AddTask | Task>>,
     ) => {
       state.task = { ...state.task, ...taskFormData };
     },
     setFilter: (state, { payload: filter }: PayloadAction<Partial<TaskFilter>>) => {
       state.filter = { ...state.filter, ...filter };
+    },
+    setIsEditMode: (state, { payload: isEditMode }: PayloadAction<boolean>) => {
+      state.isEditMode = isEditMode;
     },
   },
 });
