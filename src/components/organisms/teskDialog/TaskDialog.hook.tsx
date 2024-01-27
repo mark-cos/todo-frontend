@@ -88,8 +88,8 @@ export const useTaskDialog = (isNewTask: boolean) => {
     };
     switch (taskFormStep) {
       case TASK_FORM_STEP.MAIN: {
-        title.label = t('task_main.title');
-        title.className = '';
+        title.label = isEditMode ? 'Edit Task title' : t('task_main.title');
+        title.className = isEditMode ? title.className : '';
         break;
       }
       case TASK_FORM_STEP.TIME: {
@@ -105,12 +105,12 @@ export const useTaskDialog = (isNewTask: boolean) => {
         break;
       }
       case TASK_FORM_STEP.PRIORITY: {
-        title.label = t('task_priority.title');
+        title.label = isEditMode ? 'Edit Task Priority' : t('task_priority.title');
         break;
       }
     }
     return title;
-  }, [taskFormStep]);
+  }, [taskFormStep, isEditMode]);
 
   /**
    * 수정 다이얼로그에서 save버튼을 눌렀을 경우 메인이 아닌 다이얼로그를 닫음.
