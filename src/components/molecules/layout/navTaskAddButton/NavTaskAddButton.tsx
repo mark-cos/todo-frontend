@@ -21,16 +21,14 @@ const NavTaskAddButton = () => {
     dispatch(taskSlice.actions.setTaskFormData(initialTaskState.task));
     dispatch(taskSlice.actions.setIsShoModal(true));
   };
-  return (
-    !isEditMode && (
-      <button
-        className="absolute left-[-32px] top-[-52px] flex h-[64px] w-[64px] rounded-full bg-primary"
-        onClick={handleClickNewTask}
-      >
-        <Image src={addIcon} alt="addIcon" className="m-auto" />
-      </button>
-    )
-  );
+  return !isEditMode ? (
+    <button
+      className="absolute left-[-32px] top-[-52px] flex h-[64px] w-[64px] rounded-full bg-primary"
+      onClick={handleClickNewTask}
+    >
+      <Image src={addIcon} alt="addIcon" className="m-auto" />
+    </button>
+  ) : null;
 };
 
 export default NavTaskAddButton;

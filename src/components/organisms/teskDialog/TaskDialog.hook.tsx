@@ -28,10 +28,11 @@ export const useTaskDialog = (isNewTask: boolean) => {
   const mutation = useMutation({
     mutationFn: postTask,
     onSuccess: () => {
+      // task 리스트 갱신 및 dialog 초기화
       queryClient.invalidateQueries({
         queryKey: [rqKey.tasks],
       });
-      reset();
+      reset(defaultAddTask);
       toast.success('task add success !');
       handleCloseModal();
     },
@@ -45,6 +46,12 @@ export const useTaskDialog = (isNewTask: boolean) => {
     mutation.mutate(data);
   };
 
+  /**
+   * 유효성 검사 함수.
+   * 에러필드를 반복문으로 체크하여 첫번째 인덱스의 에러를 표시한다.
+   * 카테고리 유효성 체크 실패는 하위 객체로 value.message가 없는 경우로
+   * 해당 경우는 동일한 로직으로 한번 더 체크한다.
+   */
   const onSubmitError = (errors: FieldErrors<AddTask>) => {
     for (const [key, value] of Object.entries(errors)) {
       if (!value.message) {
@@ -64,6 +71,8 @@ export const useTaskDialog = (isNewTask: boolean) => {
     resolver: yupResolver(isNewTask ? addTaskSchema : taskSchema),
   });
 
+  // 수정 - 의 경우 전받은 task 데이터를 기준으로 초기화
+  // 입력 - 기본 빈값으로 초기화
   useEffect(() => {
     if (isEditMode) {
       reset(task);
@@ -103,6 +112,10 @@ export const useTaskDialog = (isNewTask: boolean) => {
     return title;
   }, [taskFormStep]);
 
+  /**
+   * 수정 다이얼로그에서 save버튼을 눌렀을 경우 메인이 아닌 다이얼로그를 닫음.
+   * 설정한 form 데이터 store에 설정
+   */
   const handleSetTaskFormStep = useCallback(
     (_taskFormStep: TASK_FORM_STEP) => {
       if (isEditMode && _taskFormStep === TASK_FORM_STEP.MAIN) {

@@ -6,6 +6,7 @@ import React from 'react';
 import useTaskDetailInfo from './TaskDetailInfo.hook';
 import Dialog from '@/components/atoms/dialog/Dialog';
 import Button from '@/components/atoms/button/Button';
+import DeleteConfirmDialog from './DeleteConfirmDialog';
 
 const TrashIcon = React.lazy(() => import('@/images/icons/trash.svg'));
 const Ellipse15Icon = React.lazy(() => import('@/images/icons/ellipse15.svg'));
@@ -16,6 +17,12 @@ type TaskDetailInfoProps = {
 };
 
 // TODO: 다국어 적용 필요.
+/**
+ * 전닯받은 `Task`를 기준으로 Task 스토어에 설정하여 데이터를 핸들링.
+ * 수정된 form데이터도 최종 스토어에 설정하여 실시간 반영된 데이터를 표시
+ *  edit 버튼 클릭 시 객체를 만들어 서버에 전달
+ * @param task Task 데이터
+ */
 const TaskDetailInfo = ({ task }: TaskDetailInfoProps) => {
   const {
     handleOpenTaskEditDialog,
@@ -30,9 +37,8 @@ const TaskDetailInfo = ({ task }: TaskDetailInfoProps) => {
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="flex-none">
-        {/* title */}
+        {/* title & description */}
         <div className="mt-8 flex justify-between">
-          {/* label */}
           <div className="flex flex-none">
             <div className="ml-1 mt-[6px] flex-none">
               <Ellipse15Icon />
@@ -100,39 +106,15 @@ const TaskDetailInfo = ({ task }: TaskDetailInfoProps) => {
             </div>
           </button>
         </div>
-
-        <Dialog
+        <DeleteConfirmDialog
           isShowModal={isShowCloseModal}
           close={handleCloseModal}
-          title={{
+          dialogTitle={{
             label: 'Delete Task',
             className: 'text-center border-b-[1px] border-secondary pb-3 mb-6',
           }}
-        >
-          <div>
-            <p className="text-center text-lg font-normal">
-              Are You sure you want to delete this task?
-              <br />
-              Task title : {editTask.title}
-            </p>
-          </div>
-          <div className="mt-5 flex">
-            <div className="basis-1/2">
-              <Button variant="text" className="w-full" onClick={handleCloseModal}>
-                Cancel
-              </Button>
-            </div>
-            <div className="basis-1/2">
-              <Button
-                className="w-full rounded-md"
-                variant="contained"
-                onClick={handleTaskDelete}
-              >
-                Delete
-              </Button>
-            </div>
-          </div>
-        </Dialog>
+          taskTitle={editTask.title}
+        />
       </div>
 
       {/* edit buttn */}
