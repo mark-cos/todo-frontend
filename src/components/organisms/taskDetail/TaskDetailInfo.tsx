@@ -4,7 +4,6 @@ import { TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import Image from 'next/image';
 import React from 'react';
 import useTaskDetailInfo from './TaskDetailInfo.hook';
-import Dialog from '@/components/atoms/dialog/Dialog';
 import Button from '@/components/atoms/button/Button';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 
@@ -26,7 +25,6 @@ type TaskDetailInfoProps = {
 const TaskDetailInfo = ({ task }: TaskDetailInfoProps) => {
   const {
     handleOpenTaskEditDialog,
-    handleTaskDelete,
     handleCloseModal,
     isShowCloseModal,
     setIsShowCloseModal,

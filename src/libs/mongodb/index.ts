@@ -1,6 +1,6 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const url = process.env.NEXT_PUBLIC_MONGODB_URL || '';
+const url = process.env.MONGODB_URL || '';
 const createClient = () =>
   new MongoClient(url, {
     serverApi: {

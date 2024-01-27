@@ -1,10 +1,10 @@
 import { client, connDB } from '@/libs/mongodb';
 import { Task } from '@/types/task/task.type';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
 import { ObjectId } from 'mongodb';
 import { ApiErrorResponse } from '@/types/http/http.type';
 import { getLastPathname } from '@/utils/common';
+import authOptions from '../../auth/[...nextauth]/authOptions';
 
 export async function GET(request: Request, response: Response) {
   try {
