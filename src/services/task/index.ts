@@ -12,3 +12,5 @@ export const putTaskIsCompleted = (taskId: string, isCompleted: boolean) =>
   http.put<Task>(`/api/tasks/completed/${taskId}`, { isCompleted });
 export const deleteTask = (taskId: string) =>
   http.delete<{ deletedCount: number }>(`/api/tasks/${taskId}`);
+export const putTask = (taskId: string, task: AddTask) =>
+  http.put<{ deletedCount: number }>(`/api/tasks/${taskId}`, task);

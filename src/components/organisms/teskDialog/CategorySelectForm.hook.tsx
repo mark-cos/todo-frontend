@@ -1,7 +1,8 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { rqKey } from '@/libs/react-query';
+import { useSelector } from '@/libs/redux';
 import { getCategories } from '@/services/category';
-import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
+import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -12,7 +13,13 @@ export const useCategorySelectForm = (
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
 ) => {
   const { t } = useClientTranslation('taskDialog');
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(categoryId);
+  const [selectedCategory, setSelectedCategory] = useState<Category>({
+    _id: categoryId,
+    color: '',
+    icon: '',
+    name: '',
+  });
+  const { isEditMode } = useSelector((state) => state.task);
 
   const { data, isLoading } = useQuery({
     queryFn: getCategories,
@@ -20,17 +27,19 @@ export const useCategorySelectForm = (
   });
 
   const categories = data?.data;
-
-  const handleSelectedCategory = (categoryId: string) => {
-    setSelectedCategoryId(categoryId);
+  const handleClickCategory = (category: Category) => {
+    setSelectedCategory(category);
   };
 
   const handleSaveCategory = () => {
-    if (!selectedCategoryId) {
+    if (!selectedCategory._id) {
       toast.error(t('category_select.required'));
       return;
     }
-    handleSetFormValue('category', { _id: selectedCategoryId });
+    handleSetFormValue(
+      'category',
+      isEditMode ? { ...selectedCategory } : { _id: selectedCategory._id },
+    );
     handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
 
@@ -42,8 +51,8 @@ export const useCategorySelectForm = (
     t,
     isLoading,
     categories,
-    handleSelectedCategory,
-    selectedCategoryId,
+    handleClickCategory,
+    selectedCategory,
     handleSaveCategory,
     handleCreateCategory,
   };

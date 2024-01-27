@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
 import Button from '@/components/atoms/button/Button';
 import { useCategorySelectForm } from './CategorySelectForm.hook';
@@ -16,8 +16,8 @@ const CategorySelectForm = ({
     t,
     isLoading,
     categories,
-    handleSelectedCategory,
-    selectedCategoryId,
+    handleClickCategory,
+    selectedCategory,
     handleSaveCategory,
     handleCreateCategory,
   } = useCategorySelectForm(categoryId, handleSetFormValue, handleSetTaskFormStep);
@@ -33,9 +33,9 @@ const CategorySelectForm = ({
               {(categories || []).map((category) => (
                 <CategoryIcon
                   key={category._id}
-                  handleSelectedCategory={handleSelectedCategory}
+                  handleClickCategory={handleClickCategory}
                   category={category}
-                  selectedCategoryId={selectedCategoryId}
+                  selectedCategoryId={selectedCategory._id}
                 />
               ))}
 

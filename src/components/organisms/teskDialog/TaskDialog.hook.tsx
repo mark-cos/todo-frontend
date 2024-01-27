@@ -6,7 +6,7 @@ import {
   addTaskSchema,
   taskSchema,
 } from '@/types/task/task.type';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { defaultAddTask } from '@/components/organisms/teskDialog/data';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,10 +17,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postTask } from '@/services/task';
 import { rqKey } from '@/libs/react-query';
 
-export const useTaskDialog = (task?: Task) => {
+export const useTaskDialog = (isNewTask: boolean) => {
   const { t } = useClientTranslation('taskDialog');
-  const isNewTask = !!!task;
-  const { taskFormStep, isShowModal } = useSelector((state) => state.task);
+  const { taskFormStep, isShowModal, task, isEditMode } = useSelector(
+    (state) => state.task,
+  );
   const dispatch = useDispatch();
 
   const queryClient = useQueryClient();
@@ -59,9 +60,17 @@ export const useTaskDialog = (task?: Task) => {
   };
 
   const { reset, handleSubmit, setValue, getValues } = useForm<AddTask | Task>({
-    defaultValues: isNewTask ? defaultAddTask : task,
+    defaultValues: defaultAddTask,
     resolver: yupResolver(isNewTask ? addTaskSchema : taskSchema),
   });
+
+  useEffect(() => {
+    if (isEditMode) {
+      reset(task);
+    } else {
+      reset(defaultAddTask);
+    }
+  }, [task, isEditMode]);
 
   const dialogTitle = useCallback(() => {
     let title = {
@@ -95,10 +104,15 @@ export const useTaskDialog = (task?: Task) => {
   }, [taskFormStep]);
 
   const handleSetTaskFormStep = useCallback(
-    (taskFormStep: TASK_FORM_STEP) => {
-      dispatch(taskSlice.actions.setTaskFormStep(taskFormStep));
+    (_taskFormStep: TASK_FORM_STEP) => {
+      if (isEditMode && _taskFormStep === TASK_FORM_STEP.MAIN) {
+        dispatch(taskSlice.actions.setIsShoModal(false));
+        dispatch(taskSlice.actions.setTaskFormData(getValues()));
+        return;
+      }
+      dispatch(taskSlice.actions.setTaskFormStep(_taskFormStep));
     },
-    [dispatch],
+    [dispatch, isEditMode],
   );
 
   const handleSetFormValue = (name: keyof AddTask | keyof Task, value: any) => {
@@ -115,5 +129,6 @@ export const useTaskDialog = (task?: Task) => {
     handleSetTaskFormStep,
     isShowModal,
     handleCloseModal,
+    isEditMode,
   };
 };
