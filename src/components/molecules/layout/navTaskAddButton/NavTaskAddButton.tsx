@@ -4,7 +4,6 @@ import taskSlice from '@/libs/redux/slices/taskSlice';
 import Image from 'next/image';
 import React from 'react';
 import addIcon from '@/images/icons/add.svg?url';
-import { toast } from 'react-toastify';
 import { initialTaskState } from '@/libs/redux/slices/taskSlice';
 import { TASK_FORM_STEP } from '@/types/task/task.type';
 
