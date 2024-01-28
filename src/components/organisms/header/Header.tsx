@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import SortIcon from '@/images/icons/sort.svg';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import authOptions from '@/app/api/auth/[...nextauth]/authOptions';
 
 const Header = async () => {
   const session = await getServerSession(authOptions);

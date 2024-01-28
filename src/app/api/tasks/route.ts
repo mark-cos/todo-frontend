@@ -3,9 +3,10 @@ import { AddTask, Task } from '@/types/task/task.type';
 import { getServerSession } from 'next-auth';
 import { ITask } from '../types/task';
 import { ObjectId } from 'mongodb';
-import { authOptions } from '../auth/[...nextauth]/route';
+
 import { ApiErrorResponse } from '@/types/http/http.type';
 import { format } from 'date-fns';
+import authOptions from '../auth/[...nextauth]/authOptions';
 
 export async function POST(request: Request) {
   const data = (await request.json()) as AddTask;

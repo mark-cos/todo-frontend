@@ -1,9 +1,9 @@
 import { client, connDB } from '@/libs/mongodb';
 import { Task } from '@/types/task/task.type';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../auth/[...nextauth]/route';
 import { ObjectId } from 'mongodb';
 import { ApiErrorResponse } from '@/types/http/http.type';
+import authOptions from '@/app/api/auth/[...nextauth]/authOptions';
 
 export async function PUT(request: Request, response: Response) {
   try {
