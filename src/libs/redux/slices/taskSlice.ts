@@ -1,14 +1,6 @@
-import { TASK_FORM_STEP, AddTask, Task } from '@/types/task/task.type';
+import { TASK_FORM_STEP, AddTask, Task, TaskFilter } from '@/types/task/task.type';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
-
-export type PeriodFilter = 'today' | 'week' | 'month';
-export type IsCompletedFilter = 'all' | 'task' | 'done';
-export interface TaskFilter {
-  keyword: string;
-  period: PeriodFilter;
-  isCompleted: IsCompletedFilter;
-}
 
 export interface TaskSliceState {
   taskFormStep: TASK_FORM_STEP;

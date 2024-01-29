@@ -1,9 +1,7 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { useDispatch, useSelector } from '@/libs/redux';
-import taskSlice, {
-  IsCompletedFilter,
-  PeriodFilter,
-} from '@/libs/redux/slices/taskSlice';
+import taskSlice from '@/libs/redux/slices/taskSlice';
+import { IsCompletedFilter, PeriodFilter } from '@/types/task/task.type';
 
 const useTaskFilter = () => {
   const { t } = useClientTranslation('task');
