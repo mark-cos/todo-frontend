@@ -7,7 +7,7 @@ name: NextJs build
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ['main']
+    branches: ['cicd']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,10 +29,14 @@ jobs:
   build:
     runs-on: [self-hosted]
     container:
-      image: node:20.11-slim
+      image: node:20-alpine
       options: --user root
 
     steps:
+      - name: Add Apk libc6-compat
+        run: |
+          apk add --no-cache libc6-compat
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -136,6 +140,6 @@ jobs:
           script: |
             docker stop todo-frontend
             docker rm todo-frontend
-            docker pull ghcr.io/${{ github.repository }}:main
-            docker run -d -p 13000:3000 --name todo-frontend ghcr.io/${{ github.repository }}:main
+            docker pull ghcr.io/${{ github.repository }}:cicd
+            docker run -d -p 13000:3000 --name todo-frontend ghcr.io/${{ github.repository }}:cicd
             docker image prune -f
