@@ -44,7 +44,6 @@ export const useTaskDialog = (isNewTask: boolean) => {
   });
 
   const handleCloseModal = () => {
-    // dispatch(taskSlice.actions.setIsShoModal(false));
     setIsShowModal(false);
   };
 

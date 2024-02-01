@@ -1,6 +1,5 @@
 'use client';
-import { useDispatch, useSelector } from '@/libs/redux';
-import taskSlice from '@/libs/redux/slices/taskSlice';
+
 import Image from 'next/image';
 import React from 'react';
 import addIcon from '@/images/icons/add.svg?url';

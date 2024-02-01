@@ -1,7 +1,6 @@
 import { rqKey } from '@/libs/react-query';
-import { useDispatch, useSelector } from '@/libs/redux';
-import taskSlice from '@/libs/redux/slices/taskSlice';
 import ROUTE from '@/libs/route';
+import { taskStore } from '@/libs/zustand';
 import { deleteTask, putTask } from '@/services/task';
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { getLastPathname } from '@/utils/common';
@@ -29,23 +28,28 @@ const useTaskDetailInfo = (_task: Task) => {
       router.push(ROUTE.MAIN.path);
     }
   };
-
-  const { isShowModal, task: editTask } = useSelector((state) => state.task);
-  const dispatch = useDispatch();
+  const {
+    setTaskFormStep,
+    setTask,
+    setIsEditMode,
+    setIsShowModal,
+    isShowModal,
+    task: editTask,
+  } = taskStore((state) => state);
 
   // task가 변경되면(처음 혹은 새로고침 버튼) store에 설정
   useEffect(() => {
-    dispatch(taskSlice.actions.setTaskFormData(_task));
-    dispatch(taskSlice.actions.setIsEditMode(true));
+    setTask(_task);
+    setIsEditMode(true);
     return () => {
-      dispatch(taskSlice.actions.setIsEditMode(false));
+      setIsEditMode(false);
     };
   }, [_task]);
 
   // 각 항목 버튼 클릭 시 해당 수정 다이얼로그 표시
   const handleOpenTaskEditDialog = (taskStep: TASK_FORM_STEP) => {
-    dispatch(taskSlice.actions.setTaskFormStep(taskStep));
-    dispatch(taskSlice.actions.setIsShoModal(true));
+    setTaskFormStep(taskStep);
+    setIsShowModal(true);
   };
 
   // 닫기 모달

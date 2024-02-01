@@ -1,11 +1,9 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
-import { useDispatch, useSelector } from '@/libs/redux';
-import taskSlice from '@/libs/redux/slices/taskSlice';
+import { taskStore } from '@/libs/zustand';
 import { IsCompletedFilter, PeriodFilter } from '@/types/task/task.type';
 
 const useTaskFilter = () => {
   const { t } = useClientTranslation('task');
-  const { isCompleted, keyword, period } = useSelector((state) => state.task.filter);
   const getPeriodOptions = () => [
     {
       id: 1,
@@ -41,22 +39,21 @@ const useTaskFilter = () => {
       text: t('select.isCompleted.done'),
     },
   ];
-  const dispatch = useDispatch();
+  const {
+    setFilter,
+    filter: { isCompleted, period },
+  } = taskStore((state) => state);
 
   const handleChangePeriod = (_selectedPeriod: string) => {
-    dispatch(
-      taskSlice.actions.setFilter({
-        period: _selectedPeriod as PeriodFilter,
-      }),
-    );
+    setFilter({
+      period: _selectedPeriod as PeriodFilter,
+    });
   };
 
   const handleSelectedIsCompleted = (_selectedCompleted: string) => {
-    dispatch(
-      taskSlice.actions.setFilter({
-        isCompleted: _selectedCompleted as IsCompletedFilter,
-      }),
-    );
+    setFilter({
+      isCompleted: _selectedCompleted as IsCompletedFilter,
+    });
   };
 
   return {
