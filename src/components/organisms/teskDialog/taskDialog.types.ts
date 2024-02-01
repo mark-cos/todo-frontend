@@ -1,4 +1,4 @@
-import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
+import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import React from 'react';
 
 export type TaskDialogProps = {
@@ -11,6 +11,7 @@ export type TaskMainFormProps = {
   description: string;
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+  setIsShowModal: (isShowModal: boolean) => void;
 };
 
 export type CalendarPickerFormProps = {
@@ -29,6 +30,7 @@ export type CategorySelectFormProps = {
   categoryId: string;
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void;
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
+  isEditMode: boolean;
 };
 
 export type CategoryCreateFormProps = {

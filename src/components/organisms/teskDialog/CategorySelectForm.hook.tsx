@@ -1,6 +1,5 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { rqKey } from '@/libs/react-query';
-import { useSelector } from '@/libs/redux';
 import { getCategories } from '@/services/category';
 import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { useQuery } from '@tanstack/react-query';
@@ -11,6 +10,7 @@ export const useCategorySelectForm = (
   categoryId: string,
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void,
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
+  isEditMode: boolean,
 ) => {
   const { t } = useClientTranslation('taskDialog');
   const [selectedCategory, setSelectedCategory] = useState<Category>({
@@ -19,7 +19,6 @@ export const useCategorySelectForm = (
     icon: '',
     name: '',
   });
-  const { isEditMode } = useSelector((state) => state.task);
 
   const { data, isLoading } = useQuery({
     queryFn: getCategories,

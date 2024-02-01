@@ -23,6 +23,8 @@ const TaskDialog = ({ dictionary, isNewTask = false }: TaskDialogProps) => {
     handleSetTaskFormStep,
     isShowModal,
     handleCloseModal,
+    isEditMode,
+    setIsShowModal,
   } = useTaskDialog(isNewTask);
 
   return (
@@ -35,6 +37,7 @@ const TaskDialog = ({ dictionary, isNewTask = false }: TaskDialogProps) => {
               description={getValues('description')}
               handleSetFormValue={handleSetFormValue}
               handleSetTaskFormStep={handleSetTaskFormStep}
+              setIsShowModal={setIsShowModal}
             />
           )}
           {taskFormStep === TASK_FORM_STEP.CALENDAR && (
@@ -56,6 +59,7 @@ const TaskDialog = ({ dictionary, isNewTask = false }: TaskDialogProps) => {
               categoryId={getValues('category._id')}
               handleSetFormValue={handleSetFormValue}
               handleSetTaskFormStep={handleSetTaskFormStep}
+              isEditMode={isEditMode}
             />
           )}
           {taskFormStep === TASK_FORM_STEP.PRIORITY && (

@@ -1,6 +1,4 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
-import { useDispatch, useSelector } from '@/libs/redux';
-import taskSlice from '@/libs/redux/slices/taskSlice';
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { format } from 'date-fns';
 import React, { useState } from 'react';

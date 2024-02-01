@@ -1,7 +1,6 @@
 import { AddTask, TASK_FORM_STEP, Task, TaskFilter } from '@/types/task/task.type';
 import { format } from 'date-fns';
 import { StateCreator, create } from 'zustand';
-import { devtools } from 'zustand/middleware';
 
 type TaskState = {
   taskFormStep: TASK_FORM_STEP;
@@ -13,8 +12,8 @@ type TaskState = {
 
 type TaskAction = {
   setTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void;
-  setIsShoModal: (isShowModal: boolean) => void;
-  setTask: (taskFormData: Partial<AddTask | Task>) => void;
+  setIsShowModal: (isShowModal: boolean) => void;
+  setTask: (task: Partial<AddTask | Task>) => void;
   setFilter: (filter: Partial<TaskFilter>) => void;
   setIsEditMode: (isEditMode: boolean) => void;
 };
@@ -51,13 +50,13 @@ export const createTaskSlice: StateCreator<TaskState & TaskAction, [], []> = (se
     set(() => ({
       taskFormStep,
     })),
-  setIsShoModal: (isShowModal: boolean) =>
+  setIsShowModal: (isShowModal: boolean) =>
     set(() => ({
       isShowModal,
     })),
-  setTask: (taskFormData: Partial<AddTask | Task>) =>
+  setTask: (task: Partial<AddTask | Task>) =>
     set((state) => ({
-      task: { ...state.task, ...taskFormData },
+      task: { ...state.task, ...task },
     })),
   setFilter: (filter: Partial<TaskFilter>) =>
     set((state) => ({

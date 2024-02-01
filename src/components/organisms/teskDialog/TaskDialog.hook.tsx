@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from '@/libs/redux';
 import {
   AddTask,
   TASK_FORM_STEP,
@@ -10,19 +9,25 @@ import React, { useCallback, useEffect } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { defaultAddTask } from '@/components/organisms/teskDialog/data';
 import { yupResolver } from '@hookform/resolvers/yup';
-import taskSlice from '@/libs/redux/slices/taskSlice';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postTask } from '@/services/task';
 import { rqKey } from '@/libs/react-query';
+import { taskStore } from '@/libs/zustand';
 
 export const useTaskDialog = (isNewTask: boolean) => {
   const { t } = useClientTranslation('taskDialog');
-  const { taskFormStep, isShowModal, task, isEditMode } = useSelector(
-    (state) => state.task,
-  );
-  const dispatch = useDispatch();
+
+  const {
+    taskFormStep,
+    isShowModal,
+    task,
+    isEditMode,
+    setIsShowModal,
+    setTask,
+    setTaskFormStep,
+  } = taskStore((state) => state);
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -39,7 +44,8 @@ export const useTaskDialog = (isNewTask: boolean) => {
   });
 
   const handleCloseModal = () => {
-    dispatch(taskSlice.actions.setIsShoModal(false));
+    // dispatch(taskSlice.actions.setIsShoModal(false));
+    setIsShowModal(false);
   };
 
   const onSuccess = (data: Task | AddTask) => {
@@ -119,18 +125,22 @@ export const useTaskDialog = (isNewTask: boolean) => {
   const handleSetTaskFormStep = useCallback(
     (_taskFormStep: TASK_FORM_STEP) => {
       if (isEditMode && _taskFormStep === TASK_FORM_STEP.MAIN) {
-        dispatch(taskSlice.actions.setIsShoModal(false));
-        dispatch(taskSlice.actions.setTaskFormData(getValues()));
+        setIsShowModal(false);
+        setTask(getValues());
         return;
       }
-      dispatch(taskSlice.actions.setTaskFormStep(_taskFormStep));
+      setTaskFormStep(_taskFormStep);
     },
-    [dispatch, isEditMode],
+    //TODO: task 추가했다 확인 필요
+    [isEditMode, task],
   );
 
-  const handleSetFormValue = (name: keyof AddTask | keyof Task, value: any) => {
-    setValue(name, value);
-  };
+  const handleSetFormValue = useCallback(
+    (name: keyof AddTask | keyof Task, value: any) => {
+      setValue(name, value);
+    },
+    [setValue],
+  );
   return {
     handleSubmit,
     onSuccess,
@@ -143,5 +153,6 @@ export const useTaskDialog = (isNewTask: boolean) => {
     isShowModal,
     handleCloseModal,
     isEditMode,
+    setIsShowModal,
   };
 };
