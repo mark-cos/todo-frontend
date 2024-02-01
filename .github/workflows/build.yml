@@ -29,7 +29,7 @@ jobs:
   build:
     runs-on: [self-hosted]
     container:
-      image: node:20-alpine
+      image: node:20.11-slim
       options: --user root
 
     steps:
@@ -140,6 +140,6 @@ jobs:
           script: |
             docker stop todo-frontend
             docker rm todo-frontend
-            docker pull ghcr.io/${{ github.repository }}:cicd
-            docker run -d -p 13000:3000 --name todo-frontend ghcr.io/${{ github.repository }}:cicd
+            docker pull ghcr.io/${{ github.repository }}:main
+            docker run -d -p 13000:3000 --name todo-frontend ghcr.io/${{ github.repository }}:main
             docker image prune -f
