@@ -11,6 +11,7 @@ const CategorySelectForm = ({
   categoryId,
   handleSetFormValue,
   handleSetTaskFormStep,
+  isEditMode,
 }: CategorySelectFormProps) => {
   const {
     t,
@@ -20,7 +21,12 @@ const CategorySelectForm = ({
     selectedCategory,
     handleSaveCategory,
     handleCreateCategory,
-  } = useCategorySelectForm(categoryId, handleSetFormValue, handleSetTaskFormStep);
+  } = useCategorySelectForm(
+    categoryId,
+    handleSetFormValue,
+    handleSetTaskFormStep,
+    isEditMode,
+  );
 
   return (
     <div className="flex flex-col">

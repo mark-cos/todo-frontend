@@ -1,4 +1,3 @@
-import Providers from '@/libs/redux/providers';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RqProvier from '@/libs/react-query/RqProvider';
@@ -13,7 +12,7 @@ export type RootLayoutProps = {
 
 export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
-    <Providers>
+    <>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -25,6 +24,6 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
         pauseOnHover
       />
       <RqProvier>{children}</RqProvier>
-    </Providers>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import http from '@/libs/http';
-import { TaskFilter } from '@/libs/redux';
-import { AddTask, Task } from '@/types/task/task.type';
+
+import { AddTask, Task, TaskFilter } from '@/types/task/task.type';
 
 export const getTasks = (filter: TaskFilter) =>
   http.get<Task[]>('/api/tasks', {
