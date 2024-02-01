@@ -15,9 +15,8 @@ ENV GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
 ENV NODE_ENV production
 
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-#RUN npm install -g pnpm
-#RUN pnpm install
+
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["node", "./standalone/server.js"]

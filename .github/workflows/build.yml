@@ -79,7 +79,7 @@ jobs:
         run: |
           rm -rf ${{ vars.DOCKER_BUILD_PATH }}/* 
           cp -R ${{ github.workspace }}/Dockerfile ${{ vars.DOCKER_BUILD_PATH }}/
-          cp -R ${{ github.workspace }}/.next ${{ vars.DOCKER_BUILD_PATH }}/
+          cp -R ${{ github.workspace }}/.next/* ${{ vars.DOCKER_BUILD_PATH }}/
           cp -R ${{ github.workspace }}/.env ${{ vars.DOCKER_BUILD_PATH }}/
           mv ${{ vars.DOCKER_BUILD_PATH }}/static ${{ vars.DOCKER_BUILD_PATH }}/standalone/
 
