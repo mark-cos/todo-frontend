@@ -1,11 +1,11 @@
 import { rqKey } from '@/libs/react-query';
-import { useSelector } from '@/libs/redux';
+import { taskStore } from '@/libs/zustand';
 import { getTasks } from '@/services/task';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 const useTodayTaskPage = () => {
-  const { filter } = useSelector((state) => state.task);
+  const { filter } = taskStore((state) => state);
 
   const { data, isLoading } = useQuery({
     queryFn: () => getTasks(filter),

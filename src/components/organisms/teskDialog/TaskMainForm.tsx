@@ -11,6 +11,7 @@ const TaskMainForm = ({
   description,
   handleSetFormValue,
   handleSetTaskFormStep,
+  setIsShowModal,
 }: TaskMainFormProps) => {
   const {
     t,
@@ -19,7 +20,13 @@ const TaskMainForm = ({
     handleOnClickTaskStep,
     isEditMode,
     handleCloseDialog,
-  } = useTaskMainForm(title, description, handleSetFormValue, handleSetTaskFormStep);
+  } = useTaskMainForm(
+    title,
+    description,
+    handleSetFormValue,
+    handleSetTaskFormStep,
+    setIsShowModal,
+  );
 
   return (
     <div className="flex flex-col">

@@ -1,6 +1,5 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
-import { useDispatch, useSelector } from '@/libs/redux';
-import taskSlice from '@/libs/redux/slices/taskSlice';
+import { taskStore } from '@/libs/zustand';
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import React, { useEffect, useRef } from 'react';
 
@@ -9,15 +8,15 @@ export const useTaskMainForm = (
   description: string,
   handleSetFormValue: (name: keyof AddTask | keyof Task, value: any) => void,
   handleSetTaskFormStep: (taskFormStep: TASK_FORM_STEP) => void,
+  setIsShowModal: (isShowModal: boolean) => void,
 ) => {
   const { t } = useClientTranslation('taskDialog');
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
-  const { isEditMode } = useSelector((state) => state.task);
-  const dispatch = useDispatch();
+  const { isEditMode } = taskStore((state) => state);
 
   const handleCloseDialog = () => {
-    dispatch(taskSlice.actions.setIsShoModal(false));
+    setIsShowModal(false);
   };
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export const useTaskMainForm = (
     titleRef,
     descriptionRef,
     handleOnClickTaskStep,
-    isEditMode,
     handleCloseDialog,
+    isEditMode,
   };
 };

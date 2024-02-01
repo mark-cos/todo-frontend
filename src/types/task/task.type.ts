@@ -38,3 +38,11 @@ export enum TASK_FORM_STEP {
   PRIORITY,
   CREATE_CATEGORY,
 }
+
+export type PeriodFilter = 'today' | 'week' | 'month';
+export type IsCompletedFilter = 'all' | 'task' | 'done';
+export interface TaskFilter {
+  keyword: string;
+  period: PeriodFilter;
+  isCompleted: IsCompletedFilter;
+}
