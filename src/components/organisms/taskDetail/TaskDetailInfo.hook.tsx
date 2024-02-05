@@ -16,17 +16,16 @@ const useTaskDetailInfo = (_task: Task) => {
 
   const mutation = useMutation({
     mutationFn: (taskId: string) => deleteTask(taskId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
+      router.push(ROUTE.MAIN.path);
+    },
   });
 
   // task 삭제 후 메인 페이지로 이동
   const handleTaskDelete = async () => {
     setIsShowCloseModal(true);
     const isDelete = await mutation.mutateAsync(taskId);
-
-    if (isDelete.data.deletedCount === 1) {
-      queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
-      router.push(ROUTE.MAIN.path);
-    }
   };
   const {
     setTaskFormStep,
@@ -63,6 +62,7 @@ const useTaskDetailInfo = (_task: Task) => {
       putTask(task.taskId, task.task),
     onSuccess: () => {
       toast.success('task has been modified.');
+      queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
     },
   });
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { NextRequest, NextResponse } from 'next/server';
 import TaskDetailTempl from '@/components/templates/tasks/TaskDetailTempl';
 
 const getTask = async (taskId: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api/tasks/${taskId}`,
     {
+      cache: 'no-store',
       headers: headers(),
     },
   );
