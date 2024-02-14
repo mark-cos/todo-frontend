@@ -1,19 +1,24 @@
-## Todo app _ test
-
-- node 18
-- react(18) + ts + nextjs(13.5.4) + tailwind
+## Todo app
+- node 20
+- react(18) + ts + nextjs(14) + tailwind
+- hook-form, zustand, headlessui,
+- ci/cd
+  - github-action ( 빌드, docker 이미지 빌드, 배포)
+- 서버
+  - docker 기반 서버 구성
+  - 도메인, HTTPS 적용 (https://todo.devhong.cc)
 
 ### command
 
 ```bash
 # 의존성 설치
-yarn
+pnpm install
 
 # 개발서버 실행
-yarn dev
+pnpm dev
 
 # 빌드
-yarn build
+pnpm build
 ```
 
 ### code convention
