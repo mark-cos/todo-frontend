@@ -3,7 +3,7 @@ import ROUTE from '@/libs/route';
 import { taskStore } from '@/libs/zustand';
 import { deleteTask, putTask } from '@/services/task';
 import { AddTask, TASK_FORM_STEP, Task } from '@/types/task/task.type';
-import { getLastPathname } from '@/utils/common';
+import { getClientLngAddPath, getLastPathname } from '@/utils/common';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -18,7 +18,7 @@ const useTaskDetailInfo = (_task: Task) => {
     mutationFn: (taskId: string) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
-      router.push(ROUTE.MAIN.path);
+      router.push(getClientLngAddPath(ROUTE.MAIN.path));
     },
   });
 

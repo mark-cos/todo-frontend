@@ -11,11 +11,8 @@ import likeIcon from '@/images/icons/like.svg?url';
 import logoutIcon from '@/images/icons/logout.svg?url';
 import { signOut } from 'next-auth/react';
 import ProfileClientMenuItem from '@/components/molecules/profile/ProfileClientMenuItem';
-import { useCookies } from 'react-cookie';
-// FIXME: 별도 파일로 빼야함. href ROUTE로 설정
 
 const ProfileMenuList = () => {
-  const [cookie] = useCookies(['lng']);
   const profileMenus = [
     {
       title: 'Settings',

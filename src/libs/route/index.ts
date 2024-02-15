@@ -1,31 +1,22 @@
-const getLng = () => {
-  let lng = '';
-  if (typeof window !== 'undefined') {
-    const pathname = window.location.pathname;
-    lng = '/' + (pathname.match(/([^\/]+)/g) || [])[0];
-  }
-  return lng;
-};
-
 const ROUTE = {
   INTRO: {
     path: '/',
   },
   ACCOUNT: {
     LOGIN: {
-      path: `${getLng()}/account/login`,
+      path: `/account/login`,
     },
     REGISTER: {
-      path: `${getLng()}/account/register`,
+      path: `/account/register`,
     },
   },
   MAIN: {
     path: '/main',
     PROFILE: {
-      path: `${getLng()}/main/profile`,
+      path: `/main/profile`,
     },
     TASKS: {
-      path: `${getLng()}/main/tasks`,
+      path: `/main/tasks`,
     },
   },
 };

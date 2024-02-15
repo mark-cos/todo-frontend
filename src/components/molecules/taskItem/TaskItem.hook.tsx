@@ -2,9 +2,10 @@ import { rqKey } from '@/libs/react-query';
 import ROUTE from '@/libs/route';
 import { putTaskIsCompleted } from '@/services/task';
 import { Task } from '@/types/task/task.type';
+import { getClientLngAddPath } from '@/utils/common';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import React, { MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 const useTaskItem = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const useTaskItem = () => {
     queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
   };
   const handleClickTask = (taskId: string) => {
-    router.push(`${ROUTE.MAIN.TASKS.path}/${taskId}`);
+    router.push(getClientLngAddPath(`${ROUTE.MAIN.TASKS.path}/${taskId}`));
   };
   return { handleClickCompleteBtn, handleClickTask };
 };

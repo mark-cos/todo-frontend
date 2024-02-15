@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { useRouter } from 'next/navigation';
 import ROUTE from '@/libs/route';
+import { getClientLngAddPath } from '@/utils/common';
 
 const useLoginForm = () => {
   const { t } = useClientTranslation('account');
@@ -21,7 +22,7 @@ const useLoginForm = () => {
   const handleSubmitSuccess = async (loginInfo: Login) => {
     const resSignIn = await signIn('credentials', { ...loginInfo, redirect: false });
     if (resSignIn?.ok) {
-      router.push(ROUTE.MAIN.path);
+      router.push(getClientLngAddPath(ROUTE.MAIN.path));
     } else {
       toast.error(
         resSignIn?.status === 401 ? t('api_error_unauthorized') : t('api_error_default'),

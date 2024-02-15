@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import { default as NextLink, LinkProps as NextLinkProps } from 'next/link';
 
-import getLngPath from '@/libs/route/getLink';
+import { getServerLngAddPath } from '@/libs/route/getLink';
 
 type LinkProps = NextLinkProps & {
   children?: React.ReactNode;
@@ -9,7 +9,7 @@ type LinkProps = NextLinkProps & {
 
 const Link = (props: LinkProps) => {
   return (
-    <NextLink {...props} href={getLngPath(props.href.toString())}>
+    <NextLink {...props} href={getServerLngAddPath(props.href.toString())}>
       {props.children}
     </NextLink>
   );

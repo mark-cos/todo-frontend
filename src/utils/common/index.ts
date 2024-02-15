@@ -20,7 +20,8 @@ export const getLastPathname = (pathname: string) => {
   return match ? match[1] : '';
 };
 
-export const getLng = (pathname: string) => {
-  const lng = (pathname.match(/([^\/]+)/g) || [])[0];
-  return lng && lng.includes(i18nLangOptions.defaultLocale) ? lng : 'en';
+export const getClientLngAddPath = (pathname: string) => {
+  let lng = (pathname.match(/([^\/]+)/g) || [])[0];
+  lng = lng && ['ko', 'en'].includes(lng) ? lng : i18nLangOptions.defaultLocale;
+  return `/${lng}${pathname}`;
 };

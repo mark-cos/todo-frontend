@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { signUp } from '@/services/auth';
 import ROUTE from '@/libs/route';
+import { getClientLngAddPath } from '@/utils/common';
 
 const useRegisterForm = () => {
   const { t } = useClientTranslation('account');
@@ -18,7 +19,7 @@ const useRegisterForm = () => {
   const mutation = useMutation({
     mutationFn: signUp,
     onSuccess: () => {
-      router.push(ROUTE.ACCOUNT.LOGIN.path);
+      router.push(getClientLngAddPath(ROUTE.ACCOUNT.LOGIN.path));
     },
   });
 
