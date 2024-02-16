@@ -15,23 +15,23 @@ const Nav = () => {
         alt="homeIcon"
         label="Index"
         className="text-red-500"
-        href={ROUTE.MAIN.path}
+        href={ROUTE.TASKS.path}
       />
       <NavIcon
         src={calendarIcon}
         alt="calendarIcon"
         label="calendar"
-        href={ROUTE.MAIN.path}
+        href={ROUTE.TASKS.path}
       />
       <div className="relative">
         <NavTaskAddButton />
       </div>
-      <NavIcon src={focusIcon} alt="focusIcon" label="Focus" href={ROUTE.MAIN.path} />
+      <NavIcon src={focusIcon} alt="focusIcon" label="Focus" href={ROUTE.TASKS.path} />
       <NavIcon
         src={profileIcon}
         alt="profileIcon"
         label="Profile"
-        href={ROUTE.MAIN.PROFILE.path}
+        href={ROUTE.PROFILE.path}
       />
     </div>
   );

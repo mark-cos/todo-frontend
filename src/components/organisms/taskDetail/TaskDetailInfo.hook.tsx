@@ -18,7 +18,7 @@ const useTaskDetailInfo = (_task: Task) => {
     mutationFn: (taskId: string) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
-      router.push(getClientLngAddPath(ROUTE.MAIN.path));
+      router.push(getClientLngAddPath(ROUTE.TASKS.path));
     },
   });
 

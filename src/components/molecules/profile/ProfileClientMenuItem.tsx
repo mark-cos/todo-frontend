@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import ArrowLeftIcon from '@/images/icons/arrow-left.svg';
+import { getClientLngAddPath } from '@/utils/common';
 
 export type ProfileClientMenuItemProps = {
   iconSrc: string;
@@ -21,7 +22,7 @@ const ProfileClientMenuItem = ({
     e.preventDefault();
     e.stopPropagation();
     if (onClick) onClick();
-    if (href) router.push(href);
+    if (href) router.push(getClientLngAddPath(href));
   };
 
   return (
