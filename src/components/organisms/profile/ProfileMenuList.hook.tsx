@@ -6,6 +6,7 @@ import flashIcon from '@/images/icons/flash.svg?url';
 import likeIcon from '@/images/icons/like.svg?url';
 import logoutIcon from '@/images/icons/logout.svg?url';
 import { signOut } from 'next-auth/react';
+import ROUTE from '@/libs/route';
 
 const useProfileMenuList = () => {
   const profileMenus = [
@@ -22,7 +23,14 @@ const useProfileMenuList = () => {
     },
     {
       title: 'Account',
-      menus: [{ id: 21, icon: userIcon, text: 'Change account', href: '' }],
+      menus: [
+        {
+          id: 21,
+          icon: userIcon,
+          text: 'Change Account Info',
+          href: ROUTE.PROFILE.ACCOUT.path,
+        },
+      ],
     },
     {
       title: 'Uptodo',

@@ -20,8 +20,6 @@ const ProfilePageTempl = () => {
 
   return (
     <div className="flex flex-col">
-      {/* title */}
-      <div className="flex-auto text-center text-lg">Profile</div>
       <div className="mb-8 mt-4 flex-auto">
         <ProfileUserInfo user={user} taskStatus={taskStatus} />
       </div>

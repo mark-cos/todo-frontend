@@ -15,8 +15,8 @@ const ROUTE = {
   },
   PROFILE: {
     path: '/profile',
-    account: {
-      path: `/profile/account`,
+    ACCOUT: {
+      path: `/profile/account-info`,
     },
   },
 };

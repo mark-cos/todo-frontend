@@ -26,22 +26,24 @@ const ProfileClientMenuItem = ({
   };
 
   return (
-    <div onClick={handleClick} className="cursor-pointer">
-      <div
-        className={`mb-6 flex w-full justify-between ${
-          text === 'Log out' ? 'text-red-500' : ''
-        }`}
-      >
-        <div className="flex items-center">
-          <div className="flex-none">
-            <Image src={iconSrc} alt={text} />
+    <div className="mb-6 ">
+      <button onClick={handleClick}>
+        <div
+          className={`flex w-full justify-between ${
+            text === 'Log out' ? 'text-red-500' : ''
+          }`}
+        >
+          <div className="flex items-center">
+            <div className="flex-none">
+              <Image src={iconSrc} alt={text} />
+            </div>
+            <div className="ml-4 flex-none font-extralight">{text}</div>
           </div>
-          <div className="ml-4 flex-none font-extralight">{text}</div>
+          <div className="flex-none">
+            <ArrowLeftIcon alt={'arrow-left.svg'} />
+          </div>
         </div>
-        <div className="flex-none">
-          <ArrowLeftIcon alt={'arrow-left.svg'} />
-        </div>
-      </div>
+      </button>
     </div>
   );
 };
