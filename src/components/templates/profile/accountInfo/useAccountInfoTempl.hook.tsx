@@ -1,15 +1,20 @@
 import { chageImage } from '@/services/account';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 
 const useAccountInfoTempl = () => {
   const { data: session } = useSession();
-
   const [isShowModal, setIsShowModal] = useState(false);
   const closeModal = () => setIsShowModal(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  const handleBackPage = () => {
+    router.back();
+  };
 
   const mutation = useMutation({
     mutationFn: (formdata: FormData) => chageImage(formdata),
@@ -39,6 +44,7 @@ const useAccountInfoTempl = () => {
     setIsShowModal,
     isShowModal,
     closeModal,
+    handleBackPage,
   };
 };
 

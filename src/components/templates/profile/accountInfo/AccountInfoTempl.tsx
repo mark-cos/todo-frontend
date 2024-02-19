@@ -4,6 +4,7 @@ import InputText from '@/components/atoms/inputText/InputText';
 import AvataImage from '@/components/molecules/profile/accountInfo/AvataImage';
 import PasswordChangeDialog from '@/components/molecules/profile/accountInfo/PasswordChangeDialog';
 import useAccountInfoTempl from './useAccountInfoTempl.hook';
+import BackIcon from '@/images/icons/back-button.svg';
 
 const AccountInfoTempl = () => {
   const {
@@ -14,6 +15,7 @@ const AccountInfoTempl = () => {
     setIsShowModal,
     isShowModal,
     closeModal,
+    handleBackPage,
   } = useAccountInfoTempl();
   return (
     <>
@@ -21,7 +23,12 @@ const AccountInfoTempl = () => {
         <div className="flex h-full flex-col justify-between">
           <div className="flex-none">
             {/* title */}
-            <div className="text-lg">Acount Info</div>
+            <div className="flex">
+              <button onClick={handleBackPage} type="button">
+                <BackIcon />
+              </button>
+              <div className="ml-2 text-lg">Acount Info</div>
+            </div>
 
             {/* profileImage */}
             <AvataImage url={session?.user?.image!} ref={imageInputRef} />
