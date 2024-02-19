@@ -28,7 +28,7 @@ const PasswordChangeDialog = ({ isShowModal, closeModal }: PasswordChangeDialogP
               {...register('oldPassword')}
               type="password"
               className="mb-2 mt-2"
-              id="name"
+              id="oldPassword"
             />
           </label>
 
@@ -39,7 +39,7 @@ const PasswordChangeDialog = ({ isShowModal, closeModal }: PasswordChangeDialogP
               type="password"
               className="mb-2 mt-2"
               name="password"
-              id="name"
+              id="password"
             />
           </label>
 
@@ -50,7 +50,7 @@ const PasswordChangeDialog = ({ isShowModal, closeModal }: PasswordChangeDialogP
               type="password"
               className="mb-2 mt-2"
               name="confirmPassword"
-              id="name"
+              id="confirmPassword"
             />
           </label>
         </div>
