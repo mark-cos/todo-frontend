@@ -19,7 +19,7 @@ const ProfileUserInfo = ({ user, taskStatus }: ProfileUserInfoProps) => {
       <div className={'flex-auto'}>
         <Image
           className="mx-auto rounded-full"
-          src={user.avatarUrl || defualtAvatarImg}
+          src={user.image || defualtAvatarImg}
           alt="profile-image"
           width={80}
           height={80}
