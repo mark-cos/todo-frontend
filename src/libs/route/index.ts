@@ -10,13 +10,13 @@ const ROUTE = {
       path: `/account/register`,
     },
   },
-  MAIN: {
-    path: '/main',
-    PROFILE: {
-      path: `/main/profile`,
-    },
-    TASKS: {
-      path: `/main/tasks`,
+  TASKS: {
+    path: '/tasks',
+  },
+  PROFILE: {
+    path: '/profile',
+    ACCOUT: {
+      path: `/profile/account-info`,
     },
   },
 };

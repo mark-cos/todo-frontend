@@ -16,7 +16,7 @@ const OauthButtons = () => {
         className="flex w-full items-center justify-center"
         onClick={() =>
           signIn('google', {
-            callbackUrl: getClientLngAddPath(ROUTE.MAIN.path),
+            callbackUrl: getClientLngAddPath(ROUTE.TASKS.path),
             redirect: true,
           })
         }

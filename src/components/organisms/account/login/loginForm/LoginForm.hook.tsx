@@ -22,7 +22,7 @@ const useLoginForm = () => {
   const handleSubmitSuccess = async (loginInfo: Login) => {
     const resSignIn = await signIn('credentials', { ...loginInfo, redirect: false });
     if (resSignIn?.ok) {
-      router.push(getClientLngAddPath(ROUTE.MAIN.path));
+      router.push(getClientLngAddPath(ROUTE.TASKS.path));
     } else {
       toast.error(
         resSignIn?.status === 401 ? t('api_error_unauthorized') : t('api_error_default'),

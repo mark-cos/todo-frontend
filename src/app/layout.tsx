@@ -1,8 +1,24 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
+import { cookies } from 'next/headers';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const fonts = {
+  inter,
+  roboto_mono,
+};
+
+export type SupportFonts = keyof typeof fonts;
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,9 +33,11 @@ export type RootLayoutProps = {
 };
 
 export default function RootLayout({ children, params }: RootLayoutProps) {
+  const font = fonts[(cookies().get('font')?.value || 'inter') as SupportFonts];
+
   return (
     <html lang={params.lang} className="dark">
-      <body className={`${inter.className} dark:bg-black`}>{children}</body>
+      <body className={`${font.className} dark:bg-black`}>{children}</body>
     </html>
   );
 }

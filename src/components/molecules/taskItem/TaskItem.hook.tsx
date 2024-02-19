@@ -19,7 +19,7 @@ const useTaskItem = () => {
     queryClient.invalidateQueries({ queryKey: [rqKey.tasks] });
   };
   const handleClickTask = (taskId: string) => {
-    router.push(getClientLngAddPath(`${ROUTE.MAIN.TASKS.path}/${taskId}`));
+    router.push(getClientLngAddPath(`${ROUTE.TASKS.path}/${taskId}`));
   };
   return { handleClickCompleteBtn, handleClickTask };
 };
