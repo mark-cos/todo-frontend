@@ -8,4 +8,5 @@ export type SelectProps = {
   select: string;
   onChange: (value: string) => void;
   className: string;
+  optionClassName?: string;
 };
