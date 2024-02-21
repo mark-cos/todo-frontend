@@ -3,9 +3,9 @@ import React, { ForwardedRef, useRef, useState } from 'react';
 const useAvataImage = (ref: ForwardedRef<HTMLInputElement>) => {
   const defualtAvatarImg = '/images/profile-img.jpg';
   const imageRef = useRef<HTMLImageElement>(null);
-  const [isChangeImage, setIsChangeImage] = useState(false);
+  const [isupdateImage, setIsupdateImage] = useState(false);
 
-  const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleupdateImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files) return;
     const reader = new FileReader();
@@ -14,10 +14,10 @@ const useAvataImage = (ref: ForwardedRef<HTMLInputElement>) => {
       imageRef.current.src = reader.result as string;
     };
     reader.readAsDataURL(files[0]);
-    setIsChangeImage(true);
+    setIsupdateImage(true);
   };
 
-  const handleClickChangeImage = () => {
+  const handleClickupdateImage = () => {
     if (typeof ref !== 'function') {
       ref?.current?.click();
     }
@@ -25,10 +25,10 @@ const useAvataImage = (ref: ForwardedRef<HTMLInputElement>) => {
 
   return {
     defualtAvatarImg,
-    isChangeImage,
+    isupdateImage,
     imageRef,
-    handleChangeImage,
-    handleClickChangeImage,
+    handleupdateImage,
+    handleClickupdateImage,
   };
 };
 

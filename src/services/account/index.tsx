@@ -1,12 +1,15 @@
 import http from '@/libs/http';
-import { UserPasswordChange } from '@/types/user/user.typs';
+import { AppSetting, UserPasswordChange } from '@/types/user/user.typs';
 
-export const chageImage = (formdata: FormData) =>
-  http.put('chageImage', formdata, {
+export const updateImage = (formdata: FormData) =>
+  http.put('updateImage', formdata, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
 
-export const chagePassword = (changePassword: UserPasswordChange) =>
-  http.put('chagePassword', changePassword);
+export const updatePassword = (newPassword: UserPasswordChange) =>
+  http.put('updatePassword', newPassword);
+
+export const updateAppSetting = (appSetting: AppSetting) =>
+  http.put('app-setting', appSetting);

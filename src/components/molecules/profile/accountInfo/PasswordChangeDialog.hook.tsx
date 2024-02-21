@@ -1,5 +1,5 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
-import { chagePassword } from '@/services/account';
+import { updatePassword } from '@/services/account';
 import { UserPasswordChange, userPasswordChangeSchema } from '@/types/user/user.typs';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
@@ -21,7 +21,7 @@ const usePasswordChangeDialog = (closeModal: () => void) => {
 
   const mutation = useMutation({
     mutationFn: (passwordChangeFormData: UserPasswordChange) =>
-      chagePassword(passwordChangeFormData),
+      updatePassword(passwordChangeFormData),
     onSuccess: () => {
       reset();
       closeModal();

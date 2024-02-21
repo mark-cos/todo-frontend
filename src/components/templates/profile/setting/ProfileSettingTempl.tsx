@@ -1,66 +1,25 @@
 'use client';
 import Button from '@/components/atoms/button/Button';
 import ToggleButton from '@/components/atoms/button/ToggleButton';
-import { Content } from '@/components/atoms/button/button.types';
-import React, { useState } from 'react';
+import React from 'react';
 import useProfileSettingTempl from './ProfileSettingTempl.hook';
 import BackIcon from '@/images/icons/back-button.svg';
 import Select from '@/components/atoms/select/Select';
-import { Option } from '@/components/atoms/select/select.types';
-
-const colors: Content[] = [
-  {
-    lable: 'light',
-  },
-  {
-    lable: 'dark',
-  },
-  {
-    lable: 'black',
-  },
-];
-
-const languages: Content[] = [
-  {
-    lable: 'en',
-  },
-  {
-    lable: 'ko',
-  },
-];
-
-const fonts: Option[] = [
-  {
-    id: 1,
-    value: 'inter',
-    text: 'inter',
-  },
-  {
-    id: 2,
-    value: 'roboto_mono',
-    text: 'roboto_mono',
-  },
-  {
-    id: 3,
-    value: 'roboto_mono1',
-    text: 'roboto_mono1',
-  },
-  {
-    id: 4,
-    value: 'roboto_mono2',
-    text: 'roboto_mono2',
-  },
-];
 
 const ProfileSettingTempl = () => {
-  const { handleBackPage } = useProfileSettingTempl();
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selectedLng, setSelectedLng] = useState(languages[0]);
-  const [selectedFont, setSelectedFont] = useState(fonts[0].value);
-
-  const handleChangeFont = (font: string) => {
-    setSelectedFont(font);
-  };
+  const {
+    handleBackPage,
+    themes,
+    selectedTheme,
+    setSelectedTheme,
+    handleChangeFont,
+    fonts,
+    selectedFont,
+    languages,
+    selectedLng,
+    setSelectedLng,
+    handleUpdateSetting,
+  } = useProfileSettingTempl();
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -81,9 +40,9 @@ const ProfileSettingTempl = () => {
                   Change app color
                   <ToggleButton
                     className="mt-5"
-                    contents={colors}
-                    selected={selectedColor}
-                    setSelected={setSelectedColor}
+                    contents={themes}
+                    selected={selectedTheme}
+                    setSelected={setSelectedTheme}
                   />
                 </label>
               </div>
@@ -117,7 +76,12 @@ const ProfileSettingTempl = () => {
         </form>
       </div>
       <div className="flex-none">
-        <Button variant="contained" className="w-full" type="submit">
+        <Button
+          variant="contained"
+          className="w-full"
+          type="button"
+          onClick={handleUpdateSetting}
+        >
           Update
         </Button>
       </div>

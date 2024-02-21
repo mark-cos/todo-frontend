@@ -11,15 +11,15 @@ const AvataImage = forwardRef(
   ({ url }: AvataImageProps, ref: ForwardedRef<HTMLInputElement>) => {
     const {
       defualtAvatarImg,
-      isChangeImage,
+      isupdateImage,
       imageRef,
-      handleChangeImage,
-      handleClickChangeImage,
+      handleupdateImage,
+      handleClickupdateImage,
     } = useAvataImage(ref);
     return (
       <div className="relative flex items-center justify-center gap-3 ">
         <div className="relative h-20 w-20 flex-none rounded-full">
-          {isChangeImage ? (
+          {isupdateImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               alt="profile-image"
@@ -40,12 +40,12 @@ const AvataImage = forwardRef(
             type="file"
             className="hidden"
             ref={ref}
-            onChange={handleChangeImage}
+            onChange={handleupdateImage}
             accept="image/*"
           />
           <Button
             className="absolute bottom-0 border-2 border-primary px-1"
-            onClick={handleClickChangeImage}
+            onClick={handleClickupdateImage}
           >
             change
           </Button>
