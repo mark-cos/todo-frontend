@@ -3,10 +3,10 @@ import { InferType, object, ref, string } from 'yup';
 export const userSchema = object({
   email: string().email('input.email.format').required('input.email.required'),
   name: string().required('input.name.required'),
-  image: string(),
-  theme: string<'dark' | 'light'>().required().default('dark'),
+  image: string().required(),
+  theme: string<'dark' | 'light'>().defined(),
   font: string().required(),
-  language: string<'ko' | 'en'>().required().default('en'),
+  language: string<'ko' | 'en'>().defined(),
 });
 export type User = InferType<typeof userSchema>;
 
@@ -32,3 +32,6 @@ export const userPasswordChangeSchema = object({
     .oneOf([ref('password')], 'input.confirmPassword.not_match'),
 });
 export type UserPasswordChange = InferType<typeof userPasswordChangeSchema>;
+
+export const appSettingSchema = userSchema.pick(['font', 'theme', 'language']);
+export type AppSetting = InferType<typeof appSettingSchema>;

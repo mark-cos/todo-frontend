@@ -1,4 +1,4 @@
-import { chageImage } from '@/services/account';
+import { updateImage } from '@/services/account';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ const useAccountInfoTempl = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (formdata: FormData) => chageImage(formdata),
+    mutationFn: (formdata: FormData) => updateImage(formdata),
     onSuccess: ({ data }) => {
       console.log(data);
     },

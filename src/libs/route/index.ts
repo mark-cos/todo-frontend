@@ -18,6 +18,9 @@ const ROUTE = {
     ACCOUT: {
       path: `/profile/account-info`,
     },
+    APP_SETTING: {
+      path: '/profile/app-setting',
+    },
   },
 };
 

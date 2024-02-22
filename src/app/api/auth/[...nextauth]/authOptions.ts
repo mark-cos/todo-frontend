@@ -1,17 +1,30 @@
-import clientPromise, { connDB } from '@/libs/mongodb';
-import { NextAuthOptions } from 'next-auth';
+import clientPromise, { client, connDB } from '@/libs/mongodb';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { IUser, IUserInfo } from '../../types/auth';
 import bcrypt from 'bcrypt';
 import { Adapter } from 'next-auth/adapters';
+import { NextAuthOptions } from 'next-auth';
+import { ObjectId } from 'mongodb';
 
 const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: `${profile.family_name}${profile.given_name}`,
+          email: profile.email,
+          font: 'inter',
+          theme: 'dark',
+          language: 'en',
+          image: profile.picture,
+        };
+      },
     }),
     CredentialsProvider({
       credentials: {
@@ -65,6 +78,7 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   pages: {
     signIn: '/account/login',
     newUser: '/account/register',
@@ -76,6 +90,24 @@ const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
+    async session({ session, token }) {
+      let user = null;
+      try {
+        const collection = await connDB<IUser>('users');
+        user = await collection.findOne({ _id: new ObjectId(token.sub) });
+      } catch (e) {
+        console.info('🚀 _ file: authOptions.ts:99 _ session _ e:', e);
+      }
+
+      if (user) {
+        session.user.font = user.font;
+        session.user.language = user.language;
+        session.user.image = user.image || user.image;
+        session.user.theme = user.theme;
+      }
+
+      return session;
+    },
     async signIn({ account, profile, user }) {
       return true;
     },

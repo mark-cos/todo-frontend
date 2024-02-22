@@ -51,7 +51,7 @@ const AccountInfoTempl = () => {
               className="w-full"
               onClick={() => setIsShowModal(true)}
             >
-              ChangePassword
+              updatePassword
             </Button>
           </div>
 

@@ -15,7 +15,10 @@ export const connDB = async <T extends Object>(
   collectionName: string,
   dbName = 'todos',
 ) => {
-  client = createClient();
+  if (!client) {
+    client = createClient();
+  }
+
   const db = client.db(dbName);
   const collection = await db.collection<T>(collectionName);
   return collection;

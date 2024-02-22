@@ -31,7 +31,7 @@ export async function GET(request: Request, response: Response) {
         { status: 404 },
       );
     }
-    console.log('✨[GET] /tasks/:taskId', taskId);
+    console.info('✨[GET] /tasks/:taskId', taskId);
 
     const tasksAggregate = await collection.aggregate<Task>();
     const taskList = await tasksAggregate
@@ -52,7 +52,6 @@ export async function GET(request: Request, response: Response) {
     // @ts-ignore @FIXME:
     task.category = task.category[0];
 
-    // console.log('✨[PUT] /tasks/completed/:taskId', updateReulst.acknowledged);
     // @ts-ignore @FIXME:
     delete task.categoryId;
     return Response.json(task);
@@ -65,7 +64,7 @@ export async function GET(request: Request, response: Response) {
       status: 400,
     });
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }
 
@@ -93,7 +92,7 @@ export async function DELETE(request: Request) {
       );
     }
 
-    console.log('✨[DELETE] /tasks/:taskId', taskId);
+    console.info('✨[DELETE] /tasks/:taskId', taskId);
     // @ts-ignore @FIXME:
     const deleteResult = await collection.deleteOne({ _id: new ObjectId(taskId) });
     if (deleteResult.deletedCount === 0) {
@@ -110,7 +109,7 @@ export async function DELETE(request: Request) {
       status: 400,
     });
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }
 
@@ -140,7 +139,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    console.log('✨[PUT] /tasks/:taskId', taskId);
+    console.info('✨[PUT] /tasks/:taskId', taskId);
     const updateTask = { ...reqTask, categoryId: new ObjectId(reqTask.category._id) };
     delete updateTask.category;
 
@@ -168,6 +167,6 @@ export async function PUT(request: Request) {
       status: 400,
     });
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }
