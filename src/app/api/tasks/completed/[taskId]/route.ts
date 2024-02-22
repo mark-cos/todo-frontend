@@ -34,7 +34,7 @@ export async function PUT(request: Request, response: Response) {
     }
 
     const taskId = match[1];
-    console.log('✨[PUT] /tasks/completed/:taskId', taskId);
+    console.info('✨[PUT] /tasks/completed/:taskId', taskId);
 
     const updateReulst = await collection.updateOne(
       {
@@ -52,7 +52,6 @@ export async function PUT(request: Request, response: Response) {
       throw new Error();
     }
 
-    // console.log('✨[PUT] /tasks/completed/:taskId', updateReulst.acknowledged);
     return Response.json(updateReulst);
   } catch (e) {
     const errorRes: ApiErrorResponse = {
@@ -63,6 +62,6 @@ export async function PUT(request: Request, response: Response) {
       status: 400,
     });
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }

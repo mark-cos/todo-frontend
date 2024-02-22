@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   } catch (e) {
     console.error(e);
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }
 
@@ -58,6 +58,6 @@ export async function GET(request: Request) {
   } catch (e) {
     console.error(e);
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }

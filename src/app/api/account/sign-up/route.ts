@@ -21,7 +21,10 @@ export const POST = async (request: Request) => {
     const userInsertResult = await usersCollection.insertOne({
       email: userJoinInfo.email,
       name: userJoinInfo.name,
-      image: '',
+      font: 'inter',
+      theme: 'dark',
+      language: 'en',
+      image: '/images/profile-img.jpg',
     });
 
     const encPassword = await bcrypt.hash(userJoinInfo.password!, 10);
@@ -37,6 +40,6 @@ export const POST = async (request: Request) => {
   } catch (e) {
     console.error(e);
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 };

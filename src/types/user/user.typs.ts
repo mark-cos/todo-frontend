@@ -3,7 +3,7 @@ import { InferType, object, ref, string } from 'yup';
 export const userSchema = object({
   email: string().email('input.email.format').required('input.email.required'),
   name: string().required('input.name.required'),
-  image: string(),
+  image: string().required(),
   theme: string<'dark' | 'light'>().defined(),
   font: string().required(),
   language: string<'ko' | 'en'>().defined(),

@@ -2,7 +2,7 @@ import { Content } from '@/components/atoms/button/button.types';
 import { Option } from '@/components/atoms/select/select.types';
 import { Locale } from '@/libs/i18n';
 import { updateAppSetting } from '@/services/account';
-import { AppSetting } from '@/types/user/user.typs';
+import { AppSetting, User } from '@/types/user/user.typs';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -50,13 +50,7 @@ const fonts: Option[] = [
     text: 'roboto_mono2',
   },
 ];
-const useProfileSettingTempl = () => {
-  // FIXME: sesstion에 넣고 세션에서 가져오게 변경 필요.
-  const appSetting: AppSetting = {
-    theme: 'light',
-    font: 'roboto_mono2',
-    language: 'ko',
-  };
+const useProfileAppSettingTempl = (user: User) => {
   const router = useRouter();
 
   const handleBackPage = () => {
@@ -64,13 +58,13 @@ const useProfileSettingTempl = () => {
   };
 
   const [selectedTheme, setSelectedTheme] = useState(
-    themes.find((theme) => theme.lable === appSetting.theme) || themes[0],
+    themes.find((theme) => theme.lable === user.theme) || themes[0],
   );
-  const [selectedLng, setSelectedLng] = useState(
-    languages.find((language) => language.lable === appSetting.language) || languages[0],
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    languages.find((language) => language.lable === user.language) || languages[0],
   );
   const [selectedFont, setSelectedFont] = useState(
-    fonts.find((font) => font.value === appSetting.font)?.value || fonts[0].value,
+    fonts.find((font) => font.value === user.font)?.value || fonts[0].value,
   );
 
   const handleChangeFont = (font: string) => {
@@ -86,7 +80,7 @@ const useProfileSettingTempl = () => {
   const handleUpdateSetting = () => {
     const setting: AppSetting = {
       theme: selectedTheme.lable as 'light' | 'dark',
-      language: selectedLng.lable as Locale,
+      language: selectedLanguage.lable as Locale,
       font: selectedFont,
     };
 
@@ -102,10 +96,10 @@ const useProfileSettingTempl = () => {
     fonts,
     selectedFont,
     languages,
-    selectedLng,
-    setSelectedLng,
+    selectedLanguage,
+    setSelectedLanguage,
     handleUpdateSetting,
   };
 };
 
-export default useProfileSettingTempl;
+export default useProfileAppSettingTempl;

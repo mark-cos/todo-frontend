@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   } catch (e) {
     console.error(e);
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }
 
@@ -153,7 +153,7 @@ export async function GET(request: Request, response: Response) {
         // 이름이 같을 경우
         return 0;
       });
-    console.log('✨[GET] /tasks', taskList.length);
+    console.info('✨[GET] /tasks', taskList.length);
     return Response.json(taskList);
   } catch (e) {
     const errorRes: ApiErrorResponse = {
@@ -164,6 +164,6 @@ export async function GET(request: Request, response: Response) {
       status: 400,
     });
   } finally {
-    if (client) client.close();
+    // if (client) client.close();
   }
 }

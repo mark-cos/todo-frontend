@@ -13,16 +13,14 @@ export type ProfileUserInfoProps = {
 };
 
 const ProfileUserInfo = ({ user, taskStatus }: ProfileUserInfoProps) => {
-  const defualtAvatarImg = '/images/profile-img.jpg';
   return (
     <div className="flex flex-col text-center">
-      <div className={'flex-auto'}>
+      <div className="relative mx-auto h-20 w-20 flex-auto">
         <Image
+          fill
           className="mx-auto rounded-full"
-          src={user.image || defualtAvatarImg}
+          src={user.image}
           alt="profile-image"
-          width={80}
-          height={80}
           priority={false}
         />
       </div>

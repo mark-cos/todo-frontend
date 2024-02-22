@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';
-import { cookies } from 'next/headers';
+import { getServerSession } from 'next-auth';
+import authOptions from './api/auth/[...nextauth]/authOptions';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,12 +33,15 @@ export type RootLayoutProps = {
   };
 };
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
-  const font = fonts[(cookies().get('font')?.value || 'inter') as SupportFonts];
+const RootLayout = async ({ children, params }: RootLayoutProps) => {
+  const session = await getServerSession(authOptions);
+  // session.user에서 폰트를 가져와 폰트를 설정한다.
+  const font = fonts[session?.user.font as SupportFonts] || inter;
 
   return (
     <html lang={params.lang} className="dark">
       <body className={`${font.className} dark:bg-black`}>{children}</body>
     </html>
   );
-}
+};
+export default RootLayout;

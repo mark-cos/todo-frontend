@@ -1,3 +1,4 @@
+import { Locale } from '@/libs/i18n';
 import { ObjectId } from 'mongodb';
 
 export interface IUser {
@@ -5,6 +6,9 @@ export interface IUser {
   email: string;
   name: string;
   image: string;
+  font: string;
+  theme: 'dark' | 'light';
+  language: Locale;
 }
 
 export interface IAccount {

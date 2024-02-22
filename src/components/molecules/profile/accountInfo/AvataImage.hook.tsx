@@ -1,7 +1,6 @@
 import React, { ForwardedRef, useRef, useState } from 'react';
 
 const useAvataImage = (ref: ForwardedRef<HTMLInputElement>) => {
-  const defualtAvatarImg = '/images/profile-img.jpg';
   const imageRef = useRef<HTMLImageElement>(null);
   const [isupdateImage, setIsupdateImage] = useState(false);
 
@@ -24,7 +23,6 @@ const useAvataImage = (ref: ForwardedRef<HTMLInputElement>) => {
   };
 
   return {
-    defualtAvatarImg,
     isupdateImage,
     imageRef,
     handleupdateImage,

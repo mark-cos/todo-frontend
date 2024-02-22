@@ -17,7 +17,7 @@ const useProfileMenuList = () => {
           id: 11,
           icon: settingIcon,
           text: 'App Setting',
-          href: '',
+          href: ROUTE.PROFILE.APP_SETTING.path,
         },
       ],
     },

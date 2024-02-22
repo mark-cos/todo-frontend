@@ -2,11 +2,16 @@
 import Button from '@/components/atoms/button/Button';
 import ToggleButton from '@/components/atoms/button/ToggleButton';
 import React from 'react';
-import useProfileSettingTempl from './ProfileSettingTempl.hook';
+import useProfileAppSettingTempl from './ProfileAppSettingTempl.hook';
 import BackIcon from '@/images/icons/back-button.svg';
 import Select from '@/components/atoms/select/Select';
+import { User } from '@/types/user/user.typs';
 
-const ProfileSettingTempl = () => {
+type ProfileAppSettingTemplProps = {
+  user: User;
+};
+
+const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
   const {
     handleBackPage,
     themes,
@@ -16,10 +21,10 @@ const ProfileSettingTempl = () => {
     fonts,
     selectedFont,
     languages,
-    selectedLng,
-    setSelectedLng,
+    selectedLanguage,
+    setSelectedLanguage,
     handleUpdateSetting,
-  } = useProfileSettingTempl();
+  } = useProfileAppSettingTempl(user);
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -66,8 +71,8 @@ const ProfileSettingTempl = () => {
                   <ToggleButton
                     className="mt-5"
                     contents={languages}
-                    selected={selectedLng}
-                    setSelected={setSelectedLng}
+                    selected={selectedLanguage}
+                    setSelected={setSelectedLanguage}
                   />
                 </label>
               </div>
@@ -75,7 +80,7 @@ const ProfileSettingTempl = () => {
           </div>
         </form>
       </div>
-      <div className="flex-none">
+      <div className="mt-7 flex-none">
         <Button
           variant="contained"
           className="w-full"
@@ -89,4 +94,4 @@ const ProfileSettingTempl = () => {
   );
 };
 
-export default ProfileSettingTempl;
+export default ProfileAppSettingTempl;
