@@ -1,12 +1,20 @@
 ## Todo app
+
+- next.JS와 다양한 라이브러리 사용을 목표로 기획 및 UI는 공개되어진 Figma 템플릿을 사용
+- 미흡한 기획과 기능은 BE와 협의하여 추가, 수정하는 형태로 진행
+
+### skill
+
 - node 20
 - react(18) + ts + nextjs(14) + tailwind
-- hook-form, zustand, headlessui,
+- hook-form, zustand, headlessui
 - ci/cd
   - github-action ( 빌드, docker 이미지 빌드, 배포)
 - 서버
   - docker 기반 서버 구성
   - 도메인, HTTPS 적용 (https://todo.devhong.cc)
+- figma
+  - [링크](https://www.figma.com/file/t9iTdY05UF7CHXTP4yf1NN/TodoApp?type=design&node-id=0-1&mode=design)
 
 ### command
 
