@@ -8,6 +8,7 @@ type TaskState = {
   task: AddTask | Task;
   filter: TaskFilter;
   isEditMode: boolean;
+  isCategoryEditMode: boolean;
 };
 
 type TaskAction = {
@@ -16,6 +17,7 @@ type TaskAction = {
   setTask: (task: Partial<AddTask | Task>) => void;
   setFilter: (filter: Partial<TaskFilter>) => void;
   setIsEditMode: (isEditMode: boolean) => void;
+  setIsCategoryEditMode: (isCategoryEditMode: boolean) => void;
 };
 
 export const initialTaskState: TaskState = {
@@ -42,6 +44,7 @@ export const initialTaskState: TaskState = {
     },
   },
   isEditMode: false,
+  isCategoryEditMode: false,
 };
 
 export const createTaskSlice: StateCreator<TaskState & TaskAction, [], []> = (set) => ({
@@ -65,5 +68,9 @@ export const createTaskSlice: StateCreator<TaskState & TaskAction, [], []> = (se
   setIsEditMode: (isEditMode: boolean) =>
     set(() => ({
       isEditMode,
+    })),
+  setIsCategoryEditMode: (isCategoryEditMode: boolean) =>
+    set(() => ({
+      isCategoryEditMode,
     })),
 });

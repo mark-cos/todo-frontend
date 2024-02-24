@@ -1,5 +1,6 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import { rqKey } from '@/libs/react-query';
+import { taskStore } from '@/libs/zustand';
 import { getCategories } from '@/services/category';
 import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { useQuery } from '@tanstack/react-query';
@@ -47,8 +48,19 @@ export const useCategorySelectForm = (
     handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
   };
 
+  // 모달을 닫을 경우 수정모드를 false로 초기화 한다.
+  const handleCancel = () => {
+    setIsCategoryEditMode(false);
+    handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
+  };
+
   const handleCreateCategory = () => {
     handleSetTaskFormStep(TASK_FORM_STEP.CREATE_CATEGORY);
+  };
+
+  const { isCategoryEditMode, setIsCategoryEditMode } = taskStore((state) => state);
+  const handleToggleCategoryEditMode = () => {
+    setIsCategoryEditMode(!isCategoryEditMode);
   };
 
   return {
@@ -59,5 +71,8 @@ export const useCategorySelectForm = (
     selectedCategory,
     handleSaveCategory,
     handleCreateCategory,
+    isCategoryEditMode,
+    handleToggleCategoryEditMode,
+    handleCancel,
   };
 };
