@@ -15,18 +15,6 @@ body {
   height: 100svh;
 }
 
-.btn-text {
-  @apply h-12 rounded-[4px] px-4 py-1 text-black dark:text-white;
-}
-
-.btn-contained {
-  @apply box-border h-12 rounded-[4px] bg-primary px-4 py-1;
-}
-
-.btn-outlined {
-  @apply box-border h-12 rounded-[4px] border-2 border-primary bg-white px-4 py-1 text-black dark:bg-black dark:text-white;
-}
-
 .EmojiPickerReact .epr-preview {
   display: none !important;
 }

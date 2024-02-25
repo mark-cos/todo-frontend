@@ -13,6 +13,9 @@ const ROUTE = {
   TASKS: {
     path: '/tasks',
   },
+  CALENDAR: {
+    path: '/calendar',
+  },
   PROFILE: {
     path: '/profile',
     ACCOUT: {

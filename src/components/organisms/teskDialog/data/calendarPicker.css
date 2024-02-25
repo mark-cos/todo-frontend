@@ -1,46 +1,43 @@
-.rdp {
-  --rdp-cell-size: auto; /* Size of the day cells. */
-  --rdp-caption-font-size: 18px; /* Font size for the caption labels. */
-  --rdp-accent-color: #0000ff; /* Accent color for the background of selected days. */
-  --rdp-background-color: #e7edff; /* Background color for the hovered/focused elements. */
-  --rdp-accent-color-dark: #3003e1; /* Accent color for the background of selected days (to use in dark-mode). */
-  --rdp-background-color-dark: #180270; /* Background color for the hovered/focused elements (to use in dark-mode). */
-  --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
-  --rdp-outline-selected: 3px solid var(--rdp-accent-color); /* Outline border for focused _and_ selected elements */
-  --rdp-selected-color: #fff; /* Color of selected day text */
+.rdp-root {
   height: 300px;
-}
-.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
-  background-color: transparent;
 }
 
 .rdp-table {
   width: 100%;
-}
-.rdp-month {
-  width: 100%;
-}
-.rdp-day_today:not(.rdp-day_outside) {
-  @apply text-amber-200;
-  font-weight: bold !important;
+  max-width: initial !important;
 }
 
 .rdp-head {
   height: 35px;
 }
-.rdp-head_row > th {
+
+.rdp-month {
+  width: 100%;
+}
+
+.rdp-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rdp-nav > .rdp-button:hover:not([disabled]):not(.rdp-day-selected) {
+  background-color: transparent !important;
+}
+
+.rdp-head-cell {
   font-weight: normal;
   width: calc(100% / 7);
   min-width: calc(100% / 7);
   max-width: calc(100% / 7);
 }
 
-.rdp-head_row > th:nth-child(1),
-th:nth-child(7) {
+.rdp-head-cell:nth-child(1),
+.rdp-head-cell:nth-child(7) {
   color: red;
 }
 
-.rdp-cell > .rdp-button {
+.rdp-button {
   background-color: #272727;
   border-radius: 6%;
   margin: 0.4rem auto;
@@ -50,33 +47,28 @@ th:nth-child(7) {
   font-weight: normal;
 }
 
-.rdp-cell > .rdp-button:hover {
-  @apply hover:bg-primary;
+.rdp-day-today:not(.rdp-day-outside) {
+  color: rgba(253 230 138);
+  font-weight: bold !important;
 }
 
-.rdp-cell > .rdp-day_selected {
-  @apply bg-primary;
+.rdp-day-selected {
+  background-color: #8687e7 !important;
 }
 
-.rdp-cell > .rdp-day_outside {
+.rdp-day-outside {
   background-color: transparent;
 }
 
 .rdp-caption {
-  @apply mb-2 md:mb-0;
+  margin-bottom: 8px;
   position: relative;
   border-bottom: 1px solid #979797;
   padding-bottom: 10px;
 }
 
-.rdp-caption .rdp-caption_label {
-  position: absolute;
+.rdp-caption-label {
+  position: absolute !important;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.rdp-caption .rdp-nav {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
 }
