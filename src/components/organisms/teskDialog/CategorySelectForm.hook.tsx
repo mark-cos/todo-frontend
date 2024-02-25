@@ -28,6 +28,7 @@ export const useCategorySelectForm = (
   } = taskStore((state) => state);
 
   const categories = useMemo(() => data?.data, [data?.data]);
+  // 카테고리를 선택 시 카테고리 수정모드이면 카테고리 생성/수정 폼을 표시한다.
   const handleClickCategory = (category: Category) => {
     setSelectedCategory(category);
     if (isCategoryEditMode) {
@@ -37,7 +38,7 @@ export const useCategorySelectForm = (
 
   /**
    * 카테고리 선택 유효성 체크 후 form에 value 설정
-   * 수정: 다이얼로그에서 이미지를 함께 보여줘야 하므로 카테고리 객체 자체를 설정
+   * 카테고리 재 선택: 다이얼로그에서 이미지를 함께 보여줘야 하므로 카테고리 객체 자체를 설정
    * 추가: 선택한 카테고리 아이디만 객체에 설정
    */
   const handleSaveCategory = () => {

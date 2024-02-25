@@ -24,25 +24,34 @@ const useCategoryCreateForm = (
   const { selectedCategory, isCategoryEditMode } = taskStore((state) => state);
   const [categoryPreview, setCategoryPreview] = useState<CategoryAdd>(defaultCategory);
 
+  const { register, handleSubmit, setValue, watch, reset } = useForm({
+    resolver: yupResolver(categoryAddSchema),
+  });
+
+  // store에서 선택된 카테고리에 따라 폼, 미리보기를 설정.
+  useEffect(() => {
+    const category = isCategoryEditMode ? selectedCategory : defaultCategory;
+    reset(category);
+    setCategoryPreview(category);
+  }, [selectedCategory]);
+
+  // 색 선택 시 form와 미리보기 state의 color를 같이 설정한다.
   const handleSetColor = (color: string) => {
     setValue('color', color);
     setCategoryPreview((prev) => ({ ...prev, color }));
   };
 
-  const { register, handleSubmit, setValue, watch, reset } = useForm({
-    resolver: yupResolver(categoryAddSchema),
-  });
-
-  useEffect(() => {
-    reset(isCategoryEditMode ? selectedCategory : defaultCategory);
-    setCategoryPreview(isCategoryEditMode ? selectedCategory : defaultCategory);
-  }, [selectedCategory]);
-
+  // 카테고리 이름변경 시 미리보기 이름 변경
   const categoryName = watch(['name'])[0];
-
   useEffect(() => {
     setCategoryPreview((prev) => ({ ...prev, name: categoryName }));
   }, [categoryName]);
+
+  // 이모지 선택 시 form, 미리보기 설정
+  const handleClickEmoji = (emoji: EmojiClickData) => {
+    setCategoryPreview((prev) => ({ ...prev, icon: emoji.imageUrl }));
+    setValue('icon', emoji.imageUrl);
+  };
 
   const handleSubmitError = (e: FieldErrors<CategoryAdd>) => {
     for (const [key, value] of Object.entries(e)) {
@@ -81,11 +90,6 @@ const useCategoryCreateForm = (
           name: category.name,
         },
       });
-  };
-
-  const handleClickEmoji = (emoji: EmojiClickData) => {
-    setCategoryPreview((prev) => ({ ...prev, icon: emoji.imageUrl }));
-    setValue('icon', emoji.imageUrl);
   };
 
   return {

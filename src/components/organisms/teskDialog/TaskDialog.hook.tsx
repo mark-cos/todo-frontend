@@ -79,7 +79,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
     resolver: yupResolver(isNewTask ? addTaskSchema : taskSchema),
   });
 
-  // 수정 - 의 경우 전받은 task 데이터를 기준으로 초기화
+  // 수정 - 전달받은 task 데이터를 기준으로 초기화
   // 입력 - 기본 빈값으로 초기화
   useEffect(() => {
     if (isEditMode) {
@@ -89,6 +89,8 @@ export const useTaskDialog = (isNewTask: boolean) => {
     }
   }, [task, isEditMode]);
 
+  // 각 폼 타입에 따른 타이틀 설정.
+  // 카테고리의 경우 버툰으 추가로 표시되어야 하므로 TitleCompont props를 전달하여 사용한다.
   const dialogTitle = useCallback(() => {
     let title = {
       label: '',
@@ -105,7 +107,6 @@ export const useTaskDialog = (isNewTask: boolean) => {
         break;
       }
       case TASK_FORM_STEP.CATEGORY: {
-        // title.label = t('category_select.title');
         break;
       }
       case TASK_FORM_STEP.CREATE_CATEGORY: {
@@ -120,6 +121,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
     return title;
   }, [taskFormStep, isEditMode]);
 
+  // 카테고리 타이틀 컴포넌트
   const CategoryTitle = (
     <div className="mb-2 border-b-[1px] border-secondary pb-2 text-center text-lg font-bold leading-normal">
       <div className="relative">
@@ -139,7 +141,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
   );
 
   /**
-   * 수정 다이얼로그에서 save버튼을 눌렀을 경우 메인이 아닌 다이얼로그를 닫음.
+   * 수정 다이얼로그에서 save버튼을 눌렀을 경우 메인 폼으로 이동이 아닌 다이얼로그를 닫음.
    * 설정한 form 데이터 store에 설정
    */
   const handleSetTaskFormStep = useCallback(
