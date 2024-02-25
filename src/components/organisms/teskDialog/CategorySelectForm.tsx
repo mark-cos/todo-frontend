@@ -36,8 +36,8 @@ const CategorySelectForm = ({
         {!isLoading && (
           <div className="mt-2 text-right">
             <Button
-              variant="contained"
-              className="h-auto px-1 py-0 font-normal"
+              variant="outlined"
+              className="h-auto px-1 py-0 text-sm font-light"
               onClick={handleToggleCategoryEditMode}
             >
               {isCategoryEditMode ? 'Cancel' : 'Edit'}
@@ -60,7 +60,7 @@ const CategorySelectForm = ({
               ))}
 
               {/* category add button*/}
-              {isCategoryEditMode && (
+              {!isCategoryEditMode && (
                 <button onClick={handleCreateCategory} type="button">
                   <div
                     className={`mx-auto h-16 w-16 basis-1/4 rounded-md border-[3px] border-white/25`}

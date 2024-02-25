@@ -27,6 +27,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
     setIsShowModal,
     setTask,
     setTaskFormStep,
+    isCategoryEditMode,
   } = taskStore((state) => state);
 
   const queryClient = useQueryClient();
@@ -106,7 +107,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
         break;
       }
       case TASK_FORM_STEP.CREATE_CATEGORY: {
-        title.label = t('category_create.title');
+        title.label = isCategoryEditMode ? 'Category edit' : t('category_create.title');
         break;
       }
       case TASK_FORM_STEP.PRIORITY: {

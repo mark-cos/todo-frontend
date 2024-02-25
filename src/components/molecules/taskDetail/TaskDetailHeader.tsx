@@ -11,20 +11,20 @@ const TaskDetailHeader = () => {
   return (
     <div className="flex justify-between">
       <div className="flex-none">
-        <Button
-          className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-[#1d1d1d] bg-[#1D1D1D]"
+        <button
+          className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-dark bg-dark"
           onClick={handleGoBackPage}
         >
           <Image className="h-6 w-6" src={cancleIcon} alt="cancleIcon" />
-        </Button>
+        </button>
       </div>
       <div className="flex-none">
-        <Button
-          className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-[#1d1d1d] bg-[#1D1D1D]"
+        <button
+          className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-dark bg-dark"
           onClick={handleTaskInfoReflash}
         >
           <Image className="h-6 w-6" src={repeatIcon} alt="repeatIcon" />
-        </Button>
+        </button>
       </div>
     </div>
   );

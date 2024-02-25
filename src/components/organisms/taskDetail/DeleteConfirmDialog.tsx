@@ -10,24 +10,20 @@ type DeleteConfirmDialogProps = {
     label: string;
     className: string;
   };
-  taskTitle: string;
+  children: React.ReactNode;
+  handleDelete: () => void;
 };
 
 const DeleteConfirmDialog = ({
   isShowModal,
   close,
   dialogTitle,
-  taskTitle,
+  children,
+  handleDelete,
 }: DeleteConfirmDialogProps) => {
   return (
     <Dialog isShowModal={isShowModal} close={close} title={dialogTitle}>
-      <div>
-        <p className="text-center text-lg font-normal">
-          Are You sure you want to delete this task?
-          <br />
-          Task title : {taskTitle}
-        </p>
-      </div>
+      {children}
       <div className="mt-5 flex">
         <div className="basis-1/2">
           <Button variant="text" className="w-full" onClick={close}>
@@ -35,7 +31,11 @@ const DeleteConfirmDialog = ({
           </Button>
         </div>
         <div className="basis-1/2">
-          <Button className="w-full rounded-md" variant="contained" onClick={close}>
+          <Button
+            className="w-full rounded-md"
+            variant="contained"
+            onClick={handleDelete}
+          >
             Delete
           </Button>
         </div>

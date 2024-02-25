@@ -30,6 +30,7 @@ const TaskDetailInfo = ({ task }: TaskDetailInfoProps) => {
     setIsShowCloseModal,
     editTask,
     handleSubmitTaskEdit,
+    handleTaskDelete,
   } = useTaskDetailInfo(task);
 
   return (
@@ -111,8 +112,16 @@ const TaskDetailInfo = ({ task }: TaskDetailInfoProps) => {
             label: 'Delete Task',
             className: 'text-center border-b-[1px] border-secondary pb-3 mb-6',
           }}
-          taskTitle={editTask.title}
-        />
+          handleDelete={handleTaskDelete}
+        >
+          <div>
+            <p className="text-center text-lg font-normal">
+              Are You sure you want to delete this task?
+              <br />
+              Task title : {editTask.title}
+            </p>
+          </div>
+        </DeleteConfirmDialog>
       </div>
 
       {/* edit buttn */}

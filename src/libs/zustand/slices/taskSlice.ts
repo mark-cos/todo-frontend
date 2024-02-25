@@ -1,4 +1,10 @@
-import { AddTask, TASK_FORM_STEP, Task, TaskFilter } from '@/types/task/task.type';
+import {
+  AddTask,
+  Category,
+  TASK_FORM_STEP,
+  Task,
+  TaskFilter,
+} from '@/types/task/task.type';
 import { format } from 'date-fns';
 import { StateCreator, create } from 'zustand';
 
@@ -9,6 +15,7 @@ type TaskState = {
   filter: TaskFilter;
   isEditMode: boolean;
   isCategoryEditMode: boolean;
+  selectedCategory: Category;
 };
 
 type TaskAction = {
@@ -18,6 +25,7 @@ type TaskAction = {
   setFilter: (filter: Partial<TaskFilter>) => void;
   setIsEditMode: (isEditMode: boolean) => void;
   setIsCategoryEditMode: (isCategoryEditMode: boolean) => void;
+  setSelectedCategory: (selectedCategory: Category) => void;
 };
 
 export const initialTaskState: TaskState = {
@@ -45,6 +53,12 @@ export const initialTaskState: TaskState = {
   },
   isEditMode: false,
   isCategoryEditMode: false,
+  selectedCategory: {
+    _id: '',
+    color: '',
+    icon: '',
+    name: '',
+  },
 };
 
 export const createTaskSlice: StateCreator<TaskState & TaskAction, [], []> = (set) => ({
@@ -72,5 +86,9 @@ export const createTaskSlice: StateCreator<TaskState & TaskAction, [], []> = (se
   setIsCategoryEditMode: (isCategoryEditMode: boolean) =>
     set(() => ({
       isCategoryEditMode,
+    })),
+  setSelectedCategory: (selectedCategory: Category) =>
+    set(() => ({
+      selectedCategory,
     })),
 });

@@ -4,7 +4,7 @@ import { taskStore } from '@/libs/zustand';
 import { getCategories } from '@/services/category';
 import { AddTask, Category, TASK_FORM_STEP, Task } from '@/types/task/task.type';
 import { useQuery } from '@tanstack/react-query';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 export const useCategorySelectForm = (
@@ -14,21 +14,25 @@ export const useCategorySelectForm = (
   isEditMode: boolean,
 ) => {
   const { t } = useClientTranslation('taskDialog');
-  const [selectedCategory, setSelectedCategory] = useState<Category>({
-    _id: categoryId,
-    color: '',
-    icon: '',
-    name: '',
-  });
 
   const { data, isLoading } = useQuery({
     queryFn: getCategories,
     queryKey: [rqKey.categories],
   });
 
+  const {
+    isCategoryEditMode,
+    setIsCategoryEditMode,
+    selectedCategory,
+    setSelectedCategory,
+  } = taskStore((state) => state);
+
   const categories = useMemo(() => data?.data, [data?.data]);
   const handleClickCategory = (category: Category) => {
     setSelectedCategory(category);
+    if (isCategoryEditMode) {
+      handleSetTaskFormStep(TASK_FORM_STEP.CREATE_CATEGORY);
+    }
   };
 
   /**
@@ -52,13 +56,18 @@ export const useCategorySelectForm = (
   const handleCancel = () => {
     setIsCategoryEditMode(false);
     handleSetTaskFormStep(TASK_FORM_STEP.MAIN);
+    setSelectedCategory({
+      _id: '',
+      color: '',
+      icon: '',
+      name: '',
+    });
   };
 
   const handleCreateCategory = () => {
     handleSetTaskFormStep(TASK_FORM_STEP.CREATE_CATEGORY);
   };
 
-  const { isCategoryEditMode, setIsCategoryEditMode } = taskStore((state) => state);
   const handleToggleCategoryEditMode = () => {
     setIsCategoryEditMode(!isCategoryEditMode);
   };

@@ -25,7 +25,7 @@ const useTaskDetailInfo = (_task: Task) => {
   // task 삭제 후 메인 페이지로 이동
   const handleTaskDelete = async () => {
     setIsShowCloseModal(true);
-    const isDelete = await mutation.mutateAsync(taskId);
+    await mutation.mutateAsync(taskId);
   };
   const {
     setTaskFormStep,

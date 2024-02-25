@@ -18,6 +18,7 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
     handleSubmit,
     handleSubmitSuccess,
     handleSubmitError,
+    isCategoryEditMode,
   } = useCategoryCreateForm(handleSetTaskFormStep);
 
   return (
@@ -109,7 +110,7 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
           </div>
           <div className="basis-1/2">
             <Button className="w-full rounded-md" variant="contained" type="submit">
-              {t('button.save')}
+              {!isCategoryEditMode ? t('button.save') : 'Edit'}
             </Button>
           </div>
         </div>
