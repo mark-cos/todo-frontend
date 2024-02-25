@@ -18,6 +18,7 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
     handleSubmit,
     handleSubmitSuccess,
     handleSubmitError,
+    isCategoryEditMode,
   } = useCategoryCreateForm(handleSetTaskFormStep);
 
   return (
@@ -77,10 +78,6 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
                   category: Categories.ANIMALS_NATURE,
                   name: 'Animals & Nature',
                 },
-                /*   {
-                  category: Categories.SMILEYS_PEOPLE,
-                  name: 'Smileys & People',
-                }, */
                 {
                   category: Categories.TRAVEL_PLACES,
                   name: 'Travel & Places',
@@ -109,7 +106,7 @@ const CategoryCreateForm = ({ handleSetTaskFormStep }: CategoryCreateFormProps) 
           </div>
           <div className="basis-1/2">
             <Button className="w-full rounded-md" variant="contained" type="submit">
-              {t('button.save')}
+              {!isCategoryEditMode ? t('button.save') : 'Edit'}
             </Button>
           </div>
         </div>
