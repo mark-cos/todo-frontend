@@ -21,7 +21,6 @@ const CategorySelectForm = ({
     handleSaveCategory,
     handleCreateCategory,
     isCategoryEditMode,
-    handleToggleCategoryEditMode,
     handleCancel,
   } = useCategorySelectForm(
     categoryId,
@@ -33,17 +32,6 @@ const CategorySelectForm = ({
   return (
     <div className="flex flex-col">
       <div className="flex-auto">
-        {!isLoading && (
-          <div className="mt-2 text-right">
-            <Button
-              variant="outlined"
-              className="h-auto px-1 py-0 text-sm font-light"
-              onClick={handleToggleCategoryEditMode}
-            >
-              {isCategoryEditMode ? 'Cancel' : 'Edit'}
-            </Button>
-          </div>
-        )}
         <div className="my-5 grid grid-cols-4 items-center justify-center gap-y-4 text-center">
           {isLoading ? (
             <CategoryIconSkeleton />

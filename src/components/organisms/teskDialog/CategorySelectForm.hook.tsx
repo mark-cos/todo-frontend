@@ -68,10 +68,6 @@ export const useCategorySelectForm = (
     handleSetTaskFormStep(TASK_FORM_STEP.CREATE_CATEGORY);
   };
 
-  const handleToggleCategoryEditMode = () => {
-    setIsCategoryEditMode(!isCategoryEditMode);
-  };
-
   return {
     t,
     isLoading,
@@ -81,7 +77,6 @@ export const useCategorySelectForm = (
     handleSaveCategory,
     handleCreateCategory,
     isCategoryEditMode,
-    handleToggleCategoryEditMode,
     handleCancel,
   };
 };

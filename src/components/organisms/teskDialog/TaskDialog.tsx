@@ -25,11 +25,19 @@ const TaskDialog = ({ dictionary, isNewTask = false }: TaskDialogProps) => {
     handleCloseModal,
     isEditMode,
     setIsShowModal,
+    CategoryTitle,
   } = useTaskDialog(isNewTask);
 
   return (
     isShowModal && (
-      <Dialog isShowModal={isShowModal} close={handleCloseModal} title={dialogTitle()}>
+      <Dialog
+        isShowModal={isShowModal}
+        close={handleCloseModal}
+        title={taskFormStep !== TASK_FORM_STEP.CATEGORY ? dialogTitle() : undefined}
+        TitleComonent={
+          taskFormStep === TASK_FORM_STEP.CATEGORY ? CategoryTitle : undefined
+        }
+      >
         <form onSubmit={handleSubmit(onSuccess, onSubmitError)}>
           {taskFormStep === TASK_FORM_STEP.MAIN && (
             <TaskMainForm

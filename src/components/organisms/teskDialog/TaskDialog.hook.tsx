@@ -15,6 +15,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postTask } from '@/services/task';
 import { rqKey } from '@/libs/react-query';
 import { taskStore } from '@/libs/zustand';
+import Button from '@/components/atoms/button/Button';
 
 export const useTaskDialog = (isNewTask: boolean) => {
   const { t } = useClientTranslation('taskDialog');
@@ -28,6 +29,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
     setTask,
     setTaskFormStep,
     isCategoryEditMode,
+    setIsCategoryEditMode,
   } = taskStore((state) => state);
 
   const queryClient = useQueryClient();
@@ -103,7 +105,7 @@ export const useTaskDialog = (isNewTask: boolean) => {
         break;
       }
       case TASK_FORM_STEP.CATEGORY: {
-        title.label = t('category_select.title');
+        // title.label = t('category_select.title');
         break;
       }
       case TASK_FORM_STEP.CREATE_CATEGORY: {
@@ -117,6 +119,24 @@ export const useTaskDialog = (isNewTask: boolean) => {
     }
     return title;
   }, [taskFormStep, isEditMode]);
+
+  const CategoryTitle = (
+    <div className="mb-2 border-b-[1px] border-secondary pb-2 text-center text-lg font-bold leading-normal">
+      <div className="relative">
+        {isCategoryEditMode ? 'Category edit' : t('category_create.title')}
+
+        <div className="absolute right-0 top-0">
+          <Button
+            variant="outlined"
+            className="h-auto px-1 py-0 text-sm font-light"
+            onClick={() => setIsCategoryEditMode(!isCategoryEditMode)}
+          >
+            {isCategoryEditMode ? 'Cancel' : 'Edit'}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   /**
    * 수정 다이얼로그에서 save버튼을 눌렀을 경우 메인이 아닌 다이얼로그를 닫음.
@@ -154,5 +174,6 @@ export const useTaskDialog = (isNewTask: boolean) => {
     handleCloseModal,
     isEditMode,
     setIsShowModal,
+    CategoryTitle,
   };
 };
