@@ -33,6 +33,7 @@ const CalendarPickerForm = ({
     caption: `${styles.caption} rdp-caption`,
     caption_label: `${styles.caption_label} rdp-caption-label`,
     nav: `${styles.nav} rdp-nav`,
+    day: `${styles.day} rdp-day`,
   };
 
   return (
