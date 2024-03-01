@@ -1,37 +1,65 @@
 'use client';
-import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
-import { format, isValid, parse } from 'date-fns';
-import FocusTrap from 'focus-trap-react';
-import { DayPicker, SelectSingleEventHandler } from 'react-day-picker';
+import React, {
+  ChangeEventHandler,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { add, format, isValid, parse } from 'date-fns';
+import { ClassNames, DayPicker, SelectSingleEventHandler } from 'react-day-picker';
 import { usePopper } from 'react-popper';
-// import 'react-day-picker/dist/style.css';
+import styles from 'react-day-picker/dist/style.module.css';
+import InputText from '@/components/atoms/inputText/InputText';
+import NextIcon from '@/images/icons/arrow-left.svg';
+import PreviousIcon from '@/images/icons/back-button.svg';
+import WeekCalendar from '@/components/molecules/calendar/WeekCalendar';
 
 const CalendarTempl = () => {
-  const [selected, setSelected] = useState<Date>();
+  const [selected, setSelected] = useState<Date>(new Date());
   const [inputValue, setInputValue] = useState<string>('');
   const [isPopperOpen, setIsPopperOpen] = useState(false);
 
   const popperRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
 
   const popper = usePopper(popperRef.current, popperElement, {
     placement: 'bottom-start',
   });
 
-  const closePopper = () => {
-    console.log('🚀 ~ closePopper ~ call');
-    setIsPopperOpen(false);
-    buttonRef?.current?.focus();
+  const classNames: ClassNames = {
+    ...styles,
   };
+
+  const handleChangeWeek = (type: 'previous' | 'next') => {
+    setSelected((pre) => add(pre, { weeks: type === 'next' ? 1 : -1 }));
+  };
+
+  useEffect(() => {
+    if (!popperElement) return;
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick);
+    };
+  }, [popperElement]);
+
+  function handleDocumentClick(event: MouseEvent<HTMLDivElement>) {
+    if (!popperElement || !event.target) return;
+    if (
+      popperElement.contains(event.target as Element) ||
+      event.target === popperElement
+    ) {
+      return;
+    }
+    setIsPopperOpen(false);
+  }
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputValue(e.currentTarget.value);
-    const date = parse(e.currentTarget.value, 'y-MM-dd', new Date());
+    const date = parse(e.currentTarget.value, 'y-MMMM-dd', new Date());
+
     if (isValid(date)) {
       setSelected(date);
-    } else {
-      setSelected(undefined);
     }
   };
 
@@ -39,71 +67,68 @@ const CalendarTempl = () => {
     setIsPopperOpen(true);
   };
 
-  useEffect(() => {
-    console.log('🚀 ~ CalendarTempl ~ isPopperOpen:', isPopperOpen);
-  }, [isPopperOpen]);
-
-  const handleDaySelect: SelectSingleEventHandler = (date) => {
-    setSelected(date);
-    console.log('🚀 ~ CalendarTempl ~ date:', date);
+  const handleDaySelect: SelectSingleEventHandler = (
+    date,
+    _selectedDay,
+    _activeModifiers,
+    event,
+  ) => {
+    event.stopPropagation();
 
     if (date) {
       setInputValue(format(date, 'y-MM-dd'));
-      closePopper();
+      setIsPopperOpen(false);
+      setSelected(date);
     } else {
       setInputValue('');
     }
   };
 
   return (
-    <div className="h-[500px]">
-      <div ref={popperRef}>
-        <input
-          size={12}
-          type="text"
-          placeholder={format(new Date(), 'y-MM-dd')}
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-        <button
-          ref={buttonRef}
-          type="button"
-          aria-label="Pick a date"
-          onClick={handleButtonClick}
-        >
-          Pick a date
-        </button>
+    <div className="bg-dark py-2">
+      <div className="mx-auto mb-4 flex items-center justify-between" ref={popperRef}>
+        <div className="flex-none">
+          <button onClick={() => handleChangeWeek('previous')}>
+            <PreviousIcon />
+          </button>
+        </div>
+        <div className="relative flex-none text-center" onClick={handleButtonClick}>
+          <p>{format(new Date(), 'MMMM')}</p>
+          <p className="text-xs font-extralight">{format(new Date(), 'yyyy')}</p>
+          <InputText
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            className="hidden"
+          />
+          {isPopperOpen && (
+            <div
+              tabIndex={-1}
+              style={popper.styles.popper}
+              className="dialog-sheet"
+              {...popper.attributes.popper}
+              ref={setPopperElement}
+              role="dialog"
+              aria-label="DayPicker calendar"
+            >
+              <DayPicker
+                initialFocus={isPopperOpen}
+                mode="single"
+                defaultMonth={selected}
+                selected={selected}
+                onSelect={handleDaySelect}
+                classNames={classNames}
+              />
+            </div>
+          )}
+        </div>
+        <div className="flex-none">
+          <button onClick={() => handleChangeWeek('next')}>
+            <NextIcon />
+          </button>
+        </div>
       </div>
-      {isPopperOpen && (
-        <FocusTrap
-          active
-          focusTrapOptions={{
-            initialFocus: false,
-            allowOutsideClick: true,
-            clickOutsideDeactivates: true,
-            // onDeactivate: closePopper,
-            fallbackFocus: buttonRef.current || undefined,
-          }}
-        >
-          <div
-            tabIndex={-1}
-            style={popper.styles.popper}
-            className="dialog-sheet"
-            {...popper.attributes.popper}
-            ref={setPopperElement}
-            role="dialog"
-            aria-label="DayPicker calendar"
-          >
-            <DayPicker
-              initialFocus={isPopperOpen}
-              mode="single"
-              defaultMonth={selected}
-              selected={selected}
-              onSelect={handleDaySelect}
-            />
-          </div>
-        </FocusTrap>
-      )}
+      <WeekCalendar selectedDay={selected} setSelectedDay={setSelected} />
     </div>
   );
 };

@@ -73,15 +73,12 @@
   transform: translateX(-50%);
 }
 
-.rdp-day {
-  width: auto !important;
-  height: 24px !important;
-  width: 24px !important;
+.rdp-cell {
+  height: auto !important;
 }
 
-.rdp-day > .rdp-button {
-  @apply mx-auto mt-3 h-6 w-6 rounded-md border bg-black/25;
-  font-size: 13px !important;
+.rdp-day {
+  @apply mx-auto mt-3 h-6 w-6 rounded-md border text-[13px] !important;
 }
 
 .rdp-day > .rdp-button:hover,

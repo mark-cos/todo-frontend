@@ -97,6 +97,8 @@ const authOptions: NextAuthOptions = {
         user = await collection.findOne({ _id: new ObjectId(token.sub) });
       } catch (e) {
         console.info('🚀 _ file: authOptions.ts:99 _ session _ e:', e);
+      } finally {
+        await client?.close();
       }
 
       if (user) {

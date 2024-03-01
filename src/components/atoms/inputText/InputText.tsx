@@ -1,5 +1,6 @@
 import React, { ForwardedRef, forwardRef } from 'react';
 import { InputTextProps } from './inputText.types';
+import { twMerge } from 'tailwind-merge';
 
 const InputText = React.forwardRef(
   (
@@ -14,9 +15,10 @@ const InputText = React.forwardRef(
         type={type}
         placeholder={placeholder}
         {...porps}
-        className={`w-full rounded border border-dark bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary ${
-          porps.className || ''
-        }`}
+        className={twMerge(
+          `w-full rounded border border-dark bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary`,
+          porps.className || '',
+        )}
       />
     );
   },
