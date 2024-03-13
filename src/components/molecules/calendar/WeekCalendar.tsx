@@ -20,7 +20,7 @@ const WeekCalendar = ({ selectedDay, setSelectedDay }: WeekCalendarProps) => {
           <div key={index} className="flex-auto text-center">
             <button
               className={twMerge(
-                'mx-auto w-fit rounded-md bg-black/25 px-2 py-2 text-xs',
+                'mx-auto w-fit min-w-11 rounded-md bg-black/25 px-1 py-2 text-xs',
                 selectedDay.getTime() === day.getTime() && 'bg-primary',
               )}
               onClick={() => setSelectedDay(day)}
@@ -37,4 +37,11 @@ const WeekCalendar = ({ selectedDay, setSelectedDay }: WeekCalendarProps) => {
   );
 };
 
-export default WeekCalendar;
+function WeekCalendarPropsSelectedDayEqual(
+  prevMovie: WeekCalendarProps,
+  nextMovie: WeekCalendarProps,
+) {
+  return prevMovie.selectedDay === nextMovie.selectedDay;
+}
+
+export default React.memo(WeekCalendar, WeekCalendarPropsSelectedDayEqual);

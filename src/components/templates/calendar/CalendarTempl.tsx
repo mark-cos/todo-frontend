@@ -2,6 +2,7 @@
 import React, {
   ChangeEventHandler,
   MouseEvent,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -15,9 +16,11 @@ import NextIcon from '@/images/icons/arrow-left.svg';
 import PreviousIcon from '@/images/icons/back-button.svg';
 import WeekCalendar from '@/components/molecules/calendar/WeekCalendar';
 import FilterButtons from '@/components/molecules/calendar/FilterButtons';
+import { calendarStore } from '@/libs/zustand';
 
 const CalendarTempl = () => {
-  const [selected, setSelected] = useState<Date>(new Date());
+  const { selectedDate, setSelectedDate } = calendarStore((state) => state);
+  const [selected, setSelected] = useState<Date>(new Date(selectedDate));
   const [inputValue, setInputValue] = useState<string>('');
   const [isPopperOpen, setIsPopperOpen] = useState(false);
 
@@ -32,9 +35,27 @@ const CalendarTempl = () => {
     ...styles,
   };
 
+  useEffect(() => {
+    setSelectedDate(format(selected, 'yyyy-MM-dd'));
+  }, [selected, setSelectedDate]);
+
   const handleChangeWeek = (type: 'previous' | 'next') => {
     setSelected((pre) => add(pre, { weeks: type === 'next' ? 1 : -1 }));
   };
+
+  const handleDocumentClick = useCallback(
+    (event: CustomEvent<MouseEvent>) => {
+      if (!popperElement || !event.target) return;
+      if (
+        popperElement.contains(event.target as Element) ||
+        event.target === popperElement
+      ) {
+        return;
+      }
+      setIsPopperOpen(false);
+    },
+    [popperElement],
+  );
 
   useEffect(() => {
     if (!popperElement) return;
@@ -42,18 +63,7 @@ const CalendarTempl = () => {
     return () => {
       document.removeEventListener('mousedown', handleDocumentClick as EventListener);
     };
-  }, [popperElement]);
-
-  function handleDocumentClick(event: CustomEvent<MouseEvent>) {
-    if (!popperElement || !event.target) return;
-    if (
-      popperElement.contains(event.target as Element) ||
-      event.target === popperElement
-    ) {
-      return;
-    }
-    setIsPopperOpen(false);
-  }
+  }, [handleDocumentClick, popperElement]);
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputValue(e.currentTarget.value);
@@ -133,7 +143,7 @@ const CalendarTempl = () => {
         <WeekCalendar selectedDay={selected} setSelectedDay={setSelected} />
       </div>
 
-      {/* fillter btns */}
+      {/* filter btns */}
       <div>
         <FilterButtons />
       </div>

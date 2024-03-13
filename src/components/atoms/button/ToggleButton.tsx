@@ -3,8 +3,8 @@ import Button from './Button';
 
 type ToggleButtonProps = {
   children: ReactNode;
-  onSelected: () => void;
-  onUnSelected: () => void;
+  onSelected?: () => void;
+  onUnSelected?: () => void;
   isSelected?: boolean;
   classname?: string;
 };
@@ -19,7 +19,7 @@ const ToggleButton = ({
   const [_isSelected, setIsSelected] = useState(isSelected);
   const handleToggleBtn = () => {
     setIsSelected((pre) => !pre);
-    _isSelected ? onSelected() : onUnSelected();
+    _isSelected ? onSelected && onSelected() : onUnSelected && onUnSelected();
   };
 
   useEffect(() => {
