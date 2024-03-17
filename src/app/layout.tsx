@@ -29,12 +29,12 @@ export const metadata: Metadata = {
     type: 'website',
     title: '마크최오손 : Todo',
     description: '할일(todo)을 작성해보세요.',
-    url: 'https://devhong.cc',
+    url: 'https://todo.devhong.cc',
     locale: 'en_US',
-    images: 'https://devhong.cc/images/og_image.png',
+    images: 'https://todo.devhong.cc/images/og_image.png',
   },
   icons: {
-    icon: '/images/icon.png',
+    icon: 'images/icon.png',
   },
 };
 
