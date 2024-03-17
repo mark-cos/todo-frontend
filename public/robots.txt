@@ -1,0 +1,7 @@
+# 대상: 모든 크롤러
+# root페이지만 헝요
+#
+
+User-agent: *
+Disallow: /
+Allow: /$
