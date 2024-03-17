@@ -21,7 +21,7 @@ const Nav = () => {
         src={calendarIcon}
         alt="calendarIcon"
         label="calendar"
-        href={ROUTE.TASKS.path}
+        href={ROUTE.CALENDAR.path}
       />
       <div className="relative">
         <NavTaskAddButton />

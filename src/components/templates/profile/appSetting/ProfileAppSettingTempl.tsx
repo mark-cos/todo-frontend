@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/atoms/button/Button';
-import ToggleButton from '@/components/atoms/button/ToggleButton';
+import RadioButton from '@/components/atoms/button/RadioButton';
 import React from 'react';
 import useProfileAppSettingTempl from './ProfileAppSettingTempl.hook';
 import BackIcon from '@/images/icons/back-button.svg';
@@ -43,7 +43,7 @@ const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
               <div className="mt-7">
                 <label htmlFor="name">
                   Change app color
-                  <ToggleButton
+                  <RadioButton
                     className="mt-5"
                     contents={themes}
                     selected={selectedTheme}
@@ -68,7 +68,7 @@ const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
               <div className="mt-7">
                 <label htmlFor="name">
                   Change app language
-                  <ToggleButton
+                  <RadioButton
                     className="mt-5"
                     contents={languages}
                     selected={selectedLanguage}

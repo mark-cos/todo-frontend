@@ -16,7 +16,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
         <div className="flex-none">
           <Header />
         </div>
-        <div className="p-base grow pb-28">{children}</div>
+        <div className="grow px-5 pb-28">{children}</div>
         <div className="fixed bottom-0 w-full">
           <Nav />
         </div>
