@@ -3,5 +3,4 @@
 #
 
 User-agent: *
-Disallow: /
 Allow: /$
