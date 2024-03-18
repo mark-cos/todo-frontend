@@ -81,6 +81,7 @@ jobs:
           cp -R ${{ github.workspace }}/Dockerfile ${{ vars.DOCKER_BUILD_PATH }}/
           cp -R ${{ github.workspace }}/.next/* ${{ vars.DOCKER_BUILD_PATH }}/
           cp -R ${{ github.workspace }}/.env ${{ vars.DOCKER_BUILD_PATH }}/
+          cp -R ${{ github.workspace }}/public ${{ vars.DOCKER_BUILD_PATH }}/standalone/
           mv ${{ vars.DOCKER_BUILD_PATH }}/static ${{ vars.DOCKER_BUILD_PATH }}/standalone/.next/
 
       - name: Log in to the Container registry
