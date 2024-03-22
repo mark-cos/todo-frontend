@@ -3,6 +3,8 @@ import { initReactI18next } from 'react-i18next/initReactI18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { cookies } from 'next/headers';
 import { Locale, i18nLangOptions } from '.';
+import { getServerSession } from 'next-auth';
+import authOptions from '@/app/api/auth/[...nextauth]/authOptions';
 
 const initI18next = async (lng: Locale, ns: string) => {
   const i18nInstance = createInstance();
@@ -24,7 +26,8 @@ const initI18next = async (lng: Locale, ns: string) => {
 };
 
 async function useServerTranslation(ns: string) {
-  const lng = cookies().get('lng')?.value || i18nLangOptions.defaultLocale;
+  const session = await getServerSession(authOptions);
+  const lng = session?.user.language || i18nLangOptions.defaultLocale;
   const i18nextInstance = await initI18next(lng as Locale, ns);
 
   return {

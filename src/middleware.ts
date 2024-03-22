@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { i18nLangOptions } from './libs/i18n';
 import { getToken } from 'next-auth/jwt';
+import { getServerSession } from 'next-auth';
+import authOptions from './app/api/auth/[...nextauth]/authOptions';
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -13,15 +15,12 @@ export async function middleware(request: NextRequest) {
   );
 
   // 현재 lng값 설정.
-  // locale path가 없는 경우 쿠키 lng값 확인
-  const cookieLng = cookieStore.get('lng')?.value;
-  const lng = pathnameIsMissingLocale
-    ? cookieLng
-      ? cookieLng
-      : i18nLangOptions.defaultLocale
+
+  let lng = pathnameIsMissingLocale
+    ? i18nLangOptions.defaultLocale
     : (pathname.match(/([^\/]+)/g) || [])[0] || i18nLangOptions.defaultLocale;
 
-  // 서버컴포넌트에서 patname을 사용하기 위해 헤더에 추가
+  // 서버컴포넌트에서 pathname을 사용하기 위해 헤더에 추가
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
 
@@ -36,12 +35,13 @@ export async function middleware(request: NextRequest) {
     '/account/register',
   ];
 
-  const session = await getToken({
+  const token = await getToken({
     req: request,
     raw: true,
   });
+
   // 로그인이 안된 경우 로그인 페이지로 이동
-  if (!session) {
+  if (!token) {
     if (!nonAuthUrlList.some((nonAuthUrl) => pathname === nonAuthUrl)) {
       return NextResponse.redirect(new URL(`/${lng}/account/login`, request.url));
     }
