@@ -43,7 +43,10 @@ export function useClientTranslation(ns: string) {
   } else {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeLng, setActiveLng] = useState(lng);
-    if (activeLng !== i18n.resolvedLanguage) i18n.changeLanguage(lng);
+    if (activeLng !== i18n.resolvedLanguage) {
+      console.log('change lng');
+      i18n.changeLanguage(lng);
+    }
     console.log(
       '🚀 _ useClientTranslation _ i18n.resolvedLanguage:',
       i18n.resolvedLanguage,

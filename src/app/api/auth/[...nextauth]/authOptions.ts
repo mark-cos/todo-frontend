@@ -98,7 +98,6 @@ const authOptions: NextAuthOptions = {
       } catch (e) {
         console.info('🚀 _ file: authOptions.ts:99 _ session _ e:', e);
       } finally {
-        // client?.close();
       }
 
       if (user) {
