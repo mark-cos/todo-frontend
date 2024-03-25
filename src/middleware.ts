@@ -10,7 +10,10 @@ export async function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
-  const firstAcceptLanguage = request.headers.get('accept-language')?.split(',')[0];
+  let firstAcceptLanguage = request.headers.get('accept-language')?.split(',')[0];
+  if (firstAcceptLanguage && firstAcceptLanguage?.length > 2) {
+    firstAcceptLanguage = firstAcceptLanguage?.slice(0, 2);
+  }
   let lng = pathnameIsMissingLocale
     ? firstAcceptLanguage
     : (pathname.match(/([^\/]+)/g) || [])[0];

@@ -48,7 +48,10 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await getServerSession(authOptions);
   // session.user에서 폰트를 가져와 폰트를 설정한다.
   const font = fonts[session?.user.font as SupportFonts] || inter;
-  const firstAcceptLanguage = headers().get('accept-language')?.split(',')[0];
+  let firstAcceptLanguage = headers().get('accept-language')?.split(',')[0];
+  if (firstAcceptLanguage && firstAcceptLanguage?.length > 2) {
+    firstAcceptLanguage = firstAcceptLanguage?.slice(0, 2);
+  }
   const lng =
     session?.user.language || firstAcceptLanguage || i18nLangOptions.defaultLocale;
 
