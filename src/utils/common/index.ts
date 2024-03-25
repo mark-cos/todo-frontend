@@ -1,14 +1,15 @@
 import { i18nLangOptions } from '@/libs/i18n';
+import { usePathname } from 'next/navigation';
 
 export const throttle = <T extends (...args: any[]) => any>(fn: T, ms: number) => {
-  let isExcute = false;
+  let isExecute = false;
 
   return (...args: Parameters<T>) => {
-    if (!isExcute) {
-      isExcute = true;
+    if (!isExecute) {
+      isExecute = true;
       setTimeout(() => {
         fn(...args);
-        isExcute = false;
+        isExecute = false;
       }, ms);
     }
   };
@@ -23,5 +24,7 @@ export const getLastPathname = (pathname: string) => {
 export const getClientLngAddPath = (pathname: string) => {
   let lng = (pathname.match(/([^\/]+)/g) || [])[0];
   lng = lng && ['ko', 'en'].includes(lng) ? lng : i18nLangOptions.defaultLocale;
+  console.log('🚀 _ getClientLngAddPath _ lng:', lng, location.href);
+
   return `/${lng}${pathname}`;
 };

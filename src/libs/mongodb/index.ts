@@ -10,6 +10,7 @@ const createClient = () =>
     },
   });
 export let client: MongoClient | null = null;
+export let nextAuthClient: MongoClient;
 
 export const connDB = async <T extends Object>(
   collectionName: string,
@@ -26,7 +27,7 @@ export const connDB = async <T extends Object>(
 
 declare module global {
   let _mongoClientPromise: Promise<MongoClient>;
-  let client: MongoClient;
+  let nextAuthClient: MongoClient;
 }
 
 let clientPromise: Promise<MongoClient>;
@@ -34,14 +35,14 @@ if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!global._mongoClientPromise) {
-    client = createClient();
-    global._mongoClientPromise = client.connect();
+    global.nextAuthClient = createClient();
+    global._mongoClientPromise = global.nextAuthClient.connect();
   }
   clientPromise = global._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
-  client = createClient();
-  clientPromise = client.connect();
+  nextAuthClient = createClient();
+  clientPromise = nextAuthClient.connect();
 }
 
 // Export a module-scoped MongoClient promise. By doing this in a

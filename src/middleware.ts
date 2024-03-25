@@ -5,23 +5,21 @@ import { getToken } from 'next-auth/jwt';
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const cookieStore = request.cookies;
-
   //pathname 시작에 locale path 존재유무 체크(ex. /en/xxx, /ko/xxx)
   const pathnameIsMissingLocale = i18nLangOptions.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
-  // 현재 lng값 설정.
-  // locale path가 없는 경우 쿠키 lng값 확인
-  const cookieLng = cookieStore.get('lng')?.value;
-  const lng = pathnameIsMissingLocale
-    ? cookieLng
-      ? cookieLng
-      : i18nLangOptions.defaultLocale
-    : (pathname.match(/([^\/]+)/g) || [])[0] || i18nLangOptions.defaultLocale;
+  let firstAcceptLanguage = request.headers.get('accept-language')?.split(',')[0];
+  if (firstAcceptLanguage && firstAcceptLanguage?.length > 2) {
+    firstAcceptLanguage = firstAcceptLanguage?.slice(0, 2);
+  }
+  let lng = pathnameIsMissingLocale
+    ? firstAcceptLanguage
+    : (pathname.match(/([^\/]+)/g) || [])[0];
+  lng = lng || i18nLangOptions.defaultLocale;
 
-  // 서버컴포넌트에서 patname을 사용하기 위해 헤더에 추가
+  // 서버컴포넌트에서 pathname을 사용하기 위해 헤더에 추가
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
 
@@ -36,12 +34,13 @@ export async function middleware(request: NextRequest) {
     '/account/register',
   ];
 
-  const session = await getToken({
+  const token = await getToken({
     req: request,
     raw: true,
   });
+
   // 로그인이 안된 경우 로그인 페이지로 이동
-  if (!session) {
+  if (!token) {
     if (!nonAuthUrlList.some((nonAuthUrl) => pathname === nonAuthUrl)) {
       return NextResponse.redirect(new URL(`/${lng}/account/login`, request.url));
     }
