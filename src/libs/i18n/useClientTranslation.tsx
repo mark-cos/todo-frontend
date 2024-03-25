@@ -21,6 +21,9 @@ i18next
     ),
   )
   .init({
+    detection: {
+      lookupCookie: 'lng',
+    },
     // debug: true,
     lng: undefined, // let detect the language on client side
     preload: runsOnServerSide ? i18nLangOptions.locales : [],
@@ -35,8 +38,6 @@ export function useClientTranslation(ns: string) {
     (pathname.match(/([^\/]+)/g) || [])[0] ||
     i18nLangOptions.defaultLocale;
   const ret = useTranslationOrg(ns);
-
-  console.log('🚀 _ useClientTranslation _ lng:', lng);
   const { i18n } = ret;
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
     i18n.changeLanguage(lng);
@@ -44,36 +45,8 @@ export function useClientTranslation(ns: string) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeLng, setActiveLng] = useState(lng);
     if (activeLng !== i18n.resolvedLanguage) {
-      console.log('change lng');
       i18n.changeLanguage(lng);
     }
-    console.log(
-      '🚀 _ useClientTranslation _ i18n.resolvedLanguage:',
-      i18n.resolvedLanguage,
-    );
-
-    useEffect(() => {
-      if (activeLng === i18n.resolvedLanguage) return;
-      setActiveLng(activeLng);
-    }, [i18n.resolvedLanguage]);
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    /*  useEffect(() => {
-      if (activeLng === i18n.resolvedLanguage) return;
-      // setActiveLng(activeLng);
-
-      console.log('🚀 _ useEffect _ (i18n.resolvedLanguage:', 11111111);
-    }, [activeLng, i18n.resolvedLanguage]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!lng || i18n.resolvedLanguage === lng) return;
-      i18n.changeLanguage(lng);
-      console.log('🚀 _ useEffect _ (i18n.resolvedLanguage:', 2222222);
-    }, [lng, i18n]); */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    /* useEffect(() => {
-      console.log('🚀 _ useEffect _ (i18n.resolvedLanguage:', 3333);
-    }, [lng]); */
   }
   return ret;
 }
