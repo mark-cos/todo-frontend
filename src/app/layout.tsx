@@ -40,6 +40,9 @@ export const metadata: Metadata = {
     icon: '/images/icon.png',
   },
   applicationName: 'mark-cos',
+  other: {
+    'naver-site-verification': '28a4aeef5ad6ef2dce4567ff315cb798b6879226',
+  },
 };
 
 export type RootLayoutProps = {
