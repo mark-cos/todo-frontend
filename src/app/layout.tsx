@@ -4,7 +4,7 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 import authOptions from './api/auth/[...nextauth]/authOptions';
 import { i18nLangOptions } from '@/libs/i18n';
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,8 +24,9 @@ const fonts = {
 export type SupportFonts = keyof typeof fonts;
 
 export const metadata: Metadata = {
-  title: '마크최오손 : Todo',
-  description: '마크최오손 mark-cos 에서 할일 todo를 관리해보세요!',
+  title: 'MARK-COS (마크최오손) - 최첨단 Todo(할일) 관리.',
+  description:
+    '마크최오손 mark-cos 에서 할일 todo를 관리해보세요!. 구글 로그인, 할일 추가, 삭제, 카테고리 등록, 삭제',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL!),
   openGraph: {
     type: 'website',
@@ -38,6 +39,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/images/icon.png',
   },
+  applicationName: 'mark-cos',
 };
 
 export type RootLayoutProps = {
