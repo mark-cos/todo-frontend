@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RqProvier from '@/libs/react-query/RqProvider';
+import RqProvider from '@/libs/react-query/RqProvider';
 import 'react-toastify/dist/ReactToastify.css';
 import NextSessionProvider from '@/hocs/NextSessionProvider';
 
@@ -25,7 +25,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
           theme="dark"
           pauseOnHover
         />
-        <RqProvier>{children}</RqProvier>
+        <RqProvider>{children}</RqProvider>
       </NextSessionProvider>
     </>
   );
