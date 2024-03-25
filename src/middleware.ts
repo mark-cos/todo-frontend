@@ -2,23 +2,19 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { i18nLangOptions } from './libs/i18n';
 import { getToken } from 'next-auth/jwt';
-import { getServerSession } from 'next-auth';
-import authOptions from './app/api/auth/[...nextauth]/authOptions';
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const cookieStore = request.cookies;
-
   //pathname 시작에 locale path 존재유무 체크(ex. /en/xxx, /ko/xxx)
   const pathnameIsMissingLocale = i18nLangOptions.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
-  // 현재 lng값 설정.
-
+  const firstAcceptLanguage = request.headers.get('accept-language')?.split(',')[0];
   let lng = pathnameIsMissingLocale
-    ? i18nLangOptions.defaultLocale
-    : (pathname.match(/([^\/]+)/g) || [])[0] || i18nLangOptions.defaultLocale;
+    ? firstAcceptLanguage
+    : (pathname.match(/([^\/]+)/g) || [])[0];
+  lng = lng || i18nLangOptions.defaultLocale;
 
   // 서버컴포넌트에서 pathname을 사용하기 위해 헤더에 추가
   const requestHeaders = new Headers(request.headers);

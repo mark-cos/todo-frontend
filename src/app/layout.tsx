@@ -4,6 +4,7 @@ import './globals.css';
 import { getServerSession } from 'next-auth';
 import authOptions from './api/auth/[...nextauth]/authOptions';
 import { i18nLangOptions } from '@/libs/i18n';
+import { cookies, headers } from 'next/headers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -47,7 +48,9 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await getServerSession(authOptions);
   // session.user에서 폰트를 가져와 폰트를 설정한다.
   const font = fonts[session?.user.font as SupportFonts] || inter;
-  const lng = session?.user.language || i18nLangOptions.defaultLocale;
+  const firstAcceptLanguage = headers().get('accept-language')?.split(',')[0];
+  const lng =
+    session?.user.language || firstAcceptLanguage || i18nLangOptions.defaultLocale;
 
   return (
     <html lang={lng} className="dark">

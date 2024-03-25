@@ -29,6 +29,7 @@ async function useServerTranslation(ns: string) {
   const session = await getServerSession(authOptions);
   const lng = session?.user.language || i18nLangOptions.defaultLocale;
   const i18nextInstance = await initI18next(lng as Locale, ns);
+  console.log('🚀 _ useServerTranslation _ i18nextInstance:', i18nextInstance);
 
   return {
     t: i18nextInstance.getFixedT(lng),
