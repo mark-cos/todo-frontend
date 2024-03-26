@@ -14,10 +14,12 @@ export async function middleware(request: NextRequest) {
   if (firstAcceptLanguage && firstAcceptLanguage?.length > 2) {
     firstAcceptLanguage = firstAcceptLanguage?.slice(0, 2);
   }
+
+  const pathLng = (pathname.match(/([^\/]+)/g) || [])[0];
+
   let lng = pathnameIsMissingLocale
-    ? firstAcceptLanguage
-    : (pathname.match(/([^\/]+)/g) || [])[0];
-  lng = lng || i18nLangOptions.defaultLocale;
+    ? firstAcceptLanguage || i18nLangOptions.defaultLocale
+    : pathLng || i18nLangOptions.defaultLocale;
 
   // 서버컴포넌트에서 pathname을 사용하기 위해 헤더에 추가
   const requestHeaders = new Headers(request.headers);

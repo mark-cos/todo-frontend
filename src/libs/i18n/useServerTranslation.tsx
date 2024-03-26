@@ -1,7 +1,6 @@
 import i18next, { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
-import { cookies } from 'next/headers';
 import { Locale, i18nLangOptions } from '.';
 import { getServerSession } from 'next-auth';
 import authOptions from '@/app/api/auth/[...nextauth]/authOptions';
