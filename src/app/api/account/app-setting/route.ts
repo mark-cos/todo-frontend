@@ -1,27 +1,53 @@
-import { client, connDB } from '@/libs/mongodb';
-import { IAccount, IUser } from '../../types/auth';
-import { UserJoin } from '@/types/user/user.typs';
+import { connDB } from '@/libs/mongodb';
+import { AppSetting } from '@/types/user/user.typs';
 
 import { ObjectId } from 'mongodb';
+import { getServerSession } from 'next-auth';
+import authOptions from '../../auth/[...nextauth]/authOptions';
+import { ApiErrorResponse } from '@/types/http/http.type';
 
-export const PUT = async (request: Request) => {
+export async function PUT(request: Request) {
   try {
-    const userJoinInfo = (await request.json()) as Omit<UserJoin, 'confirmPassword'>;
-    /**
-     * 유저 기본정보를 가지고 있는 users와 토큰, provider등을 관리하는 accounts 2개의 컬렉션을 사용.
-     * users에 이메일 존재유무 체크 후 없을 경우 account에 이메일 저장 후 account에 계정정보 저장
-     */
-    const usersCollection = await connDB<IUser>('users');
-    const findUser = await usersCollection.findOne({ email: userJoinInfo.email });
-    if (findUser)
-      return new Response(null, {
-        status: 422,
-      });
+    const collection = await connDB<AppSetting>('users');
+    const session = await getServerSession(authOptions);
+    const reqAppSetting = await request.json();
 
-    return Response.json({ id: 1 });
+    if (!session?.user?.email) {
+      return Response.json(
+        {
+          error: 'not found session..',
+        },
+        { status: 401 },
+      );
+    }
+
+    console.info('✨[PUT] /account/app-setting', reqAppSetting);
+    const userId = session?.user?.id;
+    const updateResult = await collection.updateOne(
+      {
+        // @ts-ignore @FIXME:
+        _id: new ObjectId(userId),
+      },
+      {
+        $set: reqAppSetting,
+      },
+    );
+
+    if (updateResult.matchedCount === 0) {
+      throw new Error();
+    }
+
+    return Response.json(updateResult);
   } catch (e) {
-    console.error(e);
+    console.log(e);
+    const errorRes: ApiErrorResponse = {
+      code: 10002,
+      message: 'app setting 수정 에러 발생',
+    };
+    return Response.json(errorRes, {
+      status: 400,
+    });
   } finally {
     // if (client) client.close();
   }
-};
+}

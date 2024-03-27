@@ -6,25 +6,26 @@ import { AppSetting, User } from '@/types/user/user.typs';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const themes: Content[] = [
   {
-    lable: 'light',
+    label: 'light',
   },
   {
-    lable: 'dark',
+    label: 'dark',
   },
   {
-    lable: 'blue',
+    label: 'blue',
   },
 ];
 
 const languages: Content[] = [
   {
-    lable: 'en',
+    label: 'en',
   },
   {
-    lable: 'ko',
+    label: 'ko',
   },
 ];
 
@@ -58,10 +59,10 @@ const useProfileAppSettingTempl = (user: User) => {
   };
 
   const [selectedTheme, setSelectedTheme] = useState(
-    themes.find((theme) => theme.lable === user.theme) || themes[0],
+    themes.find((theme) => theme.label === user.theme) || themes[0],
   );
   const [selectedLanguage, setSelectedLanguage] = useState(
-    languages.find((language) => language.lable === user.language) || languages[0],
+    languages.find((language) => language.label === user.language) || languages[0],
   );
   const [selectedFont, setSelectedFont] = useState(
     fonts.find((font) => font.value === user.font)?.value || fonts[0].value,
@@ -74,13 +75,16 @@ const useProfileAppSettingTempl = (user: User) => {
   const mutation = useMutation({
     mutationFn: (appSetting: AppSetting) => updateAppSetting(appSetting),
     // TODO: 데이터를 다시 받아 그리는 부분 추가 필요
-    onSuccess: () => {},
+    onSuccess: () => {
+      toast.success('App settings have changed.');
+      router.refresh();
+    },
   });
 
   const handleUpdateSetting = () => {
     const setting: AppSetting = {
-      theme: selectedTheme.lable as 'light' | 'dark',
-      language: selectedLanguage.lable as Locale,
+      theme: selectedTheme.label as 'light' | 'dark',
+      language: selectedLanguage.label as Locale,
       font: selectedFont,
     };
 

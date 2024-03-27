@@ -12,4 +12,4 @@ export const updatePassword = (newPassword: UserPasswordChange) =>
   http.put('updatePassword', newPassword);
 
 export const updateAppSetting = (appSetting: AppSetting) =>
-  http.put('app-setting', appSetting);
+  http.put('/api/account/app-setting', appSetting);
