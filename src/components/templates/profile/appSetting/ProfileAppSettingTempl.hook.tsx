@@ -1,8 +1,10 @@
 import { Content } from '@/components/atoms/button/button.types';
 import { Option } from '@/components/atoms/select/select.types';
 import { Locale } from '@/libs/i18n';
+import ROUTE from '@/libs/route';
 import { updateAppSetting } from '@/services/account';
 import { AppSetting, User } from '@/types/user/user.typs';
+import { getClientLngAddPath } from '@/utils/common';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -55,7 +57,7 @@ const useProfileAppSettingTempl = (user: User) => {
   const router = useRouter();
 
   const handleBackPage = () => {
-    router.back();
+    router.push(getClientLngAddPath(ROUTE.PROFILE.path));
   };
 
   const [selectedTheme, setSelectedTheme] = useState(
@@ -77,7 +79,8 @@ const useProfileAppSettingTempl = (user: User) => {
     // TODO: 데이터를 다시 받아 그리는 부분 추가 필요
     onSuccess: () => {
       toast.success('App settings have changed.');
-      router.refresh();
+      // router.push(`/${selectedLanguage.label}/${ROUTE.PROFILE.APP_SETTING.path}`);
+      location.href = `/${selectedLanguage.label}/${ROUTE.PROFILE.APP_SETTING.path}`;
     },
   });
 

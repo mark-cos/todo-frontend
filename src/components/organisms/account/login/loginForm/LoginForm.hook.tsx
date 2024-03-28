@@ -22,6 +22,11 @@ const useLoginForm = () => {
   const handleSubmitSuccess = async (loginInfo: Login) => {
     const resSignIn = await signIn('credentials', { ...loginInfo, redirect: false });
     if (resSignIn?.ok) {
+      debugger;
+      console.log(
+        '🚀  file: LoginForm.hook.tsx:25  handleSubmitSuccess  resSignIn_',
+        resSignIn,
+      );
       router.push(getClientLngAddPath(ROUTE.TASKS.path));
     } else {
       toast.error(

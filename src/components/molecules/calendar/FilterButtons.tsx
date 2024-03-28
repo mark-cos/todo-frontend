@@ -14,10 +14,6 @@ const FilterButtons = () => {
 
   useEffect(() => {
     setIsToday(format(toDay, 'yyyy-MM-dd') === selectedDate);
-    console.log(
-      '🚀  file: FilterButtons.tsx:21  FilterButtons  selectedDate_',
-      selectedDate,
-    );
     setSelectedDate(format(toDay, 'yyyy-MM-dd'));
   }, [selectedDate]);
 
