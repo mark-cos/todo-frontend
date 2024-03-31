@@ -2,7 +2,8 @@ import { Content } from '@/components/atoms/button/button.types';
 import { Option } from '@/components/atoms/select/select.types';
 import { Locale } from '@/libs/i18n';
 import ROUTE from '@/libs/route';
-import { updateAppSetting } from '@/services/account';
+import { updateAppSetting } from '@/services/profile';
+
 import { AppSetting, User } from '@/types/user/user.typs';
 import { getClientLngAddPath } from '@/utils/common';
 import { useMutation } from '@tanstack/react-query';

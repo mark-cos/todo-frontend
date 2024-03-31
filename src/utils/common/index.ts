@@ -1,5 +1,4 @@
 import { i18nLangOptions } from '@/libs/i18n';
-import { usePathname } from 'next/navigation';
 
 export const throttle = <T extends (...args: any[]) => any>(fn: T, ms: number) => {
   let isExecute = false;

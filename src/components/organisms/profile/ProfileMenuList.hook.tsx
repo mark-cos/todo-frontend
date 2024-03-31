@@ -28,7 +28,7 @@ const useProfileMenuList = () => {
           id: 21,
           icon: userIcon,
           text: 'Change Account Info',
-          href: ROUTE.PROFILE.ACCOUT.path,
+          href: ROUTE.PROFILE.ACCOUNT.path,
         },
       ],
     },
