@@ -9,9 +9,9 @@ import authOptions from '../../auth/[...nextauth]/authOptions';
 export async function GET(request: Request, response: Response) {
   try {
     const collection = await connDB<Task>('tasks');
-    const seesion = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
-    if (!seesion?.user?.email) {
+    if (!session?.user?.email) {
       return Response.json(
         {
           error: 'not found session..',
@@ -20,7 +20,7 @@ export async function GET(request: Request, response: Response) {
       );
     }
 
-    const email = seesion.user.email;
+    const email = session.user.email;
     const taskId = getLastPathname(request.url);
 
     if (!taskId) {
@@ -71,9 +71,9 @@ export async function GET(request: Request, response: Response) {
 export async function DELETE(request: Request) {
   try {
     const collection = await connDB<Task>('tasks');
-    const seesion = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
-    if (!seesion?.user?.email) {
+    if (!session?.user?.email) {
       return Response.json(
         {
           error: 'not found session..',
@@ -116,10 +116,10 @@ export async function DELETE(request: Request) {
 export async function PUT(request: Request) {
   try {
     const collection = await connDB<Task>('tasks');
-    const seesion = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
     const reqTask = await request.json();
 
-    if (!seesion?.user?.email) {
+    if (!session?.user?.email) {
       return Response.json(
         {
           error: 'not found session..',
@@ -127,7 +127,7 @@ export async function PUT(request: Request) {
         { status: 401 },
       );
     }
-    const email = seesion?.user?.email;
+    const email = session?.user?.email;
 
     const taskId = getLastPathname(request.url);
     if (!taskId) {

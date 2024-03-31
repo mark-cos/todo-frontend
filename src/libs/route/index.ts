@@ -18,7 +18,7 @@ const ROUTE = {
   },
   PROFILE: {
     path: '/profile',
-    ACCOUT: {
+    ACCOUNT: {
       path: `/profile/account-info`,
     },
     APP_SETTING: {

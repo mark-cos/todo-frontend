@@ -33,8 +33,8 @@ const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
           <div className="flex h-full flex-col justify-between">
             <div className="flex-none">
               {/* title */}
-              <div className="flex">
-                <button onClick={handleBackPage} type="button">
+              <div className="flex" onClick={handleBackPage}>
+                <button type="button">
                   <BackIcon />
                 </button>
                 <div className="ml-2 text-lg">App Setting</div>

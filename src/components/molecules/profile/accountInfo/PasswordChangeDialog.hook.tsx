@@ -1,5 +1,6 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
-import { updatePassword } from '@/services/account';
+import { updatePassword } from '@/services/profile';
+
 import { UserPasswordChange, userPasswordChangeSchema } from '@/types/user/user.typs';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';

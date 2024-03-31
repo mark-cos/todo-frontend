@@ -25,7 +25,7 @@ const RadioButton = ({
           <div className="flex h-auto">
             {contents.map((content) => (
               <RadioGroup.Option
-                key={content.lable}
+                key={content.label}
                 value={content}
                 className={({ active, checked }) =>
                   `flex-1 first:rounded-l-lg last:rounded-r-lg
@@ -44,7 +44,7 @@ const RadioButton = ({
                               checked ? 'text-white' : 'text-dark'
                             }`}
                           >
-                            {content.lable}
+                            {content.label}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"

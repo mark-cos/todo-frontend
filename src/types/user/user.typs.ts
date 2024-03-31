@@ -1,6 +1,7 @@
 import { InferType, object, ref, string } from 'yup';
 
 export const userSchema = object({
+  id: string(),
   email: string().email('input.email.format').required('input.email.required'),
   name: string().required('input.name.required'),
   image: string().required(),

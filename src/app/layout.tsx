@@ -59,7 +59,6 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
   }
   const lng =
     session?.user.language || firstAcceptLanguage || i18nLangOptions.defaultLocale;
-
   return (
     <html lang={lng} className="dark">
       <body className={`${font.className} dark:bg-black`}>{children}</body>

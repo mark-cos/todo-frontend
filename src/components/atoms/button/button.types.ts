@@ -1,4 +1,4 @@
 export type Content = {
-  lable: string;
+  label: string;
   description?: string;
 };

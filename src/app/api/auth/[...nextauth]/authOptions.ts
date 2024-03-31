@@ -105,6 +105,7 @@ const authOptions: NextAuthOptions = {
         session.user.language = user.language;
         session.user.image = user.image || user.image;
         session.user.theme = user.theme;
+        session.user.id = user._id.toString();
       }
 
       return session;
