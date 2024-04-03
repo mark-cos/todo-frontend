@@ -22,10 +22,6 @@ const ToggleButton = ({
     _isSelected ? onSelected && onSelected() : onUnSelected && onUnSelected();
   };
 
-  useEffect(() => {
-    console.log('🚀 _ file: ToggleButton.tsx:18 _ _isSelected:', _isSelected);
-  });
-
   return (
     <Button
       variant={_isSelected ? 'contained' : 'outlined'}
