@@ -3,4 +3,5 @@ export const rqKey = {
   categories: 'categories',
   task: 'task',
   mypage: 'mypage',
+  login: 'login',
 };
