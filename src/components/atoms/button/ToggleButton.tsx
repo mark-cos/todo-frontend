@@ -19,7 +19,11 @@ const ToggleButton = ({
   const [_isSelected, setIsSelected] = useState(isSelected);
   const handleToggleBtn = () => {
     setIsSelected((pre) => !pre);
-    _isSelected ? onSelected && onSelected() : onUnSelected && onUnSelected();
+    if (_isSelected) {
+      onUnSelected && onUnSelected();
+    } else {
+      onSelected && onSelected();
+    }
   };
 
   return (

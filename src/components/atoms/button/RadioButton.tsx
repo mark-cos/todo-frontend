@@ -6,20 +6,20 @@ import { Content } from './button.types';
 type RadioButtonProps = {
   contents: Content[];
   selected: Content;
-  setSelected: React.Dispatch<React.SetStateAction<Content>>;
+  handleChangeButton: (content: Content) => void;
   className?: string;
 };
 
 const RadioButton = ({
   contents,
   selected,
-  setSelected,
+  handleChangeButton,
   className,
 }: RadioButtonProps) => {
   return (
     <div className={`w-full ${className}`}>
       <div className="mx-auto w-full">
-        <RadioGroup value={selected} onChange={setSelected}>
+        <RadioGroup value={selected} onChange={handleChangeButton}>
           {/* FIXME: */}
           <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
           <div className="flex h-auto">
