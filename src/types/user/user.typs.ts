@@ -25,6 +25,14 @@ export type UserJoin = InferType<typeof userJoinSchema>;
 export const loginSchema = userJoinSchema.pick(['email', 'password']);
 export type Login = InferType<typeof loginSchema>;
 
+export const loginResSchema = userSchema.omit(['id']).concat(
+  object({
+    accessToken: string().required(),
+    refreshToken: string().required(),
+  }),
+);
+export type LoginRes = InferType<typeof loginResSchema>;
+
 export const userPasswordChangeSchema = object({
   oldPassword: string().required('input.oldPassword.required'),
   password: string().required('input.password.required'),
