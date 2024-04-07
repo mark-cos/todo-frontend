@@ -1,16 +1,14 @@
-import React, { ReactNode, Suspense } from 'react';
+'use client';
+import React, { Suspense } from 'react';
 import TodayTaskPage from './TodayTaskPage';
-import TodayTaskNone from '@/components/molecules/todayTaskNone/TodayTaskNone';
-import { Task } from '@/types/task/task.type';
-import { headers } from 'next/headers';
+import TaskListSkeleton from '@/components/organisms/taskList/TaskList.skeleton';
 
-type TasksPageTemplProps = {
-  children?: ReactNode;
-};
-const TasksPageTempl = async ({ children }: TasksPageTemplProps) => {
+const TasksPageTempl = () => {
   return (
     <div className="flex flex-col">
-      <TodayTaskPage />
+      <Suspense fallback={<TaskListSkeleton />}>
+        <TodayTaskPage />
+      </Suspense>
     </div>
   );
 };

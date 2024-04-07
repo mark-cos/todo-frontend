@@ -1,6 +1,5 @@
 import { useClientTranslation } from '@/libs/i18n/useClientTranslation';
 import ROUTE from '@/libs/route';
-import { getMyPage } from '@/services/profile';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';

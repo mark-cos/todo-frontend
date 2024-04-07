@@ -1,7 +1,7 @@
 import { Category } from '@/types/task/task.type';
 import Image from 'next/image';
 import React from 'react';
-import CancleIcon from '@/images/icons/cancle.svg';
+import CancleIcon from '@/images/icons/cancel.svg';
 import useCategoryIcon from './CategoryIcon.hook';
 import DeleteConfirmDialog from '@/components/organisms/taskDetail/DeleteConfirmDialog';
 

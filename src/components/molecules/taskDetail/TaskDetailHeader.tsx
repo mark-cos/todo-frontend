@@ -1,9 +1,8 @@
 'use client';
 import React from 'react';
-import cancleIcon from '@/images/icons/cancle.svg?url';
+import cancelIcon from '@/images/icons/cancel.svg?url';
 import repeatIcon from '@/images/icons/repeat.svg?url';
 import Image from 'next/image';
-import Button from '@/components/atoms/button/Button';
 import useTaskDetailHeader from './TaskDetailHeader.hook';
 
 const TaskDetailHeader = () => {
@@ -15,7 +14,7 @@ const TaskDetailHeader = () => {
           className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-dark bg-dark"
           onClick={handleGoBackPage}
         >
-          <Image className="h-6 w-6" src={cancleIcon} alt="cancleIcon" />
+          <Image className="h-6 w-6" src={cancelIcon} alt="cancelIcon" />
         </button>
       </div>
       <div className="flex-none">

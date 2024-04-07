@@ -1,13 +1,13 @@
 import { rqKey } from '@/libs/react-query';
 import { taskStore } from '@/libs/zustand';
 import { getTasks } from '@/services/task';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 const useTodayTaskPage = () => {
   const { filter } = taskStore((state) => state);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useSuspenseQuery({
     queryFn: () => getTasks(filter),
     queryKey: [rqKey.tasks, filter.isCompleted, filter.keyword, filter.period],
   });
@@ -22,7 +22,7 @@ const useTodayTaskPage = () => {
 
   const tasks = useMemo(() => data?.data, [data]);
 
-  return { tasks, isLoading, isTodayNone };
+  return { tasks, isTodayNone };
 };
 
 export default useTodayTaskPage;
