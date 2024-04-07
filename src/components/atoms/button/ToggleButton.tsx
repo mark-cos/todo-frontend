@@ -25,6 +25,9 @@ const ToggleButton = ({
       onSelected && onSelected();
     }
   };
+  useEffect(() => {
+    setIsSelected(isSelected);
+  }, [isSelected]);
 
   return (
     <Button

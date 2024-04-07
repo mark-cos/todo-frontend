@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import './radioButton.css';
-import { useState } from 'react';
 import ToggleButton from '@/components/atoms/button/ToggleButton';
 import { fn } from '@storybook/test';
 
@@ -17,14 +16,14 @@ const meta = {
   // More on argTypes:
   argTypes: {
     children: {
-      control: 'string',
+      control: 'text',
     },
     isSelected: {
       control: 'boolean',
       defaultValue: true,
     },
     classname: {
-      control: 'string',
+      control: 'text',
     },
     onSelected: {
       description: '선택 시 호출 함수',
@@ -61,6 +60,9 @@ export const ToggleButtonDefault: Story = {
     isSelected: true,
     onSelected: () => {
       alert('onSelected');
+    },
+    onUnSelected: () => {
+      alert('onUnSelected');
     },
   },
 };
