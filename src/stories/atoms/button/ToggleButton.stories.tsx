@@ -33,7 +33,7 @@ const meta = {
     },
   },
 
-  args: { onSelected: fn(), onUnSelected: fn(), isSelected: true },
+  args: { onSelected: () => {}, onUnSelected: () => {}, isSelected: true },
 } satisfies Meta<typeof ToggleButton>;
 
 export default meta;

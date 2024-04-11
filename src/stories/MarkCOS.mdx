@@ -1,16 +1,33 @@
 import { Meta } from '@storybook/blocks';
 import Image from 'next/image';
+import cosImg from './assets/og_image.png';
+import logoIcon from './assets/logo.svg';
 
-<Meta title="Configure your project" />
+<Meta title="MARK COS" />;
 
 <div className="sb-container">
   <div className='sb-section-title'>
-    # Configure your project
+    # MARK COS TODO App
 
-    Because Storybook works separately from your app, you'll need to configure it for your specific stack and setup. Below, explore guides for configuring Storybook with popular frameworks and tools. If you get stuck, learn how you can ask for help from our community.
+    MARK COS의 TODO 앱 스토리 북입니다. 기본 컴포넌트를 확인/테스트 할 수 있습니다.
 
   </div>
-
+  <div className="sb-section">
+    <div className="sb-section-item">
+      <Image
+        src={cosImg}
+        alt="cosImg"
+        width={100}
+        height={100}
+      />
+      <Image
+        src={logoIcon}
+        alt="logoIcon"
+        width={100}
+        height={100}
+      />
+    </div>
+  </div>
 </div>
 
 <style>
