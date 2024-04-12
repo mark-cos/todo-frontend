@@ -8,29 +8,31 @@ type IntroProps = {
   children: React.ReactNode;
 };
 
-const Intro = forwardRef(function Intro2(
-  { viewIntroDivIndex, introId, img, children }: IntroProps,
-  ref: ForwardedRef<HTMLDivElement>,
-) {
-  return (
-    <div
-      className="flex h-[100svh] items-center justify-center"
-      ref={ref}
-      data-intro-id={introId}
-    >
+const Intro = forwardRef(
+  (
+    { viewIntroDivIndex, introId, img, children }: IntroProps,
+    ref: ForwardedRef<HTMLDivElement>,
+  ) => {
+    return (
       <div
-        className={`flex-auto ${
-          viewIntroDivIndex >= introId
-            ? ' transition-[opacity translate] translate-y-[10%] opacity-100 duration-[1800ms] ease-in-out'
-            : 'translate-y-[40%] opacity-0'
-        }`}
+        className="flex h-[100svh] items-center justify-center"
+        ref={ref}
+        data-intro-id={introId}
       >
-        <Image src={img} alt="intro-image" className="mx-auto" priority />
+        <div
+          className={`flex-auto ${
+            viewIntroDivIndex >= introId
+              ? ' transition-[opacity translate] translate-y-[10%] opacity-100 duration-[1800ms] ease-in-out'
+              : 'translate-y-[40%] opacity-0'
+          }`}
+        >
+          <Image src={img} alt="intro-image" className="mx-auto" priority />
 
-        <div className="mt-16 text-center">{children}</div>
+          <div className="mt-16 text-center">{children}</div>
+        </div>
       </div>
-    </div>
-  );
-});
-
+    );
+  },
+);
+Intro.displayName = 'Intro';
 export default Intro;
