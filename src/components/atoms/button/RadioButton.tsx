@@ -3,25 +3,25 @@ import { RadioGroup } from '@headlessui/react';
 import ButtonCheckIcon from './ButtonCheckIcon';
 import { Content } from './button.types';
 
-type RadioButtonProps = {
+export type RadioButtonProps = {
   contents: Content[];
   selected: Content;
-  setSelected: React.Dispatch<React.SetStateAction<Content>>;
+  handleChangeButton: (content: Content) => void;
   className?: string;
 };
 
 const RadioButton = ({
   contents,
   selected,
-  setSelected,
-  className,
+  handleChangeButton,
+  className = '',
 }: RadioButtonProps) => {
   return (
     <div className={`w-full ${className}`}>
       <div className="mx-auto w-full">
-        <RadioGroup value={selected} onChange={setSelected}>
+        <RadioGroup value={selected} onChange={handleChangeButton}>
           {/* FIXME: */}
-          <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
+          <RadioGroup.Label className="sr-only"></RadioGroup.Label>
           <div className="flex h-auto">
             {contents.map((content) => (
               <RadioGroup.Option

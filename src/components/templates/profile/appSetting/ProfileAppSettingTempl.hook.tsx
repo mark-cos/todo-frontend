@@ -71,6 +71,14 @@ const useProfileAppSettingTempl = (user: User) => {
     fonts.find((font) => font.value === user.font)?.value || fonts[0].value,
   );
 
+  const handleChangeTheme = (theme: Content) => {
+    setSelectedTheme(theme);
+  };
+
+  const handleChangeLanguage = (language: Content) => {
+    setSelectedLanguage(language);
+  };
+
   const handleChangeFont = (font: string) => {
     setSelectedFont(font);
   };
@@ -99,13 +107,13 @@ const useProfileAppSettingTempl = (user: User) => {
     handleBackPage,
     themes,
     selectedTheme,
-    setSelectedTheme,
+    handleChangeTheme,
     handleChangeFont,
     fonts,
     selectedFont,
     languages,
     selectedLanguage,
-    setSelectedLanguage,
+    handleChangeLanguage,
     handleUpdateSetting,
   };
 };

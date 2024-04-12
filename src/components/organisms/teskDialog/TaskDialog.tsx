@@ -34,7 +34,7 @@ const TaskDialog = ({ dictionary, isNewTask = false }: TaskDialogProps) => {
         isShowModal={isShowModal}
         close={handleCloseModal}
         title={taskFormStep !== TASK_FORM_STEP.CATEGORY ? dialogTitle() : undefined}
-        TitleComonent={
+        TitleComponent={
           taskFormStep === TASK_FORM_STEP.CATEGORY ? CategoryTitle : undefined
         }
       >

@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 
 const InputText = React.forwardRef(
   (
-    { name, value, placeholder, type = 'text', ...porps }: InputTextProps,
+    { name, value, placeholder, type = 'text', ...props }: InputTextProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
@@ -14,10 +14,10 @@ const InputText = React.forwardRef(
         name={name}
         type={type}
         placeholder={placeholder}
-        {...porps}
+        {...props}
         className={twMerge(
           `w-full rounded border border-dark bg-transparent p-2 outline-0 hover:border-secondary focus:border-secondary`,
-          porps.className || '',
+          props.className || '',
         )}
       />
     );

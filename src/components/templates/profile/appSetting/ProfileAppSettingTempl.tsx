@@ -16,13 +16,13 @@ const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
     handleBackPage,
     themes,
     selectedTheme,
-    setSelectedTheme,
+    handleChangeTheme,
     handleChangeFont,
     fonts,
     selectedFont,
     languages,
     selectedLanguage,
-    setSelectedLanguage,
+    handleChangeLanguage,
     handleUpdateSetting,
   } = useProfileAppSettingTempl(user);
 
@@ -47,7 +47,7 @@ const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
                     className="mt-5"
                     contents={themes}
                     selected={selectedTheme}
-                    setSelected={setSelectedTheme}
+                    handleChangeButton={handleChangeTheme}
                   />
                 </label>
               </div>
@@ -72,7 +72,7 @@ const ProfileAppSettingTempl = ({ user }: ProfileAppSettingTemplProps) => {
                     className="mt-5"
                     contents={languages}
                     selected={selectedLanguage}
-                    setSelected={setSelectedLanguage}
+                    handleChangeButton={handleChangeLanguage}
                   />
                 </label>
               </div>

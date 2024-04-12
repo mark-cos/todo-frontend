@@ -16,7 +16,7 @@ const Button = ({ children, variant, ...props }: ButtonProps) => {
         break;
       }
       case 'contained': {
-        className = 'box-border bg-primary disabled:bg-primary/70';
+        className = 'box-border bg-primary disabled:bg-primary/70 text-white';
         break;
       }
       case 'outlined': {

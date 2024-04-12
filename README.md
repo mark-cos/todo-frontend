@@ -3,6 +3,8 @@
 - next.JS와 다양한 라이브러리 사용을 목표로 기획 및 UI는 공개되어진 Figma 템플릿을 사용
 - 미흡한 기획과 기능은 BE와 협의하여 추가, 수정하는 형태로 진행
 
+- [storybook](https://6617c7ab7da9bcd9f302affc-hzetnaltab.chromatic.com/?path=/docs/configure-your-project--docs)
+
 ### skill
 
 - node 20
