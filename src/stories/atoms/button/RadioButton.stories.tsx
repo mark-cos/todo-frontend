@@ -1,6 +1,19 @@
 import RadioButton from '@/components/atoms/button/RadioButton';
 import type { Meta, StoryObj } from '@storybook/react';
-import './radioButton.css';
+import { Content } from '@/components/atoms/button/button.types';
+import { useState } from 'react';
+
+const contents = [
+  {
+    label: 'light',
+  },
+  {
+    label: 'dark',
+  },
+  {
+    label: 'blue',
+  },
+];
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -22,9 +35,8 @@ const meta = {
       description: '클래스명',
     },
     selected: {
-      control: 'object',
+      control: 'radio',
       description: '선택된 아이템',
-      defaultValue: { label: 'light' },
     },
   },
 
@@ -37,26 +49,22 @@ type Story = StoryObj<typeof RadioButton>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const RadioButtonDefault: Story = {
   args: {
-    contents: [
-      {
-        label: 'light',
-      },
-      {
-        label: 'dark',
-      },
-      {
-        label: 'blue',
-      },
-    ],
-    selected: { label: 'dark' },
-    handleChangeButton: () => {},
+    contents,
   },
-  render: (args) => (
-    <RadioButton
-      contents={args.contents}
-      selected={args.selected}
-      handleChangeButton={args.handleChangeButton}
-      className="min-w-[500px]"
-    />
-  ),
+  render: ({ contents }) => {
+    const [selectedContent, setSelectedContent] = useState(contents[0]);
+    const handleChangeButton = (content: Content) => {
+      console.log('🚀 _ handleChangeButton _ content:', content);
+      setSelectedContent(content);
+    };
+    return (
+      <div className="w-60">
+        <RadioButton
+          contents={contents}
+          handleChangeButton={handleChangeButton}
+          selected={selectedContent}
+        />
+      </div>
+    );
+  },
 };

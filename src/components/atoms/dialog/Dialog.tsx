@@ -17,7 +17,7 @@ type DialogProps = {
   };
   backdrop?: boolean;
   className?: string;
-  TitleComonent?: React.JSX.Element;
+  TitleComponent?: React.JSX.Element;
 };
 
 const Dialog = ({
@@ -28,7 +28,7 @@ const Dialog = ({
   closeBtn,
   backdrop = true,
   className = '',
-  TitleComonent,
+  TitleComponent,
 }: DialogProps) => {
   const closeModal = () => {
     close();
@@ -78,7 +78,7 @@ const Dialog = ({
                     {title.label}
                   </Modal.Title>
                 )}
-                {TitleComonent && <Modal.Title as="h3">{TitleComonent}</Modal.Title>}
+                {TitleComponent && <Modal.Title as="h3">{TitleComponent}</Modal.Title>}
 
                 <div>{children}</div>
                 {closeBtn && (

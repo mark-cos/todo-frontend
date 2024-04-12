@@ -14,7 +14,7 @@ const RadioButton = ({
   contents,
   selected,
   handleChangeButton,
-  className,
+  className = '',
 }: RadioButtonProps) => {
   return (
     <div className={`w-full ${className}`}>
