@@ -12,7 +12,6 @@ const IntroTempl = () => {
   const INTRO_CONTENT_LENGTH = 3;
   const [indicatedIntroIndex, setIndicatedIntroIndex] = useState(-1);
   const introDivRefs = useRef<HTMLDivElement[]>(new Array(INTRO_CONTENT_LENGTH));
-
   /**
    * 화면에 표시된 인트로 div(`introDivRefs`)의 attribute `introId`값을 기준으로
    * 본 인트로 인덱스(`setIndicatedIntroIndex`) 설정
@@ -63,7 +62,9 @@ const IntroTempl = () => {
     <div>
       <Intro1 />
       <Intro
-        ref={(ref: HTMLDivElement) => (introDivRefs.current![0] = ref)}
+        ref={(ref: HTMLDivElement) => {
+          introDivRefs.current![0] = ref;
+        }}
         viewIntroDivIndex={indicatedIntroIndex}
         introId={0}
         img={intro2Img}
@@ -77,7 +78,9 @@ const IntroTempl = () => {
       </Intro>
 
       <Intro
-        ref={(ref: HTMLDivElement) => (introDivRefs.current![1] = ref)}
+        ref={(ref: HTMLDivElement) => {
+          introDivRefs.current![1] = ref;
+        }}
         viewIntroDivIndex={indicatedIntroIndex}
         introId={1}
         img={intro3Img}
@@ -91,7 +94,9 @@ const IntroTempl = () => {
       </Intro>
 
       <Intro
-        ref={(ref: HTMLDivElement) => (introDivRefs.current![2] = ref)}
+        ref={(ref: HTMLDivElement) => {
+          introDivRefs.current![2] = ref;
+        }}
         viewIntroDivIndex={indicatedIntroIndex}
         introId={2}
         img={intro4Img}
